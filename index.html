@@ -10,81 +10,86 @@
     <!-- animate.css CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
+    <link rel="stylesheet" href="mycss.css" />
 
-    <style>
-    h1 {
-      color: blue;
-      
-    }
-    </style>
+   
 
     <title>yolo!</title>
   </head>
   <body>
 
     <header>
-      <nav class="navbar fixed-top navbar-expand-md bg-dark navbar-dark scrolling-navbar">
+    <nav class="navbar fixed-top navbar-expand-md bg-dark navbar-dark scrolling-navbar">
+      
+      <a class="navbar-brand" href="#">
+        <h4>
+        <img src="img/logo2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Reemo studio
+        </h4>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="second.html">About me</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Projects</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">A</a>
+              <a class="dropdown-item" href="#">B</a>
+              <a class="dropdown-item" href="#">C</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Creations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>       
+        </ul>
+      </div>  
+    </nav>
+  </header>
+
+  <!-- <p class="image-container">
+    <img src="img/bg.jpg">     
+  </p>-->
+
+ 
+    
+    <!-- <div class="jumbotron text-center">
+      
+
+      <h1>Ours First Bootstrap Page</h1>
+      <p>Resize this responsive page to see the effect!</p> 
+    </div> -->
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="img/slide1.png" alt="First slide">
+          <div class="carousel-caption d-none d-md-block">
+            <h1 style="font-size:100px;" class="animate__animated animate__zoomInDown">Welcome to</h1>
+            <h2 style="font-size:40px;"class="animate__animated animate__zoomInDown animate__delay-1s">Reemo studio</h2>
+            <button type="button" class="btn btn-dark btn-lg animate__animated animate__zoomInDown animate__delay-2s">Learn more</button>
+            
+            
+
+          </div>
+        </div>
+
         
-        <a class="navbar-brand" href="#"><h3>Reemo studio</h3></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="second.html">About me</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Projects</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">A</a>
-                <a class="dropdown-item" href="#">B</a>
-                <a class="dropdown-item" href="#">C</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>       
-          </ul>
-        </div>  
-      </nav>
-    </header>
-    
-    <div> 
-      <p>Hello</p>
-    </div>
-
-    <div class="jumbotron text-center" >
-      <h1>welcome to Reemo studio!</h1>
-      <p>Design, Photo, Video, coding.</p> 
-    </div>
-    <div class = "container">
-    <p>Hello, world!</p>
-    <h1 class="animate__animated animate__bounce">An animated element</h1>
-    <img src="photo/106134980_180728396753749_844635359253304117_n.jpg">
-    <img src="photo/106416993_180728353420420_8744072825003481481_n.jpg">   
-
-    <ul class="list-group">
-      <li class="list-group-item active">Active item</li>
-      <li class="list-group-item">Second item</li>
-      <li class="list-group-item">Third item</li>
-    </ul>
-    <p>Hello, world!</p>
-    <p>Hello, world!</p>
-    <p>Hello, world!</p>
-    <p>Hello, world!</p>
-    <p>Hello, world!</p>
-    <p>Hello, world!</p>
-    <p>Hello, world!</p>
+       
+      </div>
     </div>
 
     
-    
-   
 
+    
 
 
 
