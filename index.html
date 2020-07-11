@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href="mycss.css" />
 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <style>
      .carousel-caption {
     font-size: 600%;
@@ -149,14 +151,14 @@
       <div class="container p-3 my-3"> <!-- inter section for container -->
         <div class="row justify-content-md-center">
           <div class="col-lg-6 p-4">
-            <div class="section-title text-center">
+            <div class="section-title text-center" data-aos="zoom-in">
               <h1>What we(I) do here.</h1>
             </div>
           </div>
         </div>
 
         <div class="row text-center p-3">
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="zoom-in">
             
               <img src="img/006-pencil.png" width="50" height="50" class="mx-auto d-block" alt="">
               <h4>Simple UX/UI design</h4>
@@ -164,7 +166,7 @@
             
           </div>
           
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="zoom-in">
             
               <img src="img/020-film.png" width="50" height="50" class="d-inline-block align-top" alt="">
               <h4>Ae/Pr Video editing</h4>
@@ -172,7 +174,7 @@
             
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="zoom-in">
             
               <img src="img/016-camera.png" width="50" height="50" class="d-inline-block align-top" alt="">
               <h4>Photography</h4>
@@ -183,7 +185,7 @@
         </div>
 
         <div class="row text-center p-3">
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="zoom-in">
             
               <img src="img/488-git.png" width="50" height="50" class="d-inline-block align-top" alt="">
               <h4>Applications coding</h4>
@@ -191,7 +193,7 @@
             
           </div>
           
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="zoom-in">
             
               <img src="img/015-images.png" width="50" height="50" class="d-inline-block align-top" alt="">
               <h4>Ps/Lr design</h4>
@@ -199,7 +201,7 @@
             
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" data-aos="zoom-in">
             
               <img src="img/485-html-five.png" width="50" height="50" class="d-inline-block align-top" alt="">
               <h4>Web development</h4>
@@ -217,23 +219,23 @@
 
   <div class="container p-3 my-4">
     
-    <div class="row text-center">
-      <div class="col-md">
+    <div class="row text-center" >
+      <div class="col-md" data-aos="flip-left">
         <h2>8</h2>
         <h4>Awards gain</h4>
         <p style="font-weight: bold;">From 2016</p>
       </div>
-      <div class="col-md">
+      <div class="col-md" data-aos="flip-left">
         <h2>3</h2>
         <h4>Organization</h4>
         <p style="font-weight: bold;">Cooperated with</p>
       </div>
-      <div class="col-md">
+      <div class="col-md" data-aos="flip-left">
         <h2>20</h2>
         <h4>Project & Comp.</h4>
         <p style="font-weight: bold;">Involved</p>
       </div>
-      <div class="col-md">
+      <div class="col-md" data-aos="flip-left">
         <h2>1</h2>
         <h4>Man</h4>
         <p style="font-weight: bold;">From front to end</p>
@@ -247,7 +249,7 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img class="d-block w-100 blur" src="img/opangpng2.png" alt="bg photo">
-        <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-caption d-none d-md-block" data-aos="zoom-in">
           <h1 style="font-size:40px; text-shadow: 4px 4px 2px rgba(0,0,0,0.18);" >The darkest hour is that before the dawn.</h1>
           <h2 style="font-size:30px; text-shadow: 4px 4px 2px rgba(0,0,0,0.18);"">- Thomas Fuller‘s</h2>
           
@@ -280,5 +282,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+      AOS.init();
+    </script>
   </body>
 </html>
