@@ -88,17 +88,17 @@
   <div class="jumbotron bg-white">
     
     <div class="container " data-aos="fade-right" >
-      <h1 style="font-size:1000%;">Filming <img src="img/021-video-camera.png"></h1>
+      <h1 style="font-size:1000%;">Filming</h1>
       <br><br><br>
     </div>
   
     <div class="container" data-aos="fade-left" >
-      <h1 style="font-size:1000%; text-align: right;"><img src="img/020-film.png"> Editing</h1>
+      <h1 style="font-size:1000%; text-align: right;">Editing</h1>
       <br><br><br>
     </div>
 
     <div class="container " data-aos="fade-right" >
-      <h1 style="font-size:800%;">Photography <img src="img/016-camera.png"></h1>
+      <h1 style="font-size:850%;">Photography</h1>
       <br><br><br>
     </div>
 
@@ -199,6 +199,27 @@
 
 
   </div>
+
+  <div class="jumbotron bg-primary text-white">
+    
+    <div class="container " data-aos="fade-right" >
+      <h2 style="font-size:500%; color: black; text-align:center;" id="wow"></h2>
+      <h1 style="font-size:800%;">I am...</h1>
+      <h1 style="font-size:500%;" id="text">hello</h1>
+     
+      <button style="font-size:300%;" type="button" class="btn btn-info" onclick="change()">And?</button>
+      <br>
+      
+      <h1 style="font-size:300%; text-align: right;" id="cc"></h1>
+      
+      
+    </div>
+
+    
+
+
+
+  </div>
   
 
 
@@ -221,8 +242,40 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+
+    <!-- AOS script-->
     <script>
       AOS.init();
+    </script>
+
+    <!-- text button script-->
+    <script> 
+      var id = ["University Student" ,"CDE student","Designer","Video Editor","Photo Editor","Noob coder"];
+
+      var i = 0;
+      var count = 0;  
+      document.getElementById("text").innerHTML = id[i];
+ 
+      function change() {
+        i+=1;
+        count +=1;
+
+        if(i == id.length){
+          i=0;
+        }
+      document.getElementById("text").innerHTML = id[i];
+      document.getElementById("cc").innerHTML = "You clicked " + count + " times." ;
+
+      if(count === 30){
+        document.getElementById("wow").innerHTML = "You must be so bored...";
+      }
+
+      }
+
+     
+
+
+
     </script>
 
   </body>
