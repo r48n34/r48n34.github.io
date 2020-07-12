@@ -97,7 +97,13 @@
           <img class="d-block w-100 blur" src="img/slide1.png" alt="bg photo">
           <div class="carousel-caption d-none d-md-block">
             <h1 style="font-size:100px;" class="animate__animated animate__zoomInDown">Welcome to</h1>
-            <h2 style="font-size:40px;"class="animate__animated animate__zoomInDown animate__delay-1s">Reemo studio</h2>
+            <h2 style="font-size:40px;"class="animate__animated animate__zoomInDown animate__delay-1s">
+              <div id="typed-strings" >
+              <p>Reemo Studio..</p>
+              <p>r4 Studio.</p>
+              </div>
+              <span id="typed"></span></h2>
+
             <a href="about.html">
               <button type="button" class="btn btn-dark btn-lg animate__animated animate__zoomInDown animate__delay-2s">Learn more</button>
             </a>
@@ -288,8 +294,21 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
     <script>
       AOS.init();
     </script>
+
+  <script> 
+  var typed = new Typed('#typed',{
+        stringsElement: '#typed-strings', 
+        backSpeed: 60, 
+        typeSpeed: 25, 
+        startDelay: 1600, 
+        loop:true 
+    });
+  </script>
+
   </body>
 </html>
