@@ -203,7 +203,7 @@
   <div class="jumbotron bg-primary text-white">
     
     <div class="container " data-aos="fade-right" >
-      <h2 style="font-size:500%; color: black; text-align:center;" id="wow"></h2>
+      <h2 style="font-size:500%; text-align:center;" id="wow"></h2>
       <h1 style="font-size:800%;">I am...</h1>
       <h1 style="font-size:500%;" id="text">hello</h1>
      
@@ -215,11 +215,15 @@
       
     </div>
 
-    
-
-
-
   </div>
+
+  <div class="jumbotron bg-white ">
+    <div class="container">
+      <h1 font-size:500%;>Details</h1>
+    </div>
+    
+  </div>
+
   
 
 
@@ -264,10 +268,20 @@
           i=0;
         }
       document.getElementById("text").innerHTML = id[i];
-      document.getElementById("cc").innerHTML = "You clicked " + count + " times." ;
+
+      if(count == 1){
+        document.getElementById("cc").innerHTML = "You clicked " + count + " time." ;
+      }else{
+        document.getElementById("cc").innerHTML = "You clicked " + count + " times." ;
+      }
+     
 
       if(count === 30){
         document.getElementById("wow").innerHTML = "You must be so bored...";
+      }
+
+      if(count === 100){
+        document.getElementById("wow").innerHTML = "Really??";
       }
 
       }
