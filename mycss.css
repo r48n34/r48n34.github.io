@@ -7,6 +7,7 @@ p.image-container {
   
   p.image-container img {
     width: 100%;
+    
   }
 
   .ftco-blocks-cover-1 .ftco-service-image-1 {
@@ -28,4 +29,8 @@ p.image-container {
 
   .animate__animated.animate__zoomInDown {
     --animate-duration: 0.8s;
+  }
+
+  body { 
+    padding-top: 65px; 
   }
