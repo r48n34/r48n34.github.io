@@ -47,36 +47,7 @@
     </div>
 
     
-    <div id="player">
-      <audio autoplay hidden loop>
-       <source src="evastuff/eva.mp3" type="audio/mpeg">
-                  If you're reading this, audio isn't supported. 
-      </audio>
-    </div>
-
-
-       
-        
-        
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <audio id="my_audio" src="evastuff/eva.mp3" loop="loop"></audio>
 
 
 
@@ -105,6 +76,15 @@
         startDelay: 1600, 
         loop:true 
     });
+  </script>
+  
+  <script>
+
+  window.onload = function() {
+    document.getElementById("my_audio").play();
+  }
+
+
   </script>
 
   
