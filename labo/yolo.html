@@ -34,25 +34,268 @@
       </nav>
     </div>
 
+   
+    <h1 style="color: white; font-size: 300%; text-align: center;">Geiger Counter</h1>
     <div class="container">
-        <br>
-        <h1 style="color: white; font-size: 300%;">Geiger Counter</h1>
-        <br>
-        <span style="font-size:550%;" class="badge badge-light" id="nums">0 0 0 0</span>
-        <br><br>
-        <button style="font-size:200%;" type="button" class="btn btn-warning" onclick="plusOne()">+1</button>
-        <button style="font-size:200%;" type="button" class="btn btn-warning" onclick="plusTen()">+10</button>
-        <button style="font-size:200%;" type="button" class="btn btn-warning" onclick="minOne()">-1</button>
-        <button style="font-size:200%;" type="button" class="btn btn-warning" onclick="minTen()">-10</button>
-        <button style="font-size:200%;" type="button" class="btn btn-warning" onclick="clearAll()">clear</button>
-        <br> <br>
+
+      <div class="row">
         
+        <div class="col-md-4">
+
+         
+         <h1 style="color: white;">A.</h1>
+         <span style="font-size:550%;" class="badge badge-light" id="numA">0</span>
+         <br><br>
+         <div style="font-size: 160%;">
+            <button  type="button" class="btn btn-warning" onclick="sumBot(1,'numA',0)">+1</button>
+            <button  type="button" class="btn btn-warning" onclick="sumBot(10,'numA',0)">+10</button>
+            <button  type="button" class="btn btn-warning" onclick="sumBot(-1,'numA',0)">-1</button>
+            <button  type="button" class="btn btn-warning" onclick="sumBot(-10,'numA',0)">-10</button>
+            <button  type="button" class="btn btn-warning" onclick="clearOne('numA',0)">clear</button>
+            <br> <br>
+         </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <h1 style="color: white;">B.</h1>
+         
+          <span style="font-size:550%;" class="badge badge-light" id="numB">0</span>
+          <br><br>
+          <div style="font-size: 160%;">
+              <button  type="button" class="btn btn-warning" onclick="sumBot(1,'numB',1)">+1</button>
+              <button  type="button" class="btn btn-warning" onclick="sumBot(10,'numB',1)">+10</button>
+              <button  type="button" class="btn btn-warning" onclick="sumBot(-1,'numB',1)">-1</button>
+              <button  type="button" class="btn btn-warning" onclick="sumBot(-10,'numB',1)">-10</button>
+              <button  type="button" class="btn btn-warning" onclick="clearOne('numB',1)">clear</button>
+              <br> <br>
+          </div>
+          
+        </div>
+
+        <div class="col-md-4">
+
+          <h1 style="color: white;">C.</h1>
+          <span style="font-size:550%;" class="badge badge-light" id="numC">0</span>
+          <br><br>
+          <div style="font-size: 160%;">
+             <button  type="button" class="btn btn-warning" onclick="sumBot(1,'numC',2)">+1</button>
+             <button  type="button" class="btn btn-warning" onclick="sumBot(10,'numC',2)">+10</button>
+             <button  type="button" class="btn btn-warning" onclick="sumBot(-1,'numC',2)">-1</button>
+             <button  type="button" class="btn btn-warning" onclick="sumBot(-10,'numC',2)">-10</button>
+             <button  type="button" class="btn btn-warning" onclick="clearOne('numC',2)">clear</button>
+             <br> <br>
+          </div>
+ 
+         </div>
+ 
+         
+
+         
+ 
+         
+
+ 
+
+      </div>
+
+      <div class="row">
+        
+        <div class="col-md-4">
+
+          <h1 style="color: white;">D.</h1>
+         <span style="font-size:550%;" class="badge badge-light" id="numD">0</span>
+         <br><br>
+         <div style="font-size: 160%;">
+            <button  type="button" class="btn btn-warning" onclick="sumBot(1,'numD',3)">+1</button>
+            <button  type="button" class="btn btn-warning" onclick="sumBot(10,'numD',3)">+10</button>
+            <button  type="button" class="btn btn-warning" onclick="sumBot(-1,'numD',3)">-1</button>
+            <button  type="button" class="btn btn-warning" onclick="sumBot(-10,'numD',3)">-10</button>
+            <button  type="button" class="btn btn-warning" onclick="clearOne('numD',3)">clear</button>
+            <br> <br>
+         </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <h1 style="color: white;">E.</h1>
+          <span style="font-size:550%;" class="badge badge-light" id="numE">0</span>
+          <br><br>
+          <div style="font-size: 160%;">
+              <button  type="button" class="btn btn-warning" onclick="sumBot(1,'numE',4)">+1</button>
+              <button  type="button" class="btn btn-warning" onclick="sumBot(10,'numE',4)">+10</button>
+              <button  type="button" class="btn btn-warning" onclick="sumBot(-1,'numE',4)">-1</button>
+              <button  type="button" class="btn btn-warning" onclick="sumBot(-10,'numE',4)">-10</button>
+              <button  type="button" class="btn btn-warning" onclick="clearOne('numE',4)">clear</button>
+              <br> <br>
+          </div>
+          
+        </div>
+
+        <div class="col-md-4">
+          <h1 style="color: white;">F.</h1>
+          <span style="font-size:550%;" class="badge badge-light" id="numF">0</span>
+          <br><br>
+          <div style="font-size: 160%;">
+             <button  type="button" class="btn btn-warning" onclick="sumBot(1,'numF',5)">+1</button>
+             <button  type="button" class="btn btn-warning" onclick="sumBot(10,'numF',5)">+10</button>
+             <button  type="button" class="btn btn-warning" onclick="sumBot(-1,'numF',5)">-1</button>
+             <button  type="button" class="btn btn-warning" onclick="sumBot(-10,'numF',5)">-10</button>
+             <button  type="button" class="btn btn-warning" onclick="clearOne('numF',5)">clear</button>
+             <br> <br>
+          </div>
+ 
+         </div>
+ 
+         
+
+         
+ 
+         
+
+ 
+
+      </div>
+
+      <div class="row">
+        
+        <div class="col-md-4">
+
+          <h1 style="color: white;">G.</h1>
+         <span style="font-size:550%;" class="badge badge-light" id="numG">0</span>
+         <br><br>
+         <div style="font-size: 160%;">
+            <button  type="button" class="btn btn-warning" onclick="sumBot(1,'numG',6)">+1</button>
+            <button  type="button" class="btn btn-warning" onclick="sumBot(10,'numG',6)">+10</button>
+            <button  type="button" class="btn btn-warning" onclick="sumBot(-1,'numG',6)">-1</button>
+            <button  type="button" class="btn btn-warning" onclick="sumBot(-10,'numG',6)">-10</button>
+            <button  type="button" class="btn btn-warning" onclick="clearOne('numG',6)">clear</button>
+            <br> <br>
+         </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <h1 style="color: white;">H.</h1>
+          <span style="font-size:550%;" class="badge badge-light" id="numH">0</span>
+          <br><br>
+          <div style="font-size: 160%;">
+              <button  type="button" class="btn btn-warning" onclick="sumBot(1,'numH',7)">+1</button>
+              <button  type="button" class="btn btn-warning" onclick="sumBot(10,'numH',7)">+10</button>
+              <button  type="button" class="btn btn-warning" onclick="sumBot(-1,'numH',7)">-1</button>
+              <button  type="button" class="btn btn-warning" onclick="sumBot(-10,'numH',7)">-10</button>
+              <button  type="button" class="btn btn-warning" onclick="clearOne('numH',7)">clear</button>
+              <br> <br>
+          </div>
+          
+        </div>
+
+        <div class="col-md-4">
+
+          <h1 style="color: white;">I.</h1>
+          <span style="font-size:550%;" class="badge badge-light" id="numI">0</span>
+          <br><br>
+          <div style="font-size: 160%;">
+             <button  type="button" class="btn btn-warning" onclick="sumBot(1,'numI',8)">+1</button>
+             <button  type="button" class="btn btn-warning" onclick="sumBot(10,'numI',8)">+10</button>
+             <button  type="button" class="btn btn-warning" onclick="sumBot(-1,'numI',8)">-1</button>
+             <button  type="button" class="btn btn-warning" onclick="sumBot(-10,'numI',8)">-10</button>
+             <button  type="button" class="btn btn-warning" onclick="clearOne('numI',8)">clear</button>
+             <br> <br>
+          </div>
+ 
+         </div>
+
+         
+
+                  
+
+ 
+
+      </div>
+
+      <div class="container" style="text-align: center;">
+        <br><br>
+        <button  type="button" class="btn btn-warning" onclick="clearAll()">Clear All</button>
+        <h1 style="color: white; font-size: 300%; text-align: center;">Other features</h1>
+        
+      <div style="text-align: left;">
+        <h1 style="color: white; ">+/- num to counter</h1>
+        <select class="form-control" id="sel1" style="width: 100px;">
+          <option>numA</option>
+          <option>numB</option>
+          <option>numC</option>
+          <option>numD</option>
+          <option>numE</option>
+          <option>numF</option>
+          <option>numG</option>
+          <option>numH</option>
+          <option>numI</option>
+        </select>
+        <input type="text" class="form-control" id="addValue" style="width: 100px;">
+        <button type="button" class="btn btn-warning" onclick="assignValue()">Go</button>
+      </div>
+
+
+        
+       </div>
+      
+
+
+     
+
+
+
+
+
+
+      <div class="container" style="text-align: center;">
+        
+        <h1 style="color: white; font-size: 300%; text-align: center;">Summary</h1>
+        <button  type="button" class="btn btn-warning" onclick="gene()">Generate result</button>
+        <br><br><br>
+       </div>
+
+
+
+      <div class="container">
+
+        <div class="row" >
+              
+            <div class="col-md-12" style="font-size: 200%; color: white;">
+              <h1  id="total"></h1>
+              <h1  id="cal"></h1>
+
+
+            </div>
+        </div>  
+
+
+      </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+        <!---
         <input class="form-control" type="text" placeholder="type me" id="textt" value="Default">
         <br>
         <button style="font-size:200%;" type="button" class="btn btn-warning" onclick="optext()">submit</button>
         <br>
         <h1 id="op"></h1>
-        
+        -->
         
     </div>
 
@@ -104,43 +347,92 @@
   </script>
 
   <script>
-      var i = 0;
-      document.getElementById("nums").innerHTML = "0";
+      
+      document.getElementById("numA").innerHTML = "0";
 
-      var count = 0;
 
-      function plusOne(){
-          count +=1;
-          document.getElementById("nums").innerHTML = count;
+        //counter A,B,B,D,E,F//
+      var count = [0,0,0,0,0,0,0,0,0];
+
+      var arr = ["numA","numB","numC","numD","numE","numF","numG","numH","numI"]
+      var ayy = ["A","B","C","D","E","F","G","H","I"]
+      
+
+      function sumBot(num,ids,i){ // Numbers to +/-, ID, array index 
+
+        count[i] += num;
+        document.getElementById(ids).innerHTML = count[i];
 
       }
 
-      function plusTen(){
-          count +=10;
-          document.getElementById("nums").innerHTML = count;
+      
+
+      function clearOne(ids,i){ // ID, array index 
+        count[i] = 0;
+        document.getElementById(ids).innerHTML = count[i];
+
 
       }
 
       function clearAll(){
-          count = 0;
-          document.getElementById("nums").innerHTML = count;
+        count.fill(0);      
+        for(let i = 0;i<9;i++){
+          document.getElementById(arr[i]).innerHTML = count[i];
+        }
 
       }
 
-      function minOne(){
-          count -=1;
-          document.getElementById("nums").innerHTML = count;
+      function gene(){
+        document.getElementById("total").innerHTML = "Total sum : " + SumDatareduce(count);
+
+        let store = [];
+        var tot = 0;
+        
+        for(let i = 0;i<count.length;i++){
+          if(count[i] !=0){
+            tot +=1;
+            store.push(ayy[i]);
+
+          }
+
+
+        }
+
+        //var tot = count.length - count.filter(x => x === 0).length;
+        document.getElementById("cal").innerHTML = "Used counter : " + tot +" ("+ store+ ")" ;
+
+      }
+      
+   
+
+      function SumDatareduce(arr){ // cal sum of arr
+        return arr.reduce((a,b)=>a+b);  
+      }
+
+      function assignValue(){ // assign value to counter
+        var new_id = document.getElementById("sel1").value;
+        var new_num = parseInt(document.getElementById("addValue").value);
+
+        var index = 0;
+
+        for(let k = 0;k<count.length;k++){
+          if(new_id == arr[k]){
+            index = k;
+          }
+
+        }
+
+        sumBot(new_num,new_id,index);
+
 
       }
 
-      function minTen(){
-          count -=10;
-          document.getElementById("nums").innerHTML = count;
 
-      }
+
+
 
       function optext(){
-        var x = document.getElementById("textt").value;
+        var x = document.getElementById("ipA").value;
         document.getElementById("op").innerHTML = x;
 
       }
