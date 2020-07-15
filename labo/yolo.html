@@ -43,7 +43,7 @@
         <div class="col-md-4">
 
          
-         <h1 style="color: white;">A.</h1>
+         </h1> <h1 style="color: white;" id="nameA">A.</h1>
          <span style="font-size:550%;" class="badge badge-light" id="numA">0</span>
          <br><br>
          <div style="font-size: 160%;">
@@ -59,7 +59,7 @@
 
         <div class="col-md-4">
 
-          <h1 style="color: white;">B.</h1>
+          <h1 style="color: white;" id="nameB">B.</h1>
          
           <span style="font-size:550%;" class="badge badge-light" id="numB">0</span>
           <br><br>
@@ -76,7 +76,7 @@
 
         <div class="col-md-4">
 
-          <h1 style="color: white;">C.</h1>
+          <h1 style="color: white;" id="nameC">C.</h1>
           <span style="font-size:550%;" class="badge badge-light" id="numC">0</span>
           <br><br>
           <div style="font-size: 160%;">
@@ -104,7 +104,7 @@
         
         <div class="col-md-4">
 
-          <h1 style="color: white;">D.</h1>
+          <h1 style="color: white;" id="nameD">D.</h1>
          <span style="font-size:550%;" class="badge badge-light" id="numD">0</span>
          <br><br>
          <div style="font-size: 160%;">
@@ -120,7 +120,7 @@
 
         <div class="col-md-4">
 
-          <h1 style="color: white;">E.</h1>
+          <h1 style="color: white;" id="nameE">E.</h1>
           <span style="font-size:550%;" class="badge badge-light" id="numE">0</span>
           <br><br>
           <div style="font-size: 160%;">
@@ -135,7 +135,7 @@
         </div>
 
         <div class="col-md-4">
-          <h1 style="color: white;">F.</h1>
+          <h1 style="color: white;" id="nameF">F.</h1>
           <span style="font-size:550%;" class="badge badge-light" id="numF">0</span>
           <br><br>
           <div style="font-size: 160%;">
@@ -163,7 +163,7 @@
         
         <div class="col-md-4">
 
-          <h1 style="color: white;">G.</h1>
+          <h1 style="color: white;" id="nameG">G.</h1>
          <span style="font-size:550%;" class="badge badge-light" id="numG">0</span>
          <br><br>
          <div style="font-size: 160%;">
@@ -179,7 +179,7 @@
 
         <div class="col-md-4">
 
-          <h1 style="color: white;">H.</h1>
+          <h1 style="color: white;" id="nameH">H.</h1>
           <span style="font-size:550%;" class="badge badge-light" id="numH">0</span>
           <br><br>
           <div style="font-size: 160%;">
@@ -195,7 +195,7 @@
 
         <div class="col-md-4">
 
-          <h1 style="color: white;">I.</h1>
+          <h1 style="color: white;" id="nameI">I.</h1>
           <span style="font-size:550%;" class="badge badge-light" id="numI">0</span>
           <br><br>
           <div style="font-size: 160%;">
@@ -221,27 +221,82 @@
         <br><br>
         <button  type="button" class="btn btn-warning" onclick="clearAll()">Clear All</button>
         <h1 style="color: white; font-size: 300%; text-align: center;">Other features</h1>
+
+        <div class="row">
+            <div class="col-md-4" style="color: white; ">
+              <div style="text-align: left;">
+                <h1 style="text-decoration: underline;">+/- num </h1>
+                <h4>Target:</h4>
+                <select class="form-control" id="sel1" style="width: 100px;">
+                  <option>numA</option>
+                  <option>numB</option>
+                  <option>numC</option>
+                  <option>numD</option>
+                  <option>numE</option>
+                  <option>numF</option>
+                  <option>numG</option>
+                  <option>numH</option>
+                  <option>numI</option>
+                </select>
+                <h4>Value: (e.g 10/-10)</h4>
+                <input type="text" class="form-control" id="addValue" style="width: 100px;">
+                <br>
+                <button type="button" class="btn btn-warning" onclick="assignValue()">Go</button>
+              </div>
+
+
+
+            </div>
+
+            <div class="col-md-4">
+              <div style="text-align: left; color: white; ">
+                <h1 style="text-decoration: underline;">Rename</h1>
+                <h4>Target:</h4>
+                <select class="form-control" id="sel2" style="width: 100px;">
+                  <option>nameA</option>
+                  <option>nameB</option>
+                  <option>nameC</option>
+                  <option>nameD</option>
+                  <option>nameE</option>
+                  <option>nameF</option>
+                  <option>nameG</option>
+                  <option>nameH</option>
+                  <option>nameI</option>
+                </select>
+                <h4>New name: (e.g Tom)</h4>
+                <input type="text" class="form-control" id="rename1" style="width: 200px;">
+                <br>
+                <button type="button" class="btn btn-warning" onclick="rename()">Go</button>
+
+
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div style="text-align: left; color: white; ">
+                <h1 style="text-decoration: underline;">All +/-</h1>
+                
+                <h4>Value: (e.g 10/-10)</h4>
+                <input type="text" class="form-control" id="allValue" style="width: 100px;">
+                <br>
+                <button type="button" class="btn btn-warning" onclick="allAssign()">Go</button>
+
+
+              </div>
+            </div>
+
+            
+
+            
+
+  
+        </div>
         
-      <div style="text-align: left;">
-        <h1 style="color: white; ">+/- num to counter</h1>
-        <select class="form-control" id="sel1" style="width: 100px;">
-          <option>numA</option>
-          <option>numB</option>
-          <option>numC</option>
-          <option>numD</option>
-          <option>numE</option>
-          <option>numF</option>
-          <option>numG</option>
-          <option>numH</option>
-          <option>numI</option>
-        </select>
-        <input type="text" class="form-control" id="addValue" style="width: 100px;">
-        <button type="button" class="btn btn-warning" onclick="assignValue()">Go</button>
+      
+
+
+        
       </div>
-
-
-        
-       </div>
       
 
 
@@ -268,6 +323,9 @@
             <div class="col-md-12" style="font-size: 200%; color: white;">
               <h1  id="total"></h1>
               <h1  id="cal"></h1>
+              <h1  id="maxer"></h1>
+              <h1  id="miner"></h1>
+              <br><br><br>
 
 
             </div>
@@ -354,8 +412,9 @@
         //counter A,B,B,D,E,F//
       var count = [0,0,0,0,0,0,0,0,0];
 
-      var arr = ["numA","numB","numC","numD","numE","numF","numG","numH","numI"]
-      var ayy = ["A","B","C","D","E","F","G","H","I"]
+      var arr = ["numA","numB","numC","numD","numE","numF","numG","numH","numI"];
+      var ayy = ["A","B","C","D","E","F","G","H","I"];
+      var cons_name = ["A","B","C","D","E","F","G","H","I"]; //default names
       
 
       function sumBot(num,ids,i){ // Numbers to +/-, ID, array index 
@@ -374,24 +433,39 @@
 
       }
 
+
       function clearAll(){
-        count.fill(0);      
-        for(let i = 0;i<9;i++){
+        count.fill(0); // set all value of arr to 0      
+        for(let i = 0;i<count.length;i++){ //uptade html display value
           document.getElementById(arr[i]).innerHTML = count[i];
         }
 
       }
 
-      function gene(){
-        document.getElementById("total").innerHTML = "Total sum : " + SumDatareduce(count);
+      function allAssign(){
 
-        let store = [];
+        for(let k = 0;k < count.length;k++){
+          count[k] += parseInt(document.getElementById("allValue").value);
+
+        }
+        
+         // set all value of arr to      
+        for(let i = 0;i<count.length;i++){ //uptade html display value
+          document.getElementById(arr[i]).innerHTML = count[i];
+        }
+        
+      }
+
+      function gene(){
+        document.getElementById("total").innerHTML = "Total sum : " + SumDatareduce(count); //get total sum
+
+        let store = []; //get used counter and counter position
         var tot = 0;
         
-        for(let i = 0;i<count.length;i++){
+        for(let i = 0;i<count.length;i++){ // This will be faster since only 9 nums to oper
           if(count[i] !=0){
             tot +=1;
-            store.push(ayy[i]);
+            store.push(cons_name[i]);
 
           }
 
@@ -399,7 +473,24 @@
         }
 
         //var tot = count.length - count.filter(x => x === 0).length;
-        document.getElementById("cal").innerHTML = "Used counter : " + tot +" ("+ store+ ")" ;
+        document.getElementById("cal").innerHTML = "Used counter : " + tot +" ("+ store+ ")" ; /////////
+
+        var max = Math.max(...count); // get max value
+        var max_pos = count.indexOf(Math.max(...count));// get max value index
+
+        document.getElementById("maxer").innerHTML = "Max number : " + max +" ("+ cons_name[max_pos]+ ")" ;
+
+
+        var min = Math.min(...count); // get max value
+        var min_pos = count.indexOf(Math.min(...count));// get max value index
+
+        document.getElementById("miner").innerHTML = "Min number : " + min +" ("+ cons_name[min_pos]+ ")" ;
+
+
+
+
+
+
 
       }
       
@@ -410,20 +501,24 @@
       }
 
       function assignValue(){ // assign value to counter
-        var new_id = document.getElementById("sel1").value;
-        var new_num = parseInt(document.getElementById("addValue").value);
 
-        var index = 0;
-
-        for(let k = 0;k<count.length;k++){
-          if(new_id == arr[k]){
-            index = k;
-          }
-
-        }
+        var new_id = document.getElementById("sel1").value;//Target id
+        var new_num = parseInt(document.getElementById("addValue").value);//Value to assign
+        var index = document.getElementById("sel1").selectedIndex;// related array index
 
         sumBot(new_num,new_id,index);
 
+
+      }
+
+      function rename(){
+        // var new_name = document.getElementById("rename1").value;
+        let x = document.getElementById("sel2").selectedIndex;
+        cons_name[x] = document.getElementById("rename1").value;
+        
+
+
+        document.getElementById(document.getElementById("sel2").value).innerHTML = document.getElementById("rename1").value;
 
       }
 
