@@ -244,7 +244,7 @@
                 <h4>Value: (e.g 10/-10)</h4>
                 <input type="text" class="form-control" id="addValue" style="width: 100px;">
                 <br>
-                <button type="button" class="btn btn-warning" onclick="assignValue()">Go</button>
+                <button id="addsub" type="button" class="btn btn-warning" onclick="assignValue()">Go</button>
               </div>
 
 
@@ -269,7 +269,7 @@
                 <h4>New name: (e.g Tom)</h4>
                 <input type="text" class="form-control" id="rename1" style="width: 200px;">
                 <br>
-                <button type="button" class="btn btn-warning" onclick="rename()">Go</button>
+                <button id ="names" type="button" class="btn btn-warning" onclick="rename()">Go</button>
 
 
               </div>
@@ -282,7 +282,7 @@
                 <h4>Value: (e.g 10/-10)</h4>
                 <input type="text" class="form-control" id="allValue" style="width: 100px;">
                 <br>
-                <button type="button" class="btn btn-warning" onclick="allAssign()">Go</button>
+                <button id="all" type="button" class="btn btn-warning" onclick="allAssign()">Go</button>
 
 
               </div>
@@ -341,7 +341,7 @@
       <hr style="width: 100%; color: white; height: 2px; background-color:white;" />
       <div class="container" style="color: white; text-align: center;">
         <h1>Develop diary</h1>
-        <h3 style="text-align: left;">Existen function: (16/07/20)<br>- +/- single or all counters<br>- Clear single/all counter<br>- Rename counters<br>- Summary reoprt(Sum,used counter,max value,min value)</h3>
+        <h3 style="text-align: left;">Existen function: (16/07/20)<br>- +/- single or all counters<br>- Clear single/all counter<br>- Rename counters<br>- Summary reoprt(Sum,used counter,max value,min value)<br>- Check vaild<br>- Press enter to input values</h3>
         <h3 style="text-align: left;">Future update:</h3>
         <h3 style="text-align: left;">- Better UI for display & control separated<br>- Use Cookie to store value</h3>
 
@@ -427,12 +427,12 @@
       document.getElementById("numA").innerHTML = "0";
 
 
-        //counter A,B,B,D,E,F//
+        //counter A,B,C,D,E,F,G,H,I values//
       var count = [0,0,0,0,0,0,0,0,0];
 
       var arr = ["numA","numB","numC","numD","numE","numF","numG","numH","numI"];// id of counter
       //var ayy = ["A","B","C","D","E","F","G","H","I"];
-      var cons_name = ["A","B","C","D","E","F","G","H","I"]; //default names, array for storn names
+      var cons_name = ["A","B","C","D","E","F","G","H","I"]; //default names, array for store names
       
 
       function sumBot(num,ids,i){ // Numbers to +/-, ID, array index 
@@ -465,7 +465,7 @@
         var jj = parseInt(document.getElementById("allValue").value);
         
         //alert(jj);
-        if(isNaN(jj) ){
+        if(isNaN(jj) ){ //check valid
           alert("You can't enter a string / none.");
           document.getElementById("allValue").value = "";
           return;
@@ -479,10 +479,12 @@
 
         }
 
-        document.getElementById("allValue").value = "";
+        document.getElementById("allValue").value = ""; //reset ""
        
         
       }
+
+
 
       function gene(){ //functions for generate a summary reoprt
         document.getElementById("total").innerHTML = "Total sum : " + SumDatareduce(count); //get total sum
@@ -504,6 +506,14 @@
         document.getElementById("cal").innerHTML = "Used counter : " + tot +" ("+ store+ ")" ;
         
         //////////////////////////////////
+        if(tot == 0){ // No counter used, op N/A
+          document.getElementById("maxer").innerHTML = "Max number : N/A"  ;
+          document.getElementById("miner").innerHTML = "Min number : N/A"  ;
+          return;  
+
+        }
+
+
 
         //Needs a update for list out all the max/min value, not once
 
@@ -538,21 +548,11 @@
         }
 
 
-
         //var min_pos = count.indexOf(Math.min(...count));// get max value index
-
-
-
-
-        if(tot == 0){ // No counter used, op N/A
-          document.getElementById("maxer").innerHTML = "Max number : N/A"  ;
-          document.getElementById("miner").innerHTML = "Min number : N/A"  ;  
-
-        }
-        else{ // used counter
+   
           document.getElementById("maxer").innerHTML = "Max number : " + max +" ("+ max_item+ ")" ;
           document.getElementById("miner").innerHTML = "Min number : " + min +" ("+ min_item+ ")" ;
-        }
+        
 
         
 
@@ -576,7 +576,7 @@
         var new_num = parseInt(document.getElementById("addValue").value);//Value to assign
 
         //alert(new_num);
-        if(isNaN(new_num)){
+        if(isNaN(new_num)){ //check valid
           alert("You can't enter a string / none.");
           document.getElementById("addValue").value = "";
           return;
@@ -593,33 +593,48 @@
 
       function rename(){
         // var new_name = document.getElementById("rename1").value;
-        let x = document.getElementById("sel2").selectedIndex;
+        
 
         if(document.getElementById("rename1").value == ""){
           alert("You can't enter a blank name.");
           return;
         }
 
-        cons_name[x] = document.getElementById("rename1").value; //push the new name to cons_name
+        //let x = document.getElementById("sel2").selectedIndex; // index get
+
+        cons_name[document.getElementById("sel2").selectedIndex] = document.getElementById("rename1").value; //push the new name to cons_name
 
         document.getElementById(document.getElementById("sel2").value).innerHTML = document.getElementById("rename1").value; //update html
         document.getElementById("rename1").value = "";
 
       }
 
+      
 
+      //function for clicking enter to input x 3
+      var input = document.getElementById("addValue");
+       input.addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+           event.preventDefault();
+           document.getElementById("addsub").click();
+           }
+        });
 
+        var input = document.getElementById("rename1");
+       input.addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+           event.preventDefault();
+           document.getElementById("names").click();
+           }
+        });
 
-      /*
-      function optext(){
-        var x = document.getElementById("ipA").value;
-        document.getElementById("op").innerHTML = x;
-
-      }
-      */
-
-
-
+      var input = document.getElementById("allValue");
+       input.addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+           event.preventDefault();
+           document.getElementById("all").click();
+           }
+        });
 
   </script>
 
