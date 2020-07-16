@@ -462,12 +462,24 @@
 
       function allAssign(){ // add numbers for all counters
 
+        var jj = parseInt(document.getElementById("allValue").value);
+        
+        //alert(jj);
+        if(isNaN(jj) ){
+          alert("You can't enter a string / none.");
+          document.getElementById("allValue").value = "";
+          return;
+        }
+
+        //alert(jj);
+
         for(let k = 0;k < count.length;k++){
-          count[k] += parseInt(document.getElementById("allValue").value); //get from allValue, add to counter
+          count[k] += jj; //get from allValue, add to counter
           document.getElementById(arr[k]).innerHTML = count[k]; //update counter
 
         }
-        
+
+        document.getElementById("allValue").value = "";
        
         
       }
@@ -562,9 +574,19 @@
 
         var new_id = document.getElementById("sel1").value;//Target id
         var new_num = parseInt(document.getElementById("addValue").value);//Value to assign
+
+        //alert(new_num);
+        if(isNaN(new_num)){
+          alert("You can't enter a string / none.");
+          document.getElementById("addValue").value = "";
+          return;
+        }
+        //alert(new_num);
+
         var index = document.getElementById("sel1").selectedIndex;// related array index
 
         sumBot(new_num,new_id,index);
+        document.getElementById("addValue").value = "";
 
 
       }
@@ -572,9 +594,16 @@
       function rename(){
         // var new_name = document.getElementById("rename1").value;
         let x = document.getElementById("sel2").selectedIndex;
+
+        if(document.getElementById("rename1").value == ""){
+          alert("You can't enter a blank name.");
+          return;
+        }
+
         cons_name[x] = document.getElementById("rename1").value; //push the new name to cons_name
 
         document.getElementById(document.getElementById("sel2").value).innerHTML = document.getElementById("rename1").value; //update html
+        document.getElementById("rename1").value = "";
 
       }
 
