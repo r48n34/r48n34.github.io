@@ -16,7 +16,7 @@
 
    
 
-    <title>Geiger Counter</title>
+    <title>Geiger-Counter</title>
     <link rel="icon" href="#" type="image/x-icon">
   </head>
   <body style="background-color:#007BFF ;">
@@ -90,14 +90,7 @@
  
          </div>
  
-         
-
-         
  
-         
-
- 
-
       </div>
 
       <div class="row">
@@ -148,14 +141,6 @@
           </div>
  
          </div>
- 
-         
-
-         
- 
-         
-
- 
 
       </div>
 
@@ -208,11 +193,6 @@
           </div>
  
          </div>
-
-         
-
-                  
-
  
 
       </div>
@@ -287,27 +267,13 @@
 
               </div>
             </div>
-
-            
-
-            
-
-  
+    
         </div>
         
-      
-
-
+   
         
       </div>
       
-
-
-     
-
-
-
-
 
 
       <div class="container" style="text-align: center;">
@@ -345,55 +311,10 @@
         <h3 style="text-align: left;">Future update:</h3>
         <h3 style="text-align: left;">- Better UI for display & control separated<br>- Use Cookie to store value</h3>
 
-
-
-
-
       </div>
 
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-        <!---
-        <input class="form-control" type="text" placeholder="type me" id="textt" value="Default">
-        <br>
-        <button style="font-size:200%;" type="button" class="btn btn-warning" onclick="optext()">submit</button>
-        <br>
-        <h1 id="op"></h1>
-        -->
         
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     
 
@@ -404,34 +325,12 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-
-    <script>
-      AOS.init();
-    </script>
-
-  <script> 
-  var typed = new Typed('#typed',{
-        stringsElement: '#typed-strings', 
-        backSpeed: 60, 
-        typeSpeed: 25, 
-        startDelay: 1600, 
-        loop:true 
-    });
-  </script>
-
   <script>
-      
-      document.getElementById("numA").innerHTML = "0";
-
 
         //counter A,B,C,D,E,F,G,H,I values//
       var count = [0,0,0,0,0,0,0,0,0];
 
       var arr = ["numA","numB","numC","numD","numE","numF","numG","numH","numI"];// id of counter
-      //var ayy = ["A","B","C","D","E","F","G","H","I"];
       var cons_name = ["A","B","C","D","E","F","G","H","I"]; //default names, array for store names
       
 
@@ -512,12 +411,7 @@
           return;  
 
         }
-
-
-
-        //Needs a update for list out all the max/min value, not once
-
-        
+       
         var max = Math.max(...count); // get max value
 
         var max_item = [];
@@ -531,10 +425,7 @@
 
         //var max_pos = count.indexOf(Math.max(...count));// get max value index
 
-        
-
-
-        
+         
         var min = Math.min(...count); // get min value
         
         var min_item = [];
@@ -547,20 +438,11 @@
 
         }
 
-
         //var min_pos = count.indexOf(Math.min(...count));// get max value index
    
           document.getElementById("maxer").innerHTML = "Max number : " + max +" ("+ max_item+ ")" ;
           document.getElementById("miner").innerHTML = "Min number : " + min +" ("+ min_item+ ")" ;
         
-
-        
-
-
-
-
-
-
 
       }
       
@@ -570,7 +452,7 @@
         return arr.reduce((a,b)=>a+b);  
       }
 
-      function assignValue(){ // assign value to counter
+      function assignValue(){ // assign value to selected counter
 
         var new_id = document.getElementById("sel1").value;//Target id
         var new_num = parseInt(document.getElementById("addValue").value);//Value to assign
@@ -595,7 +477,7 @@
         // var new_name = document.getElementById("rename1").value;
         
 
-        if(document.getElementById("rename1").value == ""){
+        if(document.getElementById("rename1").value == ""){ // a blank sent
           alert("You can't enter a blank name.");
           return;
         }
