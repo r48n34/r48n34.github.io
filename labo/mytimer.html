@@ -14,17 +14,19 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    
-   
+    <style>
 
-    <title>timer</title>
+    .container.custom-container-width {
+      max-width: 1310px;  
+    }
+    </style>
+
+    <title>Timer</title>
     <link rel="icon" href="evastuff/ppp1.ico" type="image/x-icon">
   </head>
   <body style="background-color:#007BFF ;">
 
-    
-
-
+ 
     <div class="footer fixed-bottom">
 
       <nav class="navbar navbar-expand-sm navbar-light">
@@ -38,43 +40,44 @@
       </nav>
     </div>
 
-    <div class="container">
+    <div class="container custom-container-width">
         <br>
 
         
-            <h1  style="color: white; ">Timer</h1> 
-            
-            <span id="timer" style="font-size:1800%;" class="badge badge-light">0:00:00</span>
-            <br><br>
-            
-            <button id="startTimer" type="button" class="btn btn-warning btn-lg" onclick="startTimer()">Start</button>
-            <button id="pauseTimer" type="button" class="btn btn-warning btn-lg" onclick="stopTimer()" >Pause</button>
-            <button id="resetTimer" type="button" class="btn btn-warning btn-lg" onclick="setZero()" >Clear</button>
-            &nbsp;&nbsp;&nbsp;
-            <button id="tagTimer" type="button" class="btn btn-warning btn-lg" onclick="tag()" >Tag</button>
-            <button id="tagClear" type="button" class="btn btn-warning btn-lg" onclick="tagCle()" >Clear tag</button>
-            <br>
-            <button id="clickCount" type="button" class="btn btn-warning btn-lg" onclick="clickCo()" >Count</button>
-            <button id="clearCount" type="button" class="btn btn-warning btn-lg" onclick="clickClear()" >Count clear</button>
+            <h1  style="color: white; font-size:3vw;">Timer</h1> 
 
-            <span id="clickNum" style="font-size:250%;" class="badge badge-light">0</span>
+            
+            <h1 id="timer" style="font-size:17vw;" class="badge badge-light">0:00:00</h1>
+            <br><br>
+
+            <div class="d-flex justify-content-between custom-container-width" style="font-size:1vw;">
+            <button id="startTimer" type="button" class="btn btn-warning btn-lg" onclick="setTimer()">Start / Pause</button>
+            <button id="tagTimer" type="button" class="btn btn-warning btn-lg" onclick="tag()" >Tag time</button>
+            
+            
+            
+            <button id="resetTimer" type="button" class="btn btn-light btn-lg" onclick="setZero()">Clear timer</button>
+            <button id="tagClear" type="button" class="btn btn-light btn-lg" onclick="tagCle()" >Clear tag</button>
+            <br><br>
+          </div>
+            <h1 style="color: white; text-align: left; font-size: 2vw;">Counter</h1>
+            <span id="clickNum" style="font-size:350%;" class="badge badge-light">0</span>
+            <br><br>
+            <button id="clickCount" type="button" class="btn btn-warning btn-lg" onclick="clickCo()" >Add</button>
+            &nbsp;&nbsp;&nbsp;
+            <button id="clearCount" type="button" class="btn btn-light btn-lg" onclick="clickClear()" >Clear counter</button>
+
+            
 
             <h1 id="message"></h1>
-            <h1 id="tagMessage"></h1>
-        
-        
+            <h1 style="color: white; text-align: left; font-size: 2vw;">n&nbsp;|&nbsp;&nbsp;Time&nbsp;&nbsp;|Count</h1>
 
-
+            <h1 id="tagMessage" style="color: white; text-align: left; font-size: 2vw;"></h1>
+        
 
     </div>
 
-    
-    
-    
-
-
-    
-
+ 
     <!-- Optional JavaScript -->
     
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -82,34 +85,15 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-
-    <script>
-      AOS.init();
-    </script>
-
-  <script> 
-  var typed = new Typed('#typed',{
-        stringsElement: '#typed-strings', 
-        backSpeed: 60, 
-        typeSpeed: 25, 
-        startDelay: 1600, 
-        loop:true 
-    });
-  </script>
-  
   <script>
 
-      //var timeSec = 900; //seconds
-     const cd = document.getElementById("timer");
+     const cd = document.getElementById("timer"); // timer DOM
 
      var sec = 0;
      var min = 0;
      var hour = 0;
 
-     var times = 0;
+     var times = 0; // total time in seconds format
 
      var tag_count = 0;//counter for tag
 
@@ -118,7 +102,7 @@
      
 
     var isRunning = true;
-    var interval = setInterval(function() {
+    var interval = setInterval(function() { // timer function
         if (!isRunning) {
             times ++;
 
@@ -138,14 +122,12 @@
         } 
     }, 1000);
 
-    function stopTimer() {
-        isRunning = true;
-    };
-    function startTimer(){
-        isRunning = false;
+
+    function setTimer(){ // switch flag / start or pause
+        isRunning = !isRunning;
     };
 
-    function setZero(){
+    function setZero(){//reset timer to 0
 
         if(isRunning == false){
             document.getElementById("message").innerHTML = "Can't clear on clock running.";
@@ -159,53 +141,29 @@
 
     }
 
-    
-
-    function tag(){
+    function tag(){ // add tag
         tag_count +=1;
-        document.getElementById("tagMessage").innerHTML += tag_count + ": "+ cd.innerHTML + "<br>";
+        document.getElementById("tagMessage").innerHTML += tag_count + ": "+ cd.innerHTML +" "+ click_count +"<br>";
 
 
     }
 
-    function tagCle(){
+    function tagCle(){//remove tag
         document.getElementById("tagMessage").innerHTML = "";
         tag_count = 0;
     }
 
-    function clickCo(){
+    function clickCo(){//click count adder
         click_count+=1;
         document.getElementById("clickNum").innerHTML = click_count;
 
     }
 
-    function clickClear(){
+    function clickClear(){//clear all tag text
         click_count = 0;
         document.getElementById("clickNum").innerHTML = click_count;
 
     }
-
-    /*
-    var start = Date.now();
-    setInterval(function() {
-        var delta = Date.now() - start; // milliseconds elapsed since start
-        document.getElementById("timer2").innerHTML =  Math.floor(delta / 1000); // in seconds
-
-    }, 1000);
-    */
-
-
-
-     
-     
-    
-    
-
-
-
-
-
-  
 
 
   </script>
