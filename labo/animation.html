@@ -16,20 +16,7 @@
 
     <style>
 
-        .myStuff{
-
-            font-size: 40px;
-            text-align: left;
-
-            animation: fadein 2s;
-
-
-        }
-
-        @keyframes fadein {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
+    
 
    
 
@@ -45,43 +32,7 @@
   <body style="background-color:#007BFF ;">
 
     <div class="container">
-        <br>
-        <h1 style="color: white;">Random animations showcase</h1>
-        <br><br>
         
-        <h1 id="hello">JJ</h1>
-
-        <button type="button" class="btn btn-warning btn-lg" onclick="show()" >show</button>
-        <button type="button" class="btn btn-warning btn-lg" onclick="noshow()" >noshow</button>
-
-        <span></span>
-
-        <div class="myStuff">
-            <h1>dfgdfgdf</h1>
-
-
-        </div>
-
-        <br><br><br><div id="yolo" class="container myStuff" style="display:none;" data-aos="zoom-out-left">
-            <h2>HIJIFJDSIFJISD</h2>
-            <h2>HIJIFJDSIFJISD</h2>
-
-    </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
-        <div data-aos="zoom-in-down">
-            <img src="evastuff/ppp1.ico">
-
-        </div>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        
-        <br><br>
-        <h1>hi</h1>
-        <span></span>
-
-
     </div>
 
 
@@ -142,30 +93,11 @@
 
   <script>
 
-    const show = () =>  {document.getElementById("hello").style.display = "block";};
-    const noshow = () =>  {document.getElementById("hello").style.display = "none";};
+  
 
   </script>
 
-  <script>
-      var x = 0;
-
-      $(function () {
-        $(window).scroll(function () {
-         var scrollVal = $(this).scrollTop();
-         $("span").text(scrollVal);
-
-         if(scrollVal > 50){
-            document.getElementById("yolo").style.display = "block";
-        }else{
-            document.getElementById("yolo").style.display = "none";
-        }
-
-         });
-        });
-
-
-  </script>
+ 
       
   
 
