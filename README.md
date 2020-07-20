@@ -5,4 +5,4 @@
 - anime.js
 - bootstrap 4
 - typed.js
-- three.js (In develop to apply on this website)
+- three.js 
