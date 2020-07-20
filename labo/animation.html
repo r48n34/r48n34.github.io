@@ -10,40 +10,75 @@
     <!-- animate.css CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 
-    <link rel="stylesheet" href="mycss.css" />
-
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <link rel="stylesheet" type="text/css" href="all-animation.css" />
+
+
+
     <style>
+        .inandout{
+            animation: fadeinout 3s linear;
+            animation-fill-mode: forwards;
+            display: inline;
+           
+        }
 
-    
+        @keyframes fadeinout {
+            0% { opacity: 0; }
+            25% { opacity: 1; }
+            75% { opacity: 1; }
+            100% { opacity: 0; }
+        }
 
-   
+        .ml4 {
+          position: relative;
+          font-weight: 900;
+          font-size: 4.5em;
+        }
+        .ml4 .letters {
+          position: absolute;
+          margin: auto;
+          left: 0;
+          top: 0.3em;
+          right: 0;
+          opacity: 0; 
+        }
+
+        #outer {
+          position: fixed;
+          top: 50%;
+          left: 50%;     
+          transform: translate(-50%, -50%);
+        }
+
+        .ml3 {
+        font-weight: 900;
+        font-size: 3.5em;
+        }
+
+       
+        
+
+
+
+
+
+
+
 
     </style>
 
     
+
    
 
-    <title>amin</title>
-    <link rel="icon" href="evastuff/ppp1.ico" type="image/x-icon">
+    <title>PlayGround</title>
   </head>
 
-  <body style="background-color:#007BFF ;">
+  <body style="background-color:#ff6453 ;">
 
-    <div class="container">
-        
-    </div>
-
-
-
-
-
-   
     
-
-
-
 
 
     <div class="footer fixed-bottom">
@@ -60,7 +95,37 @@
     </div>
 
     
+
+    <div style="color: #333233; ">
+        <h3 id="time" style="text-align: right;">0</h3>
+    
+
+    </div>
+    
+    
+
+      <div id="outer">
+        <h1 class="ml3">Great Thinkers</h1>
+
+
+
+
+
   
+       
+      
+      </div>
+
+
+
+    
+
+
+
+    
+
+    
+    
 
 
 
@@ -76,6 +141,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
+    <script src="anime.min.js"></script>
+
+
+
 
     <script>
       AOS.init();
@@ -93,15 +163,50 @@
 
   <script>
 
+var times = 0; // total time in seconds format
+   
+   
 
-  
+   var controler = false;
+   var timers = setInterval(function() { // timer
+       if (!controler) {
+           times ++;
+           document.getElementById("time").innerHTML = times;
+
+           animation_total(times);
+                 
+           
+       } 
+   }, 1000);
+
+   var textWrapper = document.querySelector('.ml3');
+   textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+anime.timeline({loop: true})
+  .add({
+    targets: '.ml3 .letter',
+    opacity: [0,1],
+    easing: "easeInOutQuad",
+    duration: 2250,
+    delay: (el, i) => 150 * (i+1)
+  }).add({
+    targets: '.ml3',
+    opacity: 0,
+    duration: 1000,
+    easing: "easeOutExpo",
+    delay: 1000
+  });
+   
+
+
+
+   
 
   </script>
 
- 
-      
-  
 
+  
+  
 
   
 
