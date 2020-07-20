@@ -14,6 +14,16 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <style>
+
+    
+    #yy:hover {
+    animation: pulse;
+    animation-duration: 0.5s;    
+    }
+
+    </style>
+
     
 
 
@@ -67,11 +77,19 @@
   <div class="jumbotron bg-primary text-white">
     
     <div class="container " data-aos="fade-right" style="color:white;">
-      <h1 style="font-size:18vh; text-align: center;">2015.</h1>
+      <h1 style="font-size:18vh; text-align: center;"  id="yy">2015.</h1>
     </div>
   
     <div class="container" data-aos="fade-left" style="color:white;">
-      <h1 style="font-size:5vh; text-align: center;"> <img src="img/027-bullhornw.png" style="width: 5%; height: auto;"> Reemo studio was created...</h1>
+      <h1 style="font-size:5vh; text-align: center;"> 
+        <div id="typed-strings" >
+          <p><img src="img/027-bullhornw.png" style="width: 3%; height: auto;">We created</p>         
+          </div>
+
+          <span style="font-size:5vh;" id="typed"></span>
+      
+      
+      </h1>
     </div>
 
     <div class="container" data-aos="fade-left" style="color:white; text-align: center;">
@@ -150,25 +168,25 @@
       <div class="col-md" data-aos="flip-left">
         <img src="img/ps-1.jpg" height="40%">
         <br><br>
-        <span style="font-size:30px;" class="badge badge-primary">Merit in ACA</span>
+        <span style="font-size:25px;" class="badge badge-primary">Merit in ACA</span>
         
       </div>
       <div class="col-md" data-aos="flip-left">
         <img src="img/pr-1.png" height="40%">
         <br><br>
-        <span style="font-size:30px;" class="badge badge-primary">Video Editing</span>
+        <span style="font-size:25px;" class="badge badge-primary">Video Editing</span>
       </div>
 
       <div class="col-md" data-aos="flip-left">
         <img src="img/ae-1.jpg" height="40%">
         <br><br>
-        <span style="font-size:30px;" class="badge badge-primary">Animations</span>
+        <span style="font-size:25px;" class="badge badge-primary">Animations</span>
       </div>
 
       <div class="col-md" data-aos="flip-left">
         <img src="img/lr-1.png" height="40%">
         <br><br>
-        <span style="font-size:30px;" class="badge badge-primary">Processing photo</span>
+        <span style="font-size:25px;" class="badge badge-primary">Processing photo</span>
       </div>
 
     </div>
@@ -177,25 +195,25 @@
       <div class="col-md" data-aos="flip-left">
         <img src="img/chj-1.png" height="40%">
         <br><br>
-        <span style="font-size:30px;" class="badge badge-primary">Front-end<br>Design</span>
+        <span style="font-size:25px;" class="badge badge-primary">Front-end<br>Design</span>
         
       </div>
       <div class="col-md" data-aos="flip-left">
         <img src="img/code-1.png" height="40%">
         <br><br>
-        <span style="font-size:30px;" class="badge badge-primary">C++,Python,Js</span>
+        <span style="font-size:25px;" class="badge badge-primary">C++,Python,Js</span>
       </div>
 
       <div class="col-md" data-aos="flip-left">
         <img src="img/photo-1.png" height="40%">
         <br><br>
-        <span style="font-size:30px;" class="badge badge-primary">Live photography <br>&<br> Filming</span>
+        <span style="font-size:25px;" class="badge badge-primary">Photography <br>&<br> Filming</span>
       </div>
 
       <div class="col-md" data-aos="flip-left">
         <img src="img/de21.png" height="40%">
         <br><br>
-        <span style="font-size:30px;" class="badge badge-primary">Graphic design</span>
+        <span style="font-size:25px;" class="badge badge-primary">Graphic design</span>
       </div>
 
     </div>
@@ -206,7 +224,7 @@
   <div class="jumbotron bg-primary text-white">
     
     <div class="container " data-aos="fade-right" >
-      <h2 style="font-size:8vh; text-align:center;" id="wow"></h2>
+      <h2 style="font-size:6vh; text-align:center;" id="wow"></h2>
       <h1 style="font-size:14vh;" data-aos="flip-left">I am a...</h1>
 
       <h1 style="font-size:6vh;" id="text">id</h1>
@@ -230,7 +248,7 @@
      
 
         <div class="col-md" data-aos="flip-left" style="text-align: center; ">
-          <a href="lab.html"><img src="img/mark-github-512.png" style="width: 20%;" alt="my github"></a>        
+          <a href="lab.html" ><img src="img/mark-github-512.png" style="width: 20%;" alt="my github" id="yy"></a>        
         </div>
 
         
@@ -264,7 +282,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <script src="myjs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 
 
     <!-- AOS script-->
@@ -272,13 +290,24 @@
       AOS.init();
     </script>
 
+<script> 
+  var typed = new Typed('#typed',{
+        stringsElement: '#typed-strings', 
+        backSpeed: 60, 
+        typeSpeed: 25, 
+        startDelay: 1600, 
+        loop:true 
+    });
+  </script>
+
     <!-- text button script-->
     <script> 
-      var id = ["Univ. Student" ,"CDE Student","Designer","Video Editor","Photo Editor","Noob coder"];
+      var id = ["University Student" ,"CDE Student","Senior designer","Video Editor","Photo Editor","Noob coder"];
 
       var i = 0;
       var count = 0;  
       document.getElementById("text").innerHTML = id[i];
+      document.getElementById("cc").innerHTML = "You clicked " + 0 + " time." ;
  
       function change() {
         i+=1;
@@ -300,9 +329,7 @@
         document.getElementById("wow").innerHTML = "Fun to click, yeah...";
       }
 
-      if(count === 100){
-        document.getElementById("wow").innerHTML = "Really??";
-      }
+      
 
       }
 
