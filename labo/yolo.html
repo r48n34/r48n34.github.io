@@ -19,7 +19,7 @@
     <title>Geiger-Counter</title>
     <link rel="icon" href="#" type="image/x-icon">
   </head>
-  <body style="background-color:#007BFF ;">
+  <body style="background-color:#007BFF ;" onload="loadInCook()">
 
     <div class="footer fixed-bottom">
 
@@ -32,6 +32,11 @@
           
         </ul>
       </nav>
+    </div>
+
+    <div class="alert alert-primary alert-dismissible fade show">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Hay!</strong> We are using Cookies to store the counter values.
     </div>
 
    
@@ -199,7 +204,8 @@
 
       <div class="container" style="text-align: center;">
         <br><br>
-        <button  type="button" class="btn btn-warning" onclick="clearAll()">All clear</button>
+        <button  type="button" class="btn btn-warning" onclick="clearAll()">All values clear</button>
+        <button  type="button" class="btn btn-warning" onclick="cookClear()">Clear Cookies</button>
         <br><br>
         <hr style="width: 100%; color: white; height: 2px; background-color:white;" />
         
@@ -307,9 +313,9 @@
       <hr style="width: 100%; color: white; height: 2px; background-color:white;" />
       <div class="container" style="color: white; text-align: center;">
         <h1>Develop diary</h1>
-        <h3 style="text-align: left;">Existen function: (16/07/20)<br>- +/- single or all counters<br>- Clear single/all counter<br>- Rename counters<br>- Summary reoprt(Sum,used counter,max value,min value)<br>- Check vaild<br>- Press enter to input values</h3>
+        <h3 style="text-align: left;">Existen function: (16/07/20)<br>- +/- single or all counters<br>- Clear single/all counter<br>- Rename counters<br>- Summary reoprt(Sum,used counter,max value,min value)<br>- Check vaild<br>- Press enter to input values<br><br>24/7/2020 update<br>- Cookies to store Names and values<br></h3>
         <h3 style="text-align: left;">Future update:</h3>
-        <h3 style="text-align: left;">- Better UI for display & control separated<br>- Use Cookie to store value</h3>
+        <h3 style="text-align: left;">- Better UI for display & control separated</h3>
 
       </div>
 
@@ -325,13 +331,82 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
+
   <script>
 
-        //counter A,B,C,D,E,F,G,H,I values//
+      //counter A,B,C,D,E,F,G,H,I values//
       var count = [0,0,0,0,0,0,0,0,0];
 
-      var arr = ["numA","numB","numC","numD","numE","numF","numG","numH","numI"];// id of counter
+      //var arr = ["numA","numB","numC","numD","numE","numF","numG","numH","numI"];// id of counter
+      //var letters = ["A","B","C","D","E","F","G","H","I"];
+
       var cons_name = ["A","B","C","D","E","F","G","H","I"]; //default names, array for store names
+
+      function loadInCook(){ //page on load to insert cookies
+        for(let i = 0;i<count.length;i++){
+          let name = "c" + i;
+          if(!isNaN(Cookies.get(name))){ // In case the first loading and NaN values on cookies 
+            count[i] = parseInt(Cookies.get(name));
+          }
+          else{
+            count[i] = 0;
+          }
+          
+          let tex = "num" + String.fromCharCode(65 + i); 
+          document.getElementById(tex).innerHTML = count[i];
+
+          ///////////////////////////////
+          
+          let name2 = "n" + i;
+          if(Cookies.get(name2) === undefined){ // In case the first loading and undefined values 
+            cons_name[i] = String.fromCharCode(65 + i);
+          }
+          else{
+            cons_name[i] = Cookies.get(name2);
+          }
+         
+          let Ind = "name" + String.fromCharCode(65 + i);         
+          document.getElementById(Ind).innerHTML = cons_name[i];
+          
+        }
+        //alert(cons_name);
+        
+        
+
+
+
+      }
+
+
+
+    
+
+      function cookSet(){ // For all set
+
+        for(let i = 0;i<count.length;i++){
+          let name = "c" + i;
+          Cookies.set(name, count[i]);
+        }
+        
+       
+      }
+
+      //In this function, clear cookies means clear the memory of cookies, not the value!!
+      function cookClear(){// For all clear
+        for(let i = 0;i<count.length;i++){
+          let name = "c" + i;
+          Cookies.remove(name);
+          let name2 = "n" + i;
+          Cookies.remove(name2);
+
+        }
+
+        alert("Cookies clear. F5 to reload.");
+      }
+
+
       
 
       function sumBot(num,ids,i){ // Numbers to +/-, ID, array index 
@@ -339,6 +414,9 @@
         count[i] += num;
         document.getElementById(ids).innerHTML = count[i];
 
+        let name = "c" + i;
+        Cookies.set(name, count[i]);
+     
       }
 
       
@@ -347,14 +425,21 @@
         count[i] = 0;
         document.getElementById(ids).innerHTML = count[i];
 
+        let name = "c" + i;
+        Cookies.set(name, count[i]);
+
 
       }
 
 
       function clearAll(){ //clear all counter
         count.fill(0); // set all value of arr to 0      
-        for(let i = 0;i<arr.length;i++){ //uptade html display value
-          document.getElementById(arr[i]).innerHTML = count[i];
+        for(let i = 0;i<count.length;i++){ //uptade html display value
+          let tex = "num" + String.fromCharCode(65 + i);
+          document.getElementById(tex).innerHTML = count[i];
+
+          let name = "c" + i;
+          Cookies.set(name, count[i]); // all clear,set all cook-value to 0
         }
 
       }
@@ -363,22 +448,24 @@
 
         var jj = parseInt(document.getElementById("allValue").value);
         
-        //alert(jj);
+        
         if(isNaN(jj) ){ //check valid
           alert("You can't enter a string / none.");
           document.getElementById("allValue").value = "";
           return;
         }
 
-        //alert(jj);
+        
 
         for(let k = 0;k < count.length;k++){
           count[k] += jj; //get from allValue, add to counter
-          document.getElementById(arr[k]).innerHTML = count[k]; //update counter
+          let tex = "num" + String.fromCharCode(65 + k);
+          document.getElementById(tex).innerHTML = count[k]; //update counter
 
         }
 
         document.getElementById("allValue").value = ""; //reset ""
+        cookSet();
        
         
       }
@@ -482,9 +569,14 @@
           return;
         }
 
-        //let x = document.getElementById("sel2").selectedIndex; // index get
+        let x = document.getElementById("sel2").selectedIndex; // index get
 
-        cons_name[document.getElementById("sel2").selectedIndex] = document.getElementById("rename1").value; //push the new name to cons_name
+        cons_name[x] = document.getElementById("rename1").value; //push the new name to cons_name
+
+        let names = "n" + x;
+        Cookies.set(names, cons_name[x]);
+        
+        //alert(Cookies.get(names));
 
         document.getElementById(document.getElementById("sel2").value).innerHTML = document.getElementById("rename1").value; //update html
         document.getElementById("rename1").value = "";
