@@ -346,7 +346,7 @@
 
       function loadInCook(){ //page on load to insert cookies
         for(let i = 0;i<count.length;i++){
-          let name = "c" + i;
+          let name = "c" + i; // Cookies names of counter value (e.g. c0,c1...)
           if(!isNaN(Cookies.get(name))){ // In case the first loading and NaN values on cookies 
             count[i] = parseInt(Cookies.get(name));
           }
@@ -354,27 +354,23 @@
             count[i] = 0;
           }
           
-          let tex = "num" + String.fromCharCode(65 + i); 
+          let tex = "num" + String.fromCharCode(65 + i); //Text ID (e.g. numA,numB)
           document.getElementById(tex).innerHTML = count[i];
 
           ///////////////////////////////
           
           let name2 = "n" + i;
           if(Cookies.get(name2) === undefined){ // In case the first loading and undefined values 
-            cons_name[i] = String.fromCharCode(65 + i);
+            cons_name[i] = String.fromCharCode(65 + i); // default names (65 = A in ASCII, 66 = B....)
           }
           else{
-            cons_name[i] = Cookies.get(name2);
+            cons_name[i] = Cookies.get(name2); // Input cookies name
           }
          
-          let Ind = "name" + String.fromCharCode(65 + i);         
+          let Ind = "name" + String.fromCharCode(65 + i); //Text ID (e.g. nameA,nameB)        
           document.getElementById(Ind).innerHTML = cons_name[i];
           
         }
-        //alert(cons_name);
-        
-        
-
 
 
       }
@@ -383,7 +379,7 @@
 
     
 
-      function cookSet(){ // For all set
+      function cookSet(){ // For all set counter values
 
         for(let i = 0;i<count.length;i++){
           let name = "c" + i;
@@ -393,7 +389,7 @@
        
       }
 
-      //In this function, clear cookies means clear the memory of cookies, not the value!!
+      //In this function, clear cookies means clear all used cookies, not the value itselves
       function cookClear(){// For all clear
         for(let i = 0;i<count.length;i++){
           let name = "c" + i;
@@ -411,10 +407,10 @@
 
       function sumBot(num,ids,i){ // Numbers to +/-, ID, array index 
 
-        count[i] += num;
+        count[i] += num; //add nums
         document.getElementById(ids).innerHTML = count[i];
 
-        let name = "c" + i;
+        let name = "c" + i;// store to cookies with regarding names
         Cookies.set(name, count[i]);
      
       }
@@ -422,10 +418,10 @@
       
 
       function clearOne(ids,i){ // ID, array index. For clear one counter
-        count[i] = 0;
+        count[i] = 0; //set one counter to 0
         document.getElementById(ids).innerHTML = count[i];
 
-        let name = "c" + i;
+        let name = "c" + i;// store to cookies with regarding names
         Cookies.set(name, count[i]);
 
 
@@ -446,7 +442,7 @@
 
       function allAssign(){ // add numbers for all counters
 
-        var jj = parseInt(document.getElementById("allValue").value);
+        var jj = parseInt(document.getElementById("allValue").value); //get values from "allValue"
         
         
         if(isNaN(jj) ){ //check valid
@@ -465,7 +461,7 @@
         }
 
         document.getElementById("allValue").value = ""; //reset ""
-        cookSet();
+        cookSet(); //set all cookies
        
         
       }
@@ -573,10 +569,10 @@
 
         cons_name[x] = document.getElementById("rename1").value; //push the new name to cons_name
 
-        let names = "n" + x;
+        let names = "n" + x; //set cookies
         Cookies.set(names, cons_name[x]);
         
-        //alert(Cookies.get(names));
+   
 
         document.getElementById(document.getElementById("sel2").value).innerHTML = document.getElementById("rename1").value; //update html
         document.getElementById("rename1").value = "";
