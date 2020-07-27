@@ -224,11 +224,10 @@
               }
 
               if(coll == 3 || coll ==3){
-                  alert("Computer Win");
+                document.getElementById("message").innerHTML = "Computer Win";
               }
-
-              if(roww == 0 || roww ==0){
-                alert("You Win");
+              else if(roww == 0 || roww ==0){
+                document.getElementById("message").innerHTML = "You Win";
               }
 
               coll = 0;
@@ -236,7 +235,23 @@
 
           }
 
+          var cross_left = digital[0][0] + digital[1][1]+digital[2][2];
+          var cross_right = digital[0][2] + digital[1][1]+digital[2][0];
 
+          if(cross_left == 3 ||cross_right ==3 ){
+            document.getElementById("message").innerHTML = "Computer Win";
+          }
+          else if(cross_left == 0 ||cross_right ==0){
+            document.getElementById("message").innerHTML = "You Win";
+          }
+
+          
+
+
+        }
+
+        function resetall(){
+            
         }
 
 
