@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+
+      .container.ccw{
+        max-width: 1510px;  
+      }
+    </style>
+   
+
+    <title>Testing</title>
+    <link rel="icon" href="evastuff/ppp1.ico" type="image/x-icon">
+  </head>
+  <body style="background-color:#121212 ;" onload="shows()">
+
+    
+      <h1 style="text-align: center; font-size: 500%; color:white;">XO game</h1>
+      <br>
+      <div class="container" style="color: white; text-align: center;">
+        <div class="row">
+            <div class="col-md-4">
+                <h1 id="A" onclick="addo(0,0)">[]</h1>
+            </div>
+
+            <div class="col-md-4">
+                <h1 id="B" onclick="addo(0,1)">[]</h1>
+            </div>
+
+            <div class="col-md-4">
+                <h1 id="C" onclick="addo(0,2)">[]</h1>
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-top: 100px;">
+            <div class="col-md-4">
+                <h1 id="D" onclick="addo(1,0)">[]</h1>
+            </div>
+
+            <div class="col-md-4">
+                <h1 id="E" onclick="addo(1,1)">[]</h1>
+            </div>
+
+            <div class="col-md-4">
+                <h1 id="F" onclick="addo(1,2)">[]</h1>
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-top: 100px;" >
+            <div class="col-md-4">
+                <h1 id="G" onclick="addo(2,0)">[]</h1>
+            </div>
+
+            <div class="col-md-4">
+                <h1 id="H" onclick="addo(2,1)">[]</h1>
+            </div>
+
+            <div class="col-md-4">
+                <h1 id="I" onclick="addo(2,2)">[]</h1>
+            </div>
+
+        </div>
+
+        <h1 id="message" style="margin-top: 60px;">Your turn</h1>
+
+
+
+
+    </div>
+      
+      
+
+   
+ 
+   
+
+    
+
+ 
+
+
+ 
+
+    
+
+    
+
+
+    
+
+
+    <div class="footer fixed-bottom">
+
+      <nav class="navbar navbar-expand-sm navbar-light">
+        <ul class="navbar-nav">
+          <li class="nav-item " >
+            <a href="https://r48n34.github.io/" style="color: white;" target="_blank" style="font-size: 80%;">Reemo Studio</a>
+            
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+
+
+    
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+ 
+    <script>
+        var board = 
+        [["_","_","_"],
+         ["_","_","_"],
+         ["_","_","_"]];
+
+         var digital = 
+         [[10,10,10],
+         [10,10,10],
+         [10,10,10]];
+
+        var playerTurn = true;
+        var round = 0;
+        var winFlag = false;
+ 
+        function shows(){
+            update();
+        }
+
+
+
+       
+        
+
+
+
+
+        function update(){
+            var count = 0;
+            for(let i = 0;i<3;i++){
+                for(let k = 0;k<3;k++){
+                 
+                    document.getElementById(String.fromCharCode(65 + count)).innerHTML = board[i][k];
+                    count +=1;
+
+                }
+                
+            }
+
+            winCheck();
+            
+
+            
+
+            
+
+
+        }
+
+        
+        function addo(x,y){
+            if(board[x][y] == "X"){
+                return;
+            }
+
+            board[x][y] = "O";
+            digital[x][y] = 0;
+            round +=1;
+            update();
+            if(round <=7){
+                computerx();
+            }
+            
+
+        }
+
+        function computerx(){
+            var yesDup = true;
+
+            while(yesDup){
+                var x1 = Math.floor(Math.random() * 3); 
+                var y1 = Math.floor(Math.random() * 3);
+
+                console.log(x1 + " " + y1);
+
+                if(board[x1][y1] === "O" || board[x1][y1] === "X"){
+                    yesDup = true;
+                }else{
+                    board[x1][y1] = "X";
+                    digital[x1][y1] = 1;
+                    update();
+                    yesDup = false;
+                    round +=1;
+
+                }
+               
+
+            }
+
+ 
+
+        }
+
+        function winCheck(){
+          console.log(digital);
+          var coll = 0;
+          var roww = 0;
+          for(let i = 0;i<3;i++){
+
+              for(let k = 0;k<3;k++){
+                coll += digital[i][k];
+                roww += digital[k][i];
+              }
+
+              if(coll == 3 || coll ==3){
+                  alert("Computer Win");
+              }
+
+              if(roww == 0 || roww ==0){
+                alert("You Win");
+              }
+
+              coll = 0;
+              roww = 0;
+
+          }
+
+
+        }
+
+
+
+
+    </script>
+ 
+    
+
+ 
+
+  </body>
+</html>
