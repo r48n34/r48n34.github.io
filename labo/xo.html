@@ -19,12 +19,14 @@
     <title>Testing</title>
     <link rel="icon" href="evastuff/ppp1.ico" type="image/x-icon">
   </head>
-  <body style="background-color:#121212 ;" onload="shows()">
+  <body style="background-color:white ;" onload="shows()">
 
     
-      <h1 style="text-align: center; font-size: 500%; color:white;">XO game</h1>
-      <br>
-      <div class="container" style="color: white; text-align: center;">
+      <h1 style="text-align: center; font-size: 500%; color:black;">XO game</h1>
+      <h3 style="text-align: center; font-size: 200%; color:black;">Noob AI version</h3>
+      <br><br><br>
+
+      <div class="container" style="color: black; text-align: center;">
         <div class="row">
             <div class="col-md-4">
                 <h1 id="A" onclick="addo(0,0)">[]</h1>
@@ -70,32 +72,22 @@
 
         </div>
 
-        <h1 id="message" style="margin-top: 60px;">Your turn</h1>
+        <h1 id="message" style="margin-top: 20px;"></h1>   
+        <h1 id="resetBtn" class="border border-dark" style="display: none;" onclick="playAgain()">Reset</h1>
 
 
+        <div class="d-flex justify-content-between" style="margin-top:120px ;">
+          <div>
+             <h1 id="pscore">Your score: 0</h1>
+          </div>
+          <div>
+            <h1 id="aiscore">AI score: 0</h1>
+          </div>
+        </div>
+        
 
 
     </div>
-      
-      
-
-   
- 
-   
-
-    
-
- 
-
-
- 
-
-    
-
-    
-
-
-    
 
 
     <div class="footer fixed-bottom">
@@ -103,7 +95,7 @@
       <nav class="navbar navbar-expand-sm navbar-light">
         <ul class="navbar-nav">
           <li class="nav-item " >
-            <a href="https://r48n34.github.io/" style="color: white;" target="_blank" style="font-size: 80%;">Reemo Studio</a>
+            <a href="https://r48n34.github.io/" style="color: black;" target="_blank" style="font-size: 80%;">Reemo Studio</a>
             
           </li>
           
@@ -111,42 +103,38 @@
       </nav>
     </div>
 
-
-    
-
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
  
     <script>
+       //Display board
         var board = 
         [["_","_","_"],
          ["_","_","_"],
          ["_","_","_"]];
 
-         var digital = 
+         //cal version board
+         /*var digital = 
          [[10,10,10],
          [10,10,10],
-         [10,10,10]];
+         [10,10,10]]; */
 
-        var playerTurn = true;
-        var round = 0;
-        var winFlag = false;
+        var playerTurn = true; //Is player turn flag
+        var round = 0; // play round cal
+        var winFlag = false; // Is someone win?
+
+        var playerScore = 0;
+        var aiScore = 0;
+
  
-        function shows(){
+        function shows(){ //HTML onload running
             update();
         }
 
 
-
-       
-        
-
-
-
-
-        function update(){
+        function update(){ //Overall board html update
             var count = 0;
             for(let i = 0;i<3;i++){
                 for(let k = 0;k<3;k++){
@@ -157,35 +145,49 @@
                 }
                 
             }
-
-            winCheck();
+            console.log(board);
             
-
             
+        }
 
+        
+        function addo(x,y){ //player move to add O to the board
+            if(board[x][y] == "X" || winFlag == true || board[x][y] == "O"){
+                return;
+            }
+
+
+            board[x][y] = "O";
+            //digital[x][y] = 0;
+            round +=1;
+            update();
+            winCheck(); //Check if someone win
+
+            if(round <=7 && !winFlag){ // Computer move position 
+               computerx();
+               //mediumComputerx();
+            }
             
-
 
         }
 
         
-        function addo(x,y){
-            if(board[x][y] == "X"){
-                return;
-            }
 
-            board[x][y] = "O";
-            digital[x][y] = 0;
-            round +=1;
-            update();
-            if(round <=7){
-                computerx();
-            }
-            
 
-        }
 
-        function computerx(){
+
+
+
+
+
+
+
+
+
+
+
+
+        function computerx(){ //Easy version ai
             var yesDup = true;
 
             while(yesDup){
@@ -198,10 +200,11 @@
                     yesDup = true;
                 }else{
                     board[x1][y1] = "X";
-                    digital[x1][y1] = 1;
-                    update();
+                    //digital[x1][y1] = 1;                  
                     yesDup = false;
                     round +=1;
+                    update();
+                    winCheck(); //Check if someone win
 
                 }
                
@@ -212,47 +215,97 @@
 
         }
 
-        function winCheck(){
-          console.log(digital);
-          var coll = 0;
-          var roww = 0;
+
+          //O = 0, X = 1
+        function winCheck(){ //check if someone wins
+          //console.log(digital);
+          var coll = "";
+          var roww = "";
           for(let i = 0;i<3;i++){
 
               for(let k = 0;k<3;k++){
-                coll += digital[i][k];
-                roww += digital[k][i];
+                coll += board[i][k];
+                roww += board[k][i];
               }
 
-              if(coll == 3 || coll ==3){
+              if(coll == "XXX" || roww == "XXX"){
                 document.getElementById("message").innerHTML = "Computer Win";
+                winFlag = true;
+                aiScore+=1;
+                document.getElementById("aiscore").innerHTML = "AI score: " + aiScore;
               }
-              else if(roww == 0 || roww ==0){
+              else if(coll == "OOO" || roww == "OOO"){
                 document.getElementById("message").innerHTML = "You Win";
+                winFlag = true;
+                playerScore+=1;
+                document.getElementById("pscore").innerHTML = "Your score: " + playerScore;
               }
 
-              coll = 0;
-              roww = 0;
+              coll = "";
+              roww = "";
 
           }
 
-          var cross_left = digital[0][0] + digital[1][1]+digital[2][2];
-          var cross_right = digital[0][2] + digital[1][1]+digital[2][0];
+          var cross_left = board[0][0] + board[1][1]+ board[2][2];
+          var cross_right = board[0][2] + board[1][1]+ board[2][0];
 
-          if(cross_left == 3 ||cross_right ==3 ){
+          if(cross_left == "XXX" ||cross_right == "XXX"){
             document.getElementById("message").innerHTML = "Computer Win";
+            winFlag = true;
+            aiScore+=1;
+            document.getElementById("aiscore").innerHTML = "AI score: " + aiScore;
           }
-          else if(cross_left == 0 ||cross_right ==0){
+          else if(cross_left == "OOO" ||cross_right == "OOO"){
             document.getElementById("message").innerHTML = "You Win";
+            winFlag = true;
+            playerScore+=1;
+            document.getElementById("pscore").innerHTML = "Your score: " + playerScore;
           }
 
-          
+          if(round == 9 && winFlag == false){ //draw check
+            document.getElementById("message").innerHTML = "Draw";
+            resetall();
+            return;
+          }
 
+          if(winFlag){
+            resetall();
+          }
 
         }
 
         function resetall(){
-            
+          document.getElementById("resetBtn").style.display = "Block";          
         }
+
+        function playAgain(){ //Reset the whole game
+          board = 
+        [["_","_","_"],
+         ["_","_","_"],
+         ["_","_","_"]];
+
+         /*digital = 
+         [[10,10,10],
+         [10,10,10],
+         [10,10,10]];*/
+
+        playerTurn = true;
+        round = 0;
+        winFlag = false;
+        document.getElementById("message").innerHTML = "";
+        document.getElementById("resetBtn").style.display = "none";
+
+        update();
+ 
+
+
+        }
+
+        
+
+
+
+
 
 
 
