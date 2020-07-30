@@ -220,6 +220,14 @@
                       
                     }
 
+                    if(total_round == 3){
+                      var z = jamming(x1,y1);
+                      x1 = z[0];
+                      y1 = z[1];
+                      
+
+                    }
+
                     if(board[x1][y1] == "O"){
                       oof.play();
                     }
@@ -239,6 +247,38 @@
 
             }
 
+
+        }
+
+        function jamming(x1,y1){
+          var colls = "";
+          var rowws = "";
+
+          for(let i = 0;i<3;i++){
+
+            for(let k = 0;k<3;k++){
+              colls += board[i][k];
+              rowws += board[k][i];
+            }        
+
+            if(colls == "_OO" || colls == "O_O"|| colls == "OO_"){
+              x1 = i;
+              y1 = Math.floor(Math.random() * 3);
+            }
+            
+            if(rowws == "_OO" || rowws == "O_O"|| rowws == "OO_"){
+              x1 = Math.floor(Math.random() * 3);
+              y1 = 2 - i;
+            }
+
+            colls = "";
+            rowws = "";
+            var arr = [x1,y1];
+            return arr;
+
+        }          
+
+          
 
         }
 
