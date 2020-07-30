@@ -22,8 +22,8 @@
   <body style="background-color:white ;" onload="shows()">
 
     
-      <h1 style="text-align: center; font-size: 500%; color:black;">XO game - weird editions</h1>
-      <h3 style="text-align: center; font-size: 200%; color:black;">You will see what's wrong</h3>
+      <h1 class="text-white bg-dark" style="text-align: center; font-size: 500%;">XO game - weird editions</h1>
+      <h3 class="text-dark" style="text-align: center; font-size: 200%;">You will see what's wrong</h3>
 
       <br><br><br>
 
@@ -77,12 +77,12 @@
         <h1 id="resetBtn" class="border border-dark" style="display: none;" onclick="playAgain()">Reset</h1>
 
 
-        <div class="d-flex justify-content-between" style="margin-top:120px ;">
+        <div class="d-flex justify-content-between" style="margin-top:150px ;">
           <div>
-             <h1 id="pscore">Your score: 0</h1>
+             <h1 id="pscore" class="text-success">Your score: 0</h1>
           </div>
           <div>
-            <h1 id="aiscore">AI score: 0</h1>
+            <h1 id="aiscore" class="text-primary">AI score: 0</h1>
           </div>
         </div>
         
@@ -170,7 +170,7 @@
             update();
             winCheck(); //Check if someone win
 
-            if(total_round <=7 && !winFlag){ // Computer move position 
+            if(total_round <=8 && !winFlag){ // Computer move position 
                computerx();
                //mediumComputerx();
             }
