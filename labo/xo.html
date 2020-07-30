@@ -123,9 +123,12 @@
          [0,0,0]]; 
 
         var playerTurn = true; //Is player turn flag
-        var round = 0; // play round cal for normal version 
+        var round = 0; // play round cal for normal version xo
         var winFlag = false; // Is someone win?
-        var total_round = 0; // play round cal for weird version 
+        var total_round = 0; // elements cal for weird version xo
+
+        var yaso = new Audio('evastuff/yasuo.mp3');
+        var oof = new Audio('evastuff/roblox-death-sound-effect.mp3');
 
 
         var playerScore = 0;
@@ -167,6 +170,9 @@
             }
 
             round +=1;
+
+            yaso.play();
+
             update();
             winCheck(); //Check if someone win
 
@@ -224,10 +230,10 @@
               }
 
               if(coll == "XXX" || roww == "XXX"){
-                aiWin()
+                aiWin();
               }
               else if(coll == "OOO" || roww == "OOO"){
-                playerWin()
+                playerWin();
               }
 
               coll = "";
@@ -235,17 +241,17 @@
 
           }
 
-          var cross_left = board[0][0] + board[1][1]+ board[2][2];
-          var cross_right = board[0][2] + board[1][1]+ board[2][0];
+          let cross_left = board[0][0] + board[1][1]+ board[2][2];
+          let cross_right = board[0][2] + board[1][1]+ board[2][0];
 
           if(cross_left == "XXX" ||cross_right == "XXX"){
-            aiWin()
+            aiWin();
           }
           else if(cross_left == "OOO" ||cross_right == "OOO"){
-            playerWin()
+            playerWin();
           }
 
-          console.log(total_round);
+          console.log(total_round); //debug message for display exist elements in board count
 
           if(total_round == 9 && winFlag == false){ //draw check
             document.getElementById("message").innerHTML = "Draw";
@@ -285,10 +291,11 @@
         }
 
         function aiWin(){
-          document.getElementById("message").innerHTML = "Computer Win";
+          document.getElementById("message").innerHTML = "Computer Win haha";
           winFlag = true;
           aiScore+=1;
           document.getElementById("aiscore").innerHTML = "AI score: " + aiScore;
+          oof.play();
         }
 
         function playerWin(){
