@@ -162,6 +162,7 @@
             for(let i = 0;i<3;i++){
                 for(let k = 0;k<3;k++){
                  
+                   //ASCII String.fromCharCode(65 + count), 65+0 = A...
                     document.getElementById(String.fromCharCode(65 + count)).innerHTML = board[i][k]; //ID ref for ABCDE...
                     count +=1;
 
@@ -190,7 +191,7 @@
 
             yaso.play();
 
-            update();
+            update(); //u[date board html]
             winCheck(); //Check if someone win
 
             if(total_round <=8 && !winFlag){ // Computer move position 
@@ -212,7 +213,7 @@
                 console.log(x1 + " " + y1);
 
                 //if(board[x1][y1] === "O" || board[x1][y1] === "X") Normal version
-                if(board[x1][y1] === "X"){ //Doesn't jam itself but "O" only =.=
+                if(board[x1][y1] === "X"){ //Doesn't jam itself but "O"(opponents) only 
                     yesDup = true; 
                 }else{
                     if(total_round == 1){ //whatever, placing X in center 
@@ -250,7 +251,7 @@
 
         }
 
-        function jamming(x1,y1){
+        function jamming(x1,y1){ //function to check overlap players if occur
           var colls = "";
           var rowws = "";
 
@@ -349,14 +350,16 @@
         playerTurn = true;
         round = 0;
         winFlag = false;
-        document.getElementById("message").innerHTML = "";
-        document.getElementById("resetBtn").style.display = "none";
+        document.getElementById("message").innerHTML = ""; //reset all message to none
+        document.getElementById("resetBtn").style.display = "none"; //make reset button gone
 
         update();
  
         }
 
-        function aiWin(){
+
+
+        function aiWin(){ //do when players win
           document.getElementById("message").innerHTML = "Computer Win haha";
           winFlag = true;
           aiScore+=1;
@@ -364,7 +367,7 @@
           oof.play();
         }
 
-        function playerWin(){
+        function playerWin(){//do when ai win
           document.getElementById("message").innerHTML = "You Win";
           winFlag = true;
           playerScore+=1;
