@@ -16,52 +16,40 @@
     <meta property="og:description" content="The main page of reemo Studio!!" />
     
 
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <!-- animate.css CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
-
     <link rel="stylesheet" href="mycss.css" />
-
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <link rel="stylesheet" type="text/css" href="labo/all-animation.css" />
+    <link rel="stylesheet" href="owl/owl.carousel.min.css">
+    <link rel="stylesheet" href="owl/owl.theme.default.min.css">
 
     <style>
-     .carousel-caption {
+        #maintop {
+            background: url("img/newbg.jpg") center no-repeat ;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            position: relative;
+            color: white;          
+          } 
+          
+          #mainbelow {
+            background: url("img/opangpng2.png") center no-repeat ;
+            width: 100%;
+            height: 40vh;
+            background-size: cover;
+            position: relative;
+            color: white;
+            text-align: left;         
+          } 
 
-    text-align: left;
-    color: white;
-    right: auto;
-    width: auto; 
-    
-           
-  }
-
-  img.blur {
-    -webkit-filter: blur(5px);
-    filter: blur(5px);
-    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='5');
-  
-  }
-
-  #welcome:hover {
-    animation: bounce;
-    animation-duration: 0.5s;
-    
-  }
-
-  #digital:hover {
-    animation: swing;
-    animation-duration: 0.6s;
-    
-  }
-
-  #scratch:hover {
-    animation:headShake;
-    animation-duration: 0.5s;
-  }
+          #digital:hover {
+            animation: swing;
+            animation-duration: 0.6s;
+            
+          }
+          
  
 
     </style>
@@ -112,30 +100,42 @@
   </header>
 
 
-  <div class="jumbotron p-3 my-0 bg-white"> 
-    <div class="row">    
-     <div class="col-md-12 col-centered">
-     <img class="d-block w-100 blur" src="img/newbg.jpg" alt="bg photo">
-     <div class="carousel-caption">
-        <h1 style="font-size:8vw; text-shadow: 4px 4px 2px rgba(0,0,0,0.18);" class="animate__animated animate__zoomInDown">Welcome to</h1>
-         <h2 style="font-size:3vw; text-shadow: 4px 4px 2px rgba(0,0,0,0.18);"class="animate__animated animate__zoomInDown animate__delay-1s">                  
-          <div id="typed-strings">
-            <p>Reemo Studio..</p>
-            <p>r4 Studio.</p>
-          </div>
-          <span id="typed"></span>
-         </h2>
-          <br>
-     </div>  
-    </div>
-   </div>
-  </div>
+  <section id="maintop" class="d-flex align-items-center">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-10">
+          
+            <div class="col-6">
+                <h1 style="font-size:7vw; text-shadow: 4px 4px 2px rgba(0,0,0,0.18);" class="animate__animated animate__zoomInDown">Welcome to</h1>
+                
+                <div class="animate__animated animate__zoomInDown animate__delay-1s" style="margin-top: 3%;">
+                <h2 style="font-size:3vw; text-shadow: 4px 4px 2px rgba(0,0,0,0.18);">                  
+                 <div id="typed-strings">
+                   <p>Reemo Studio..</p>
+                   <p>r4 Studio.</p>
+                 </div>
+                 <span id="typed"></span>
+                </h2>
 
+                <a href="about.html" >
+                    <button style="font-size:1vw; margin-top: 3%;" type="button" class="btn btn-primary" >Learn more</button>
+                </a>
+                </div>
+
+            </div>
+          </div>
+        
+      </div>
+    </div>
+
+    </section>
+
+    
 
     <div class="container p-5 my-4 ">
       <div class="row align-items-center justify-content-between">
         
-        <div class="col-lg-5 col-md-5 left" data-aos="fade-right" data-aos-duration="1000" id="welcome">
+        <div class="col-lg-5 col-md-5 left" data-aos="fade-right" data-aos-duration="1000" >
           <img class="img-fluid" src="img/logo2.png" alt="">
         </div>
 
@@ -155,132 +155,116 @@
           </a>
         </div>
       </div>
-    </div>	
-  
+    </div>
+    
+    <div class="jumbotron p-5 my-4" data-aos="zoom-in">
+      <h1 class="text-center">What we do here.</h1>
+      <hr style="width: 100%; color: white; height: 4px; background-color:white;">
 
-    <div class="jumbotron p-5 my-4"> <!-- outer section-->
-      <div class="container p-3 my-3"> <!-- inter section for container -->
-        <div class="row justify-content-md-center">
-          <div class="col-lg-6 p-4">
-            <div class="section-title text-center" data-aos="zoom-in" >
-              <h1>What we(I) do here.</h1>
-            </div>
-          </div>
-        </div>
-        <hr style="width: 100%; color: white; height: 4px; background-color:white;">
+      <div class="owl-carousel owl-theme" >
 
-
-        <div class="row text-center p-3" data-aos="zoom-in">
-          <div class="col-md-4" id="scratch" >
-            
-              <img src="img/006-pencil.png" width="50" height="50" class="mx-auto d-block" alt="">
+        <div class="item">
+          <img src="img/picc-1.jpg" width="width: 100%" height="auto">
               <h4>Simple UX/UI design</h4>
               <p>Phone Apps / User Interface elements for layout or elements design.</p>
-            
-          </div>
-          
-          <div class="col-md-4" id="scratch">
-            
-              <img src="img/020-film.png" width="50" height="50" class="d-inline-block align-top" alt="">
+
+        </div>
+        <div class="item">
+          <img src="img/dang.jpg" width="width: 100%" height="auto">
               <h4>Ae/Pr Video editing</h4>
               <p>Video editing with Pr and Ae.</p>
-            
-          </div>
 
-          <div class="col-md-4"  id="scratch">
-            
-              <img src="img/016-camera.png" width="50" height="50" class="d-inline-block align-top" alt="">
+        </div>
+        <div class="item">
+          <img src="img/photo-1.jpg" width="width: 100%" height="auto">
               <h4>Photography / Filming</h4>
               <p>We take photo with passions.</p>
-            
 
-          </div>
         </div>
-      
-
-        <div class="row text-center p-3" style="margin-top: 30px;" data-aos="zoom-in">
-          <div class="col-md-4"  id="scratch">
-            
-              <img src="img/488-git.png" width="50" height="50" class="d-inline-block align-top" alt="">
+        <div class="item">
+          <img src="img/ccccc1.jpg" width="width: 100%" height="auto">
               <h4>Applications coding</h4>
               <p>C++ Python, Js, R language, VHDL, Assemble...</p>
-              
-            
-          </div>
-          
-          <div class="col-md-4"  id="scratch">
-            
-              <img src="img/015-images.png" width="50" height="50" class="d-inline-block align-top" alt="">
+
+        </div>
+        <div class="item">
+          <img src="img/school.jpg" width="width: 100%" height="auto">
               <h4>Ps/Lr design</h4>
               <p>Processing photo, effects, color.</p>
-            
-          </div>
-
-          <div class="col-md-4"  id="scratch">
-            
-              <img src="img/485-html-five.png" width="50" height="50" class="d-inline-block align-top" alt="">
+        </div>
+        <div class="item">
+          <img src="img/fpage-1.jpg" width="width: 100%" height="auto">
               <h4>Web development</h4>
               <p>Front end design.
                  </p>
-            
-
-          </div>
         </div>
-      </div>
-
-    </div>
-
-
-
-  <div class="container p-3 my-4" data-aos="flip-left">
-    
-    <h1 style="text-align: center;"  id="digital">Stats.</h1>
-    
-
-    <div class="row text-center" >
-      <div class="col-md"  >
-        <h2 style="font-size:80px;color:#0275d8;" id="digital">8</h2>
-        <h4>Awards gain</h4>
-        <p style="font-weight: bold;">Since 2016</p>
-      </div>
-      <div class="col-md" >
-        <h2 style="font-size:80px; color:#d9534f;" id="digital">3</h2>
-        <h4>Organization</h4>
-        <p style="font-weight: bold;">Cooperated with</p>
-      </div>
-      <div class="col-md" >
-        <h2 style="font-size:80px; color:#0275d8;" id="digital">20</h2>
-        <h4>Project & Comp.</h4>
-        <p style="font-weight: bold;">Involved</p>
-      </div>
-      <div class="col-md" >
-        <h2 style="font-size:80px;color:#d9534f;" id="digital">1</h2>
-        <h4>Man</h4>
-        <p style="font-weight: bold; ">From front to end</p>
+        
+        
       </div>
     </div>
 
-  </div>
-
-
-  <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100 blur" src="img/opangpng2.png" alt="bg photo">
-        <div class="carousel-caption " data-aos="zoom-in" data-aos-duration="2000">
-
-              <h1 style="font-size:2.5vw; text-shadow: 4px 4px 2px rgba(0,0,0,0.18);" >The darkest hour is that before the dawn.</h1>
-              <h2 style="font-size:1.5vw; text-shadow: 4px 4px 2px rgba(0,0,0,0.18);">- Thomas Fuller‘s</h2>
-
-
-        </div>
-      </div>
-
+    <div class="container p-3 my-4" data-aos="flip-left">
+    
+      <h1 style="text-align: center;"  id="digital">Stats.</h1>
       
-     
+  
+      <div class="row text-center" >
+        <div class="col-md"  >
+          <h2 style="font-size:80px;color:#0275d8;" id="digital">8</h2>
+          <h4>Awards gain</h4>
+          <p style="font-weight: bold;">Since 2016</p>
+        </div>
+        <div class="col-md" >
+          <h2 style="font-size:80px; color:#d9534f;" id="digital">3</h2>
+          <h4>Organization</h4>
+          <p style="font-weight: bold;">Cooperated with</p>
+        </div>
+        <div class="col-md" >
+          <h2 style="font-size:80px; color:#0275d8;" id="digital">20</h2>
+          <h4>Project & Comp.</h4>
+          <p style="font-weight: bold;">Involved</p>
+        </div>
+        <div class="col-md" >
+          <h2 style="font-size:80px;color:#d9534f;" id="digital">1</h2>
+          <h4>Man</h4>
+          <p style="font-weight: bold; ">From front to end</p>
+        </div>
+      </div>
+  
     </div>
-  </div>
 
+    <section id="mainbelow" class="d-flex align-items-center">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-12 d-flex justify-content-between">
+            
+              <div class="col-6">
+                <div class="carousel-caption " data-aos="zoom-in" data-aos-duration="2000" >
+
+                  <h1 style="font-size:1.8vw; text-shadow: 4px 4px 2px rgba(0,0,0,0.18);" >The darkest hour is that before the dawn.</h1>   
+                </div>
+  
+              </div>
+
+              <div class="col-6">
+                <div class="carousel-caption " data-aos="zoom-in" data-aos-duration="2000" >
+ 
+                  <h1 style="font-size:1.8vw; text-shadow: 4px 4px 2px rgba(0,0,0,0.18);" >- Thomas Fuller‘s</h1>   
+                </div>
+  
+              </div>
+
+            </div>
+          
+        </div>
+      </div>
+
+    </section>
+
+    
+
+
+  
 
 
     <footer id="page-footer" class="py-4 bg-dark text-white-50">
@@ -288,11 +272,6 @@
         <small>&copy; Reemo studio 2020 reserved</small>
       </div>
     </footer>
-
-
-    
-
-    <!-- Optional JavaScript -->
     
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -303,8 +282,33 @@
 
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 
+    <script src="owl/owl.carousel.min.js"></script>
+
     <script>
       AOS.init();
+    </script>
+
+    <script>
+      $(document).ready(function(){
+        $(".owl-carousel").owlCarousel();
+      });
+
+      $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:false,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1000:{
+                items:5
+            }
+        }
+    })
     </script>
 
   <script> 
