@@ -309,14 +309,9 @@
       document.getElementById("text").innerHTML = id[i];
       document.getElementById("cc").innerHTML = "You clicked " + 0 + " time." ;
  
-      function change() {
-        i+=1;
-        count +=1;
-
-        if(i == id.length){
-          i=0;
-        }
-      document.getElementById("text").innerHTML = id[i];
+      function change() {   
+     
+      document.getElementById("text").innerHTML = id[++count % id.length];
 
       if(count == 1){
         document.getElementById("cc").innerHTML = "You clicked " + count + " time." ;
@@ -325,7 +320,7 @@
       }
      
 
-      if(count === 30){
+      if(count === 40){
         document.getElementById("wow").innerHTML = "Fun to click, yeah...";
       }
 
