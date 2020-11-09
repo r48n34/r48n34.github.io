@@ -304,25 +304,24 @@
     <script> 
       var id = ["University Student" ,"CDE Student","Senior designer","Video Editor","Photo Editor","Noob coder"];
 
-      var i = 0;
       var count = 0;  
-      document.getElementById("text").innerHTML = id[i];
+      document.getElementById("text").innerHTML = id[0];
       document.getElementById("cc").innerHTML = "You clicked " + 0 + " time." ;
  
-      function change() {   
-     
+      function change() {       
       document.getElementById("text").innerHTML = id[++count % id.length];
 
-      if(count == 1){
-        document.getElementById("cc").innerHTML = "You clicked " + count + " time." ;
-      }else{
-        document.getElementById("cc").innerHTML = "You clicked " + count + " times." ;
-      }
-     
+        if(count == 1){
+          document.getElementById("cc").innerHTML = "You clicked " + count + " time." ;
+        }
+        else{
+          document.getElementById("cc").innerHTML = "You clicked " + count + " times." ;
+        }
+      
 
-      if(count === 40){
-        document.getElementById("wow").innerHTML = "Fun to click, yeah...";
-      }
+        if(count === 40){
+          document.getElementById("wow").innerHTML = "Fun to click, yeah...";
+        }
 
       
 
