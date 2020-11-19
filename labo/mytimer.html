@@ -106,7 +106,7 @@
         if (!isRunning) {
             times ++;
 
-            if(times == 3600){
+            if(times >= 3600){
                 hour +=1;
                 times = 0;
             }
@@ -125,7 +125,7 @@
 
     function setTimer(){ // switch flag / start or pause
         isRunning = !isRunning;
-    };
+    }
 
     function setZero(){//reset timer to 0
 
