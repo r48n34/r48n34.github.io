@@ -14,7 +14,6 @@ var count = 0; //Played counter
 
 function goRandom() {
   var num = Math.floor(Math.random() * videoList.length); //rand num of the array
-  //console.log(num);
 
   window.open(videoList[num], '_blank'); //Play video in a new windows
 
