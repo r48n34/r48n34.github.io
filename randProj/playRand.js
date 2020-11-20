@@ -21,7 +21,7 @@
          console.log(playedVideo);
  
          document.getElementById("pvv").innerHTML = "Played Video : (" + count + ")";
-         document.getElementById("lin").innerHTML += count + ": " + videoList[num] + "<br />";
+         document.getElementById("lin").innerHTML += videoList[num] + "<br />";
          
  
      }
