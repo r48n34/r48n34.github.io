@@ -13,22 +13,28 @@
         .container.ccw {
           max-width: 1310px;  
         }
-        </style>
+
+        h1{
+          font-size: 3vh;
+          color: #FFFFFF;
+        }
+
+    </style>
    
 
     <title>Play songs RNG</title>
   </head>
-  <body style="background-color:#007BFF ;" onload="total()">
+  <body style="background-color:#181818 ;" onload="total()">
 
     <div class="container ccw" style="text-align: center;">
         <br>
-        <h1 class="badge badge-light" style="font-size: 4vw; color:black;">Random Songs</h1>
-        <h1 style="font-size: 3vh; color:white;" id="tt"></h1>
+        <h1 class="badge" style="font-size: 4vw; color:white;">Random Songs</h1>
+        <h1 id="tt"></h1>
         <br>
-        <button style="font-size: 60px;" id="gogo" type="button" class="btn btn-light btn-lg"  onclick="goRandom()" >GO!</button>
+        <button style="font-size: 50px;" id="gogo" type="button" class="btn btn-light btn-lg"  onclick="goRandom()" >GO!</button>
         <br><br>
-        <h1 style="font-size: 3vh; color:white;" id="pvv">Played Video:</h1>
-        <h1 style="font-size: 3vh; color:white;" id="lin"></h1>
+        <h1 id="pvv">Played Video:</h1>
+        <h1 id="lin"></h1>
 
     </div>
 
