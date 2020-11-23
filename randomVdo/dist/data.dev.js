@@ -20,10 +20,17 @@ function goRandom() {
   playedVideo.push(videoList[num]);
   count++;
   console.log(playedVideo);
+  var vName = videoList[num];
   document.getElementById("pvv").innerHTML = "Played Video : (" + count + ")";
-  document.getElementById("lin").innerHTML += count + ": " + videoList[num] + "<br />";
+  document.getElementById("lin").innerHTML += count + ": " + vName.link(videoList[num]) + "<br />";
 }
 
 function total() {
-  document.getElementById("tt").innerHTML = "Video DB last update(22/09/20) <br> Total Video currently = " + videoList.length;
+  document.getElementById("tt").innerHTML = "Video DB last update(23/11/20) <br> Total Video currently = " + videoList.length;
 }
+
+document.addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    goRandom();
+  }
+});
