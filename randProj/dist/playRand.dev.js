@@ -29,7 +29,7 @@ function goRandom() {
 function total() {
   //let total = (videoList.length & 1) ? (videoList.length / 2) - 0.5 : (videoList.length / 2); // odd even method
   //let total = parseInt(videoList.length / 2, 10); // double to int method
-  document.getElementById("tt").innerHTML = "last update(23/11/20) <br> Total Video currently = " + parseInt(videoList.length / 2, 10);
+  document.getElementById("tt").innerHTML = "last update(29/11/20) <br> Total Video currently = " + parseInt(videoList.length / 2, 10);
 }
 
 document.addEventListener("keyup", function (event) {
