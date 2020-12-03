@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+      h4{
+          color: white;
+      }
+
+      </style>
+
+   
+
+    <title>Eng. tools</title>
+    <link rel="icon" href="evastuff/ppp1.ico" type="image/x-icon">
+  </head>
+  <body style="background-color:#007BFF ;">
+
+    <div class="container">
+        <br>
+
+        <h4>Types</h4>
+
+        <select class="form-control" id="typesOption" style="width: 180px;" >
+        <option>Decimal(10)</option>
+        <option>Bindary(2)</option>
+        <option>Hexadecimal(16)</option> 
+        </select>
+        <br>
+
+        <input type="text" class="form-control" id="inputOne" style="width: 300px;" oninput="updateMe()">
+        <h4 id="text0"></h4>
+        <h4 id="text1"></h4>
+        <h4 id="text2"></h4>
+    
+        
+        <button type="button" class="btn btn-warning" onclick="saveValue()">Save value</button>
+        <br><br>
+        <h4> Saved Value</h4>
+        <h4 id="sv"></h4>
+        <br><br>
+        <!--
+        <button type="button" class="btn btn-light" onclick="clearOneSv()">Clear One</button>
+        -->
+        <button type="button" class="btn btn-light" onclick="clearAllSv()">Clear ALL</button>
+        <br><br>
+        <h4 id="totalVal"></h4>
+
+
+
+
+    </div>
+
+
+    
+
+
+    
+
+
+    <div class="footer fixed-bottom">
+
+      <nav class="navbar navbar-expand-sm navbar-light">
+        <ul class="navbar-nav">
+          <li class="nav-item " >
+            <a href="https://r48n34.github.io/" style="color: white;" target="_blank" style="font-size: 80%;">Reemo Studio</a>
+            
+          </li>
+          
+        </ul>
+      </nav>
+    </div>  
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+ 
+  
+
+    <script src="toolsbox.js"></script>
+
+
+  </body>
+</html>
