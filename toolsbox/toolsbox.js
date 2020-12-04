@@ -69,8 +69,6 @@ function clearAllSv(){
     document.getElementById("totalVal").innerHTML = "";
     totalValue = 0;
 
-
-
 }
 
 
