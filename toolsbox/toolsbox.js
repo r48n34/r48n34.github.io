@@ -67,6 +67,8 @@ function saveValue(){
 function clearAllSv(){
     document.getElementById("sv").innerHTML = "";
     document.getElementById("totalVal").innerHTML = "";
+    totalValue = 0;
+
 
 
 }
