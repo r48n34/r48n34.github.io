@@ -72,7 +72,6 @@ function clearAllSv(){
 }
 
 
-
 function updateMe(){
     let values = document.getElementById("inputOne").value; //get values from "inputOne", assume the input is correct
   
