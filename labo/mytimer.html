@@ -129,7 +129,7 @@
 
     function setZero(){//reset timer to 0
 
-        if(isRunning == false){
+        if(!isRunning){
             document.getElementById("message").innerHTML = "Can't clear on clock running.";
             return;
         }
