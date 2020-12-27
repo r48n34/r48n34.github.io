@@ -1,8 +1,5 @@
-var arr = [];// splited array with "\n"
-var words = ""; //whole text
-
-//var result = [];
 var wordFinal = ""; // final text with names and url
+//var result = [];
 
 const inputElement = document.getElementById("uploader");
 const output = document.getElementById('output');
@@ -20,7 +17,7 @@ function handleFiles() {
     btn.style.display = "none";
     load.innerHTML = "Loading";
 
-
+    /*
     if(file.type.match('image.*')){ // if it's a image type, not in use
 
         const reader = new FileReader();        
@@ -31,75 +28,60 @@ function handleFiles() {
         reader.readAsDataURL(file);
         return;
     }
+    */
 
     if(file.type.match('text.html')){ // if it's a text type with html
-        
+        let word = "";    
+
         const reader = new FileReader();           
         reader.addEventListener('load', event => {
-            let k = reader.result;
-            words = k;
+            word = reader.result;
 
         });
-
-        
+      
         reader.readAsText(file);
         
-        setTimeout(() => { load.innerHTML += ".."; }, 1500);
+        setTimeout(() => { load.innerHTML += ".."; }, 1500); // loading animation
+        setTimeout(() => { fineWeb(word); }, 3000); //avoid race condition
 
-        setTimeout(() => { toArray(); }, 3000); //avoid time race
         return;
     }
+
+    if(!file.type.match('text.html')){
+        load.innerHTML = "Wrong type!";
+        return;
+
+    }
+
+    return;
    
        
 }
 
+function fineWeb(word){ // get url and name from a array 
 
-function toArray(){ // buffer function for next step
-    arr = words.split("\n");
-    fineWeb(arr);
-
-}
-
-
-function fineWeb(arr){ // get url and name from a array
     let reg = new RegExp("\\(?\\b(http://|www[.]|https://)[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]");
 
-    for(let i = 0; i< arr.length; i++){
-        let target = arr[i]; //current line
-
-        if(reg.test(target)){          
-            
-            let k = findname(target); // name 
-            //console.log(k); 
-            //result.push(k);
-            wordFinal += k + "\n";
-
-            let z = target.search(reg);
-
-            let j = findURL(target, z); // url
-            //console.log(j); 
-            //result.push(j);
-            wordFinal += j + "\n";
-            
+    let arr = word.split("\n"); // splited array with "\n"
+    arr.forEach(function(t){       
+        if(reg.test(t)){                     
+            wordFinal += findname(t) + "\n" + findURL(t, t.search(reg)) + "\n"; // name,\n,url,\n
         }
+    });
 
-    }
-
-    //console.log(wordFinal);
-    load.innerHTML = "";
-    btn.style.display = "block"; //show button
-
-    
+    load.innerHTML = ""; //
+    btn.style.display = "block"; //show button 
 
 }
 
 function findname(str){ // Find names on bookmark
+    //search from end to start
     let start = 0;
-    let end = str.length - 4;
+    let end = str.length - 4; // a data must end with </A>, hence -4
     let k = end;
 
     while(k -- > 0){
-        if(str.charAt(k) == '>' && str.charAt(k-1) == '"'){
+        if(str.charAt(k) == '>' && str.charAt(k-1) == '"'){ // a data will be satrt with ">
             start = k + 1;
             break;
         }
@@ -113,7 +95,7 @@ function findURL(str, start){ // find related url
     let end = start;
 
     while (end ++ < str.length){
-        if(str.charAt(end) == '"' && str.charAt(end + 1) == ' '){
+        if(str.charAt(end) == '"' && str.charAt(end + 1) == ' '){ // a data must end with (" ) 
             break;
         }      
     }
@@ -123,8 +105,10 @@ function findURL(str, start){ // find related url
 }
 
 
-window.hihi = function hihi() { //button active    
-    download("op_Text", wordFinal );
+window.down = function down() { //button active  
+    let d = new Date();
+    let text = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() + "-" + d.getHours() + "-" + d.getMinutes() + " Bookmark" ;
+    download(text, wordFinal);
 }
 
 function download(filename, text) { //download txt file function
