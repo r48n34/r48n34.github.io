@@ -1,5 +1,4 @@
 // Video of the random list
-
 class WebLink{ // class method to implementing
      
      constructor(name, url){  
@@ -7,9 +6,7 @@ class WebLink{ // class method to implementing
          this.webUrl = url;
      }
  
- 
 }
-
 
 var request = new XMLHttpRequest();
 request.open('GET', 'songWebText.txt', false);
@@ -25,11 +22,11 @@ for(let i = 0; i < videoList.length ; i += 2){
 
 videoList = [];
 
-var playedVideo = [];//Played video list
-var count = 0;//Played counter
+let playedVideo = [];//Played video list
 
 const toppic = document.getElementById("pvv");
-const below = document.getElementById("lin"); 
+const below = document.getElementById("lin");
+const data =  document.getElementById("tt"); 
  
 
 function goRandom(){
@@ -50,7 +47,7 @@ function goRandom(){
 }
  
 function total(){
-     document.getElementById("tt").innerHTML = "last update(29/11/20) <br> Total Video currently = " + parseInt(classList.length, 10);  
+     data.innerHTML = "last update(29/11/20) <br> Total Video currently = " + parseInt(classList.length, 10);  
 }
 
 document.addEventListener("keyup", function(event) {
@@ -59,15 +56,4 @@ document.addEventListener("keyup", function(event) {
      }
 });
 
-
-
- 
-    
- 
- 
- 
- 
-     
- 
- 
-   
+  
