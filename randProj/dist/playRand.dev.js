@@ -1,35 +1,51 @@
 "use strict";
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 // Video of the random list
-//new method
+var WebLink = // class method to implementing
+function WebLink(name, url) {
+  _classCallCheck(this, WebLink);
+
+  this.webName = name;
+  this.webUrl = url;
+};
+
 var request = new XMLHttpRequest();
 request.open('GET', 'songWebText.txt', false);
 request.send();
 var videoList = request.responseText.split("\n"); //Array list of the video list
 
+var classList = [];
+
+for (var i = 0; i < videoList.length; i += 2) {
+  var temp = new WebLink(videoList[i], videoList[i + 1]);
+  classList.push(temp);
+}
+
+videoList = [];
 var playedVideo = []; //Played video list
 
 var count = 0; //Played counter
-//random to to a video
+
+var toppic = document.getElementById("pvv");
+var below = document.getElementById("lin");
 
 function goRandom() {
-  var num = Math.floor(Math.random() * videoList.length); //rand num of the array        
-  //even = video name || odd = vdo link
-  //if num = odd, no need to change num, else num need to +1 for get the link         
+  var num = Math.floor(Math.random() * classList.length); //rand num of the array        
 
-  var vName = num & 1 ? videoList[num - 1] : videoList[num++];
-  window.open(videoList[num], '_blank'); //Play video in a new windows
+  var vName = classList[num].webName;
+  var video = classList[num].webUrl;
+  window.open(video, '_blank'); //Play video in a new windows
 
-  playedVideo.push(videoList[num]);
-  console.log(playedVideo[count++]);
-  document.getElementById("pvv").innerHTML = "Played Video : (" + count + ")";
-  document.getElementById("lin").innerHTML += vName.link(videoList[num]) + "<br/>";
+  playedVideo.push(video);
+  console.log(video);
+  toppic.innerHTML = "Played Video : (" + playedVideo.length + ")";
+  below.innerHTML += vName.link(video) + "<br/>";
 }
 
 function total() {
-  //let total = (videoList.length & 1) ? (videoList.length / 2) - 0.5 : (videoList.length / 2); // odd even method
-  //let total = parseInt(videoList.length / 2, 10); // double to int method
-  document.getElementById("tt").innerHTML = "last update(29/11/20) <br> Total Video currently = " + parseInt(videoList.length / 2, 10);
+  document.getElementById("tt").innerHTML = "last update(29/11/20) <br> Total Video currently = " + parseInt(classList.length, 10);
 }
 
 document.addEventListener("keyup", function (event) {
