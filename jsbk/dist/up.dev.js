@@ -1,18 +1,30 @@
 "use strict";
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var wordFinal = ""; // final text with names and url
-//var result = [];
+
+var result = [];
+
+var WebLink = function WebLink(name, url) {
+  _classCallCheck(this, WebLink);
+
+  this.webName = name;
+  this.webUrl = url;
+};
 
 var inputElement = document.getElementById("uploader");
 var output = document.getElementById('output');
 var btn = document.getElementById("bt");
+var btj = document.getElementById("btj");
+var rn = document.getElementById("rn");
 var load = document.getElementById("loading");
 inputElement.addEventListener("change", handleFiles, false);
 
 function handleFiles() {
   var fileList = this.files;
   var file = fileList[0];
-  btn.style.display = "none";
+  btn.style.display = btj.style.display = rn.style.display = "none";
   load.innerHTML = "Loading";
   /*
   if(file.type.match('image.*')){ // if it's a image type, not in use
@@ -59,12 +71,17 @@ function fineWeb(word) {
 
   arr.forEach(function (t) {
     if (reg.test(t)) {
-      wordFinal += findname(t) + "\n" + findURL(t, t.search(reg)) + "\n"; // name,\n,url,\n
+      var n = findname(t);
+      var r = findURL(t, t.search(reg));
+      wordFinal += n + "\n" + r + "\n"; // name,\n,url,\n
+
+      var temp = new WebLink(n, r);
+      result.push(temp);
     }
   });
-  load.innerHTML = ""; //
+  load.innerHTML = ""; //clear 
 
-  btn.style.display = "block"; //show button 
+  btn.style.display = btj.style.display = rn.style.display = "block"; //show button
 }
 
 function findname(str) {
@@ -100,20 +117,39 @@ function findURL(str, start) {
   return str.substring(start, end);
 }
 
-window.down = function down() {
+window.down = function down(type) {
   //button active  
   var d = new Date();
-  var text = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() + "-" + d.getHours() + "-" + d.getMinutes() + " Bookmark";
-  download(text, wordFinal);
+  var text = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() + "-" + d.getHours() + "-" + d.getMinutes() + "_Bookmark";
+
+  if (type === 1) {
+    //1 = txt
+    download(text + "_txt", "txt");
+  } else if (type === 2) {
+    // 2 = json
+    download(text + "_json", "json");
+  }
 };
 
-function download(filename, text) {
+function download(filename, type) {
   //download txt file function
   var element = document.createElement('a');
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+
+  if (type === "txt") {
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(wordFinal));
+  } else if (type === "json") {
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(result)));
+  }
+
   element.setAttribute('download', filename);
   element.style.display = 'none';
   document.body.appendChild(element);
   element.click();
   document.body.removeChild(element);
 }
+
+window.ran = function ran() {
+  var num = Math.floor(Math.random() * result.length);
+  console.log(result[num].webName + "\n" + result[num].webUrl);
+  window.open(result[num].webUrl, '_blank');
+};
