@@ -26,10 +26,9 @@ for (var i = 0; i < videoList.length; i += 2) {
 videoList = [];
 var playedVideo = []; //Played video list
 
-var count = 0; //Played counter
-
 var toppic = document.getElementById("pvv");
 var below = document.getElementById("lin");
+var data = document.getElementById("tt");
 
 function goRandom() {
   var num = Math.floor(Math.random() * classList.length); //rand num of the array        
@@ -45,7 +44,7 @@ function goRandom() {
 }
 
 function total() {
-  document.getElementById("tt").innerHTML = "last update(29/11/20) <br> Total Video currently = " + parseInt(classList.length, 10);
+  data.innerHTML = "last update(29/11/20) <br> Total Video currently = " + parseInt(classList.length, 10);
 }
 
 document.addEventListener("keyup", function (event) {
