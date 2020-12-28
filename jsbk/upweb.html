@@ -15,16 +15,16 @@
         }
 
         h1{
-          font-size: 8vh;
+          font-size: 6vh;
           color: #FFFFFF;
         }
 
         h2{
-          font-size: 4vh;
+          font-size: 3.5vh;
           color: #FFFFFF;
         }
 
-        #bt{
+        #bt, #rn, #btj {
           display: none;
           text-align: center;
         }
@@ -43,8 +43,11 @@
     <div class="container ccw" style="text-align: left;">
     
         <br>
-        <h1>Layout</h1>
+        <h1>Google chrome bookmark transformer</h1>
+        <hr style="width: 100%;  height: 4px; background-color:#ffffff;">
+
         <h2>Upload a html file from Google chrome bookmark</h2>
+        <h2>Transform into .txt with name and url only </h2>
         <br>
 
         <input type="file" id="uploader" data-target="file-uploader" accept="text/html">
@@ -54,7 +57,12 @@
         <h1 id="loading"></h1>
         <br>
         
-        <button display="none" id="bt" type="button" class="btn btn-warning text-center" onclick="down();" > Download </button>
+        <button id="bt" type="button" class="btn btn-warning text-center" onclick="down(1);" > Download txt</button>
+        <br>
+        <button id="btj" type="button" class="btn btn-warning text-center" onclick="down(2);" > Download json</button>
+        <br>
+        <button id="rn" type="button" class="btn btn-warning text-center" onclick="ran();" > Good luck </button>
+
 
 
     </div>
@@ -76,10 +84,6 @@
       </nav>
     </div>
 
- 
-
-    
-
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -88,14 +92,6 @@
 
     <script type="module" src="up.js"></script>
 
-
-
-
-
-
-
-
- 
 
   </body>
 </html>
