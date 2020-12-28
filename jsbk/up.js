@@ -1,11 +1,21 @@
 var wordFinal = ""; // final text with names and url
-//var result = [];
+var result = [];
+
+class WebLink{
+
+    constructor(name, url) {  
+        this.webName = name;
+        this.webUrl = url;
+    }
+
+}
 
 const inputElement = document.getElementById("uploader");
 const output = document.getElementById('output');
 const btn = document.getElementById("bt");
+const btj = document.getElementById("btj");
+const rn = document.getElementById("rn");
 const load = document.getElementById("loading");
-
 
 inputElement.addEventListener("change", handleFiles, false);
 
@@ -14,7 +24,7 @@ function handleFiles() {
     const fileList = this.files;
     const file = fileList[0];
 
-    btn.style.display = "none";
+    btn.style.display = btj.style.display = rn.style.display = "none";
     load.innerHTML = "Loading";
 
     /*
@@ -53,8 +63,7 @@ function handleFiles() {
 
     }
 
-    return;
-   
+    return; 
        
 }
 
@@ -64,13 +73,19 @@ function fineWeb(word){ // get url and name from a array
 
     let arr = word.split("\n"); // splited array with "\n"
     arr.forEach(function(t){       
-        if(reg.test(t)){                     
-            wordFinal += findname(t) + "\n" + findURL(t, t.search(reg)) + "\n"; // name,\n,url,\n
+        if(reg.test(t)){ 
+
+            let n = findname(t);
+            let r = findURL(t, t.search(reg));             
+            wordFinal += n + "\n" + r + "\n"; // name,\n,url,\n
+
+            let temp = new WebLink(n,r);
+            result.push(temp);
         }
     });
 
-    load.innerHTML = ""; //
-    btn.style.display = "block"; //show button 
+    load.innerHTML = ""; //clear 
+    btn.style.display = btj.style.display = rn.style.display = "block"; //show button
 
 }
 
@@ -104,16 +119,30 @@ function findURL(str, start){ // find related url
 
 }
 
-
-window.down = function down() { //button active  
+window.down = function down(type) { //button active  
     let d = new Date();
-    let text = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() + "-" + d.getHours() + "-" + d.getMinutes() + " Bookmark" ;
-    download(text, wordFinal);
+    let text = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() + "-" + d.getHours() + "-" + d.getMinutes() + "_Bookmark" ;
+
+    if(type === 1){ //1 = txt
+        download(text + "_txt", "txt");
+    }
+    else if(type === 2){ // 2 = json
+        download(text + "_json", "json");
+    }
+
 }
 
-function download(filename, text) { //download txt file function
+
+function download(filename, type) { //download txt file function
     var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+
+    if(type === "txt"){
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(wordFinal));
+    }
+    else if(type === "json"){
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(result)));
+    }
+    
     element.setAttribute('download', filename);
   
     element.style.display = 'none';
@@ -122,4 +151,11 @@ function download(filename, text) { //download txt file function
     element.click();
   
     document.body.removeChild(element);
+}
+
+
+window.ran = function ran(){
+    let num = Math.floor(Math.random() * result.length);
+    console.log(result[num].webName + "\n" + result[num].webUrl);
+    window.open(result[num].webUrl, '_blank');
 }
