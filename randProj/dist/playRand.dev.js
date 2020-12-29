@@ -16,14 +16,14 @@ request.open('GET', 'songWebText.txt', false); // if file is a raw txt with line
 
 request.send();
 var videoList = request.responseText.split("\n"); //Array list of the video list
-//let classList = request.responseText; // if file is a JSON type
 
 var classList = [];
 
 for (var i = 0; i < videoList.length; i += 2) {
   var temp = new WebLink(videoList[i], videoList[i + 1]);
   classList.push(temp);
-}
+} //classList = request.responseText; // if file is a JSON type
+
 
 videoList = [];
 var playedVideo = []; //Played video list
