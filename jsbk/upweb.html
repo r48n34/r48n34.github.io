@@ -19,6 +19,11 @@
           color: #FFFFFF;
         }
 
+        #message{
+          font-size: 3vh;
+          color: #FFFFFF;
+        }
+
         h2{
           font-size: 3.5vh;
           color: #FFFFFF;
@@ -46,8 +51,8 @@
         <h1>Google chrome bookmark transformer</h1>
         <hr style="width: 100%;  height: 4px; background-color:#ffffff;">
 
-        <h2>Upload a html file from Google chrome bookmark</h2>
-        <h2>Transform into .txt / JSON with name and url only </h2>
+        <h2>Upload html files from Google chrome bookmark</h2>
+        <h2>Transform and merge into .txt / JSON with name and url only </h2>
         <br>
 
         <input type="file" id="uploader" data-target="file-uploader" accept="text/html">
@@ -55,15 +60,15 @@
 
         <img id="output"> <!--Not in use-->
         <h1 id="loading"></h1>
-        <br>
-        
+        <h1 id="message"></h1>
         <button id="bt" type="button" class="btn btn-warning text-center" onclick="down(1);" > Download txt</button>
         <br>
         <button id="btj" type="button" class="btn btn-warning text-center" onclick="down(2);" > Download json</button>
         <br>
         <button id="rn" type="button" class="btn btn-warning text-center" onclick="ran();" > Good luck </button>
 
-
+        <h2>1) All uploaded .html will be merge into single txt file</h2>
+        <h2>2) JSON ${webName} and ${webUrl} used</h2>
 
     </div>
     
@@ -84,6 +89,10 @@
       </nav>
     </div>
 
+ 
+
+    
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -92,6 +101,14 @@
 
     <script type="module" src="up.js"></script>
 
+
+
+
+
+
+
+
+ 
 
   </body>
 </html>
