@@ -19,6 +19,10 @@
     .container.custom-container-width {
       max-width: 1310px;  
     }
+    
+    #tagMessage{
+      color: white;
+    }
     </style>
 
     <title>Timer</title>
@@ -88,20 +92,20 @@
   <script>
 
      const cd = document.getElementById("timer"); // timer DOM
+     const mes = document.getElementById("message"); // message DOM
+     const tagg = document.getElementById("tagMessage"); // tag message DOM
+     const cNum = document.getElementById("clickNum"); // click num DOM
 
-     var sec = 0;
-     var min = 0;
-     var hour = 0;
+     let sec;
+     let min;
+     let hour;
+     let times; // total time in seconds format
+     let tag_count; //counter for tag
+     let click_count; //counter for click count
 
-     var times = 0; // total time in seconds format
-
-     var tag_count = 0;//counter for tag
-
-     var click_count = 0;//counter for click count
-
+     sec = min = hour = times = tag_count = click_count = 0;
      
-
-    var isRunning = true;
+    let isRunning = true;
     var interval = setInterval(function() { // timer function
         if (!isRunning) {
             times ++;
@@ -130,39 +134,35 @@
     function setZero(){//reset timer to 0
 
         if(!isRunning){
-            document.getElementById("message").innerHTML = "Can't clear on clock running.";
-            return;
+          mes.innerHTML = "Can't clear on clock running.";
+          return;
         }
 
         times = 0;
         cd.innerHTML = "0:00:00";
-        document.getElementById("message").innerHTML = "";
+        mes.innerHTML = "";
 
 
     }
 
     function tag(){ // add tag
-        tag_count +=1;
-        document.getElementById("tagMessage").innerHTML += tag_count + ": "+ cd.innerHTML +" "+ click_count +"<br>";
-
+      tag_count +=1;
+      tagg.innerHTML += tag_count + ": "+ cd.innerHTML +" "+ click_count +"<br>";
 
     }
 
-    function tagCle(){//remove tag
-        document.getElementById("tagMessage").innerHTML = "";
-        tag_count = 0;
+    function tagCle(){//remove tag   
+      tag_count = 0;
+      tagg.innerHTML = "";
+
     }
 
     function clickCo(){//click count adder
-        click_count+=1;
-        document.getElementById("clickNum").innerHTML = click_count;
-
+        cNum.innerHTML = (click_count += 1);
     }
 
     function clickClear(){//clear all tag text
-        click_count = 0;
-        document.getElementById("clickNum").innerHTML = click_count;
-
+        cNum.innerHTML = click_count = 0;
     }
 
 
