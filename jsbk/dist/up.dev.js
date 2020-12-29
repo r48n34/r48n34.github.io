@@ -9,8 +9,9 @@ var result = [];
 var WebLink = function WebLink(name, url) {
   _classCallCheck(this, WebLink);
 
-  this.webName = name;
-  this.webUrl = url;
+  this.webName = name; // Name from bookmark
+
+  this.webUrl = url; // target URL
 };
 
 var inputElement = document.getElementById("uploader");
@@ -18,14 +19,16 @@ var output = document.getElementById('output');
 var btn = document.getElementById("bt");
 var btj = document.getElementById("btj");
 var rn = document.getElementById("rn");
+var mes = document.getElementById("message");
 var load = document.getElementById("loading");
 inputElement.addEventListener("change", handleFiles, false);
 
 function handleFiles() {
   var fileList = this.files;
   var file = fileList[0];
-  btn.style.display = btj.style.display = rn.style.display = "none";
+  btn.style.display = btn.style.display = btj.style.display = rn.style.display = "none";
   load.innerHTML = "Loading";
+  mes.innerHTML = "";
   /*
   if(file.type.match('image.*')){ // if it's a image type, not in use
         const reader = new FileReader();        
@@ -79,8 +82,9 @@ function fineWeb(word) {
       result.push(temp);
     }
   });
-  load.innerHTML = ""; //clear 
+  load.innerHTML = ""; //clear
 
+  mes.innerHTML = "Total bookmark = " + result.length;
   btn.style.display = btj.style.display = rn.style.display = "block"; //show button
 }
 
