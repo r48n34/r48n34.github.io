@@ -337,73 +337,53 @@
   <script>
 
       //counter A,B,C,D,E,F,G,H,I values//
-      var count = [0,0,0,0,0,0,0,0,0];
-
-      //var arr = ["numA","numB","numC","numD","numE","numF","numG","numH","numI"];// id of counter
-      //var letters = ["A","B","C","D","E","F","G","H","I"];
-
-      var cons_name = ["A","B","C","D","E","F","G","H","I"]; //default names, array for store names
+      let count     = [ 0,  0,  0,  0,  0,  0,  0,  0,  0];
+      let cons_name = ["A","B","C","D","E","F","G","H","I"]; //default names, array for store names
 
       function loadInCook(){ //page on load to insert cookies
-        for(let i = 0;i<count.length;i++){
+
+        for(let i = 0; i<count.length ;i++){
+
+          let curChar = String.fromCharCode(65 + i);
+
           let name = "c" + i; // Cookies names of counter value (e.g. c0,c1...)
-          if(!isNaN(Cookies.get(name))){ // In case the first loading and NaN values on cookies 
-            count[i] = parseInt(Cookies.get(name));
-          }
-          else{
-            count[i] = 0;
-          }
+          count[i] = !isNaN(Cookies.get(name)) ? parseInt(Cookies.get(name)) : 0;
           
-          let tex = "num" + String.fromCharCode(65 + i); //Text ID (e.g. numA,numB)
+          let tex = "num" + curChar; //Text ID (e.g. numA,numB)
           document.getElementById(tex).innerHTML = count[i];
 
-          ///////////////////////////////
-          
           let name2 = "n" + i;
-          if(Cookies.get(name2) === undefined){ // In case the first loading and undefined values 
-            cons_name[i] = String.fromCharCode(65 + i); // default names (65 = A in ASCII, 66 = B....)
-          }
-          else{
-            cons_name[i] = Cookies.get(name2); // Input cookies name
-          }
+          cons_name[i] = (Cookies.get(name2) === undefined) ? curChar : Cookies.get(name2);
          
-          let Ind = "name" + String.fromCharCode(65 + i); //Text ID (e.g. nameA,nameB)        
-          document.getElementById(Ind).innerHTML = cons_name[i];
+          let ind = "name" + curChar; //Text ID (e.g. nameA,nameB)        
+          document.getElementById(ind).innerHTML = cons_name[i];
           
         }
-
 
       }
 
-
-
-    
-
       function cookSet(){ // For all set counter values
 
-        for(let i = 0;i<count.length;i++){
-          let name = "c" + i;
-          Cookies.set(name, count[i]);
-        }
-        
+        count.forEach( function(item, index){
+          let name = "c" + index;
+          Cookies.set(name, item);
+        });
        
       }
 
       //In this function, clear cookies means clear all used cookies, not the value itselves
       function cookClear(){// For all clear
+
         for(let i = 0;i<count.length;i++){
-          let name = "c" + i;
-          Cookies.remove(name);
-          let name2 = "n" + i;
-          Cookies.remove(name2);
+
+          Cookies.remove("c" + i);
+          Cookies.remove("n" + i);
 
         }
 
         alert("Cookies clear. F5 to reload.");
       }
-
-
-      
+     
 
       function sumBot(num,ids,i){ // Numbers to +/-, ID, array index 
 
@@ -414,8 +394,7 @@
         Cookies.set(name, count[i]);
      
       }
-
-      
+     
 
       function clearOne(ids,i){ // ID, array index. For clear one counter
         count[i] = 0; //set one counter to 0
@@ -424,12 +403,12 @@
         let name = "c" + i;// store to cookies with regarding names
         Cookies.set(name, count[i]);
 
-
       }
 
 
       function clearAll(){ //clear all counter
-        count.fill(0); // set all value of arr to 0      
+        count.fill(0); // set all value of arr to 0 
+
         for(let i = 0;i<count.length;i++){ //uptade html display value
           let tex = "num" + String.fromCharCode(65 + i);
           document.getElementById(tex).innerHTML = count[i];
@@ -442,19 +421,17 @@
 
       function allAssign(){ // add numbers for all counters
 
-        var jj = parseInt(document.getElementById("allValue").value); //get values from "allValue"
+        let valid = parseInt(document.getElementById("allValue").value); //get values from "allValue"      
         
-        
-        if(isNaN(jj) ){ //check valid
+        if(isNaN(valid) ){ //check valid
           alert("You can't enter a string / none.");
           document.getElementById("allValue").value = "";
           return;
         }
-
         
-
         for(let k = 0;k < count.length;k++){
-          count[k] += jj; //get from allValue, add to counter
+          count[k] += valid; //get from allValue, add to counter
+
           let tex = "num" + String.fromCharCode(65 + k);
           document.getElementById(tex).innerHTML = count[k]; //update counter
 
@@ -472,10 +449,11 @@
         document.getElementById("total").innerHTML = "Total sum : " + SumDatareduce(count); //get total sum
 
         let store = []; //get used counter and counter position
-        var tot = 0; //total counter used num
+        let tot = 0; //total counter used num
         
         //I use "0" for a ref of if a counter is used or not. Not a counter was adjusted or else.
         for(let i = 0;i<count.length;i++){ // cal tot and push to store
+          
           if(count[i] !=0){
             tot +=1;
             store.push(cons_name[i]);
@@ -487,7 +465,6 @@
         //var tot = count.length - count.filter(x => x === 0).length;
         document.getElementById("cal").innerHTML = "Used counter : " + tot +" ("+ store+ ")" ;
         
-        //////////////////////////////////
         if(tot == 0){ // No counter used, op N/A
           document.getElementById("maxer").innerHTML = "Max number : N/A"  ;
           document.getElementById("miner").innerHTML = "Min number : N/A"  ;
@@ -495,9 +472,11 @@
 
         }
        
-        var max = Math.max(...count); // get max value
+        let max = Math.max(...count); // get max value
 
-        var max_item = [];
+        let max_item = [];
+
+
         for(let i = 0;i<count.length;i++){ //get all max item
           if(max == count[i]){
             max_item.push(cons_name[i]);
@@ -505,26 +484,19 @@
 
 
         }
-
-        //var max_pos = count.indexOf(Math.max(...count));// get max value index
-
-         
-        var min = Math.min(...count); // get min value
-        
-        var min_item = [];
+     
+        let min = Math.min(...count); // get min value   
+        let min_item = [];
 
         for(let i = 0;i<count.length;i++){//get all min item
           if(min == count[i]){
             min_item.push(cons_name[i]);
           }
 
-
         }
 
-        //var min_pos = count.indexOf(Math.min(...count));// get max value index
-   
-          document.getElementById("maxer").innerHTML = "Max number : " + max +" ("+ max_item+ ")" ;
-          document.getElementById("miner").innerHTML = "Min number : " + min +" ("+ min_item+ ")" ;
+        document.getElementById("maxer").innerHTML = "Max number : " + max +" ("+ max_item+ ")" ;
+        document.getElementById("miner").innerHTML = "Min number : " + min +" ("+ min_item+ ")" ;
         
 
       }
@@ -537,28 +509,25 @@
 
       function assignValue(){ // assign value to selected counter
 
-        var new_id = document.getElementById("sel1").value;//Target id
-        var new_num = parseInt(document.getElementById("addValue").value);//Value to assign
+        let new_id  = document.getElementById("sel1").value; //Target id
+        let new_num = parseInt(document.getElementById("addValue").value); //Value to assign
 
-        //alert(new_num);
-        if(isNaN(new_num)){ //check valid
+        
+        if( isNaN(new_num) ){ //check valid
           alert("You can't enter a string / none.");
           document.getElementById("addValue").value = "";
           return;
         }
-        //alert(new_num);
+        
+        let index = document.getElementById("sel1").selectedIndex;// related array index
 
-        var index = document.getElementById("sel1").selectedIndex;// related array index
-
-        sumBot(new_num,new_id,index);
+        sumBot(new_num, new_id, index);
         document.getElementById("addValue").value = "";
 
 
       }
 
       function rename(){
-        // var new_name = document.getElementById("rename1").value;
-        
 
         if(document.getElementById("rename1").value == ""){ // a blank sent
           alert("You can't enter a blank name.");
@@ -573,8 +542,8 @@
         Cookies.set(names, cons_name[x]);
         
    
-
-        document.getElementById(document.getElementById("sel2").value).innerHTML = document.getElementById("rename1").value; //update html
+        let k = document.getElementById("sel2").value;
+        document.getElementById(k).innerHTML = document.getElementById("rename1").value; //update html
         document.getElementById("rename1").value = "";
 
       }
@@ -590,7 +559,7 @@
            }
         });
 
-        var input = document.getElementById("rename1");
+      var input = document.getElementById("rename1");
        input.addEventListener("keyup", function(event) {
           if (event.keyCode === 13) {
            event.preventDefault();
