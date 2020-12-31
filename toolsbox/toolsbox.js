@@ -1,5 +1,4 @@
 //Lazy to convert by hand, use js is better.
-
 let stringOne = "";
 let stringTwo = "";
 let totalValue = 0; //Dec number in total sum
@@ -61,7 +60,7 @@ function saveValue(){ //save value to below
     console.log(total);
     updateSave();
 
-    let k = "Values(" + types +") = " + values + "  " + stringOne + "  " + stringTwo ;
+    let k = "Values (" + types +") = " + values + "  " + stringOne + "  " + stringTwo ;
     let option = document.createElement("option"); //new option object
     option.text = k;
 
@@ -116,7 +115,6 @@ function updateMe(){ //change when ever data typed
         stringOne = "Bin = " + decToBin(values);
         stringTwo = "Hex = " + decToHex(values);
         types = "Dec";
-
         currValues = parseInt(values,10);
     }
     else if(index == 1){ //Is a bin        
@@ -125,7 +123,6 @@ function updateMe(){ //change when ever data typed
         stringOne = "Dec = " + binToDec(values);
         stringTwo = "Hex = " + binToHex(values);
         types = "Bin";
-
         currValues = binToDec(values);
 
     }
@@ -135,7 +132,6 @@ function updateMe(){ //change when ever data typed
         stringOne = "Bin = " + hexToBin(values);
         stringTwo = "Dec = " + hexToDec(values);
         types = "Hex";
-
         currValues = hexToDec(values);
 
     }
@@ -151,6 +147,4 @@ document.addEventListener("keyup", function(event) {
     if (event.keyCode === 13) {
         saveValue()
     }
-    });
-
-//console.log(decToBin(43) + " " + decToHex(69) + " " + binToDec(1010100110) + " " + hexToDec("FF") +" " + binToHex(1101011) +" " + hexToBin("F0"));
+});
