@@ -301,31 +301,32 @@
 
     <!-- text button script-->
     <script> 
-      var id = ["University Student" ,"CDE Student","Senior designer","Video Editor","Photo Editor","Noob coder"];
+      const id = ["University Student" ,"CDE Student","Senior designer","Video Editor","Photo Editor","Noob coder"];
+      let count = 0; 
 
-      var count = 0;  
-      document.getElementById("text").innerHTML = id[0];
-      document.getElementById("cc").innerHTML = "You clicked " + 0 + " time." ;
+      const text =  document.getElementById("text");
+      const cc = document.getElementById("cc");
+      const wow = document.getElementById("wow");
+
+
+      text.innerHTML = id[0];
+      cc.innerHTML = "You clicked " + 0 + " time." ;
  
       function change() {       
-      document.getElementById("text").innerHTML = id[++count % id.length];
+        text.innerHTML = id[++count % id.length];
 
         if(count == 1){
-          document.getElementById("cc").innerHTML = "You clicked " + count + " time." ;
+          cc.innerHTML = "You clicked " + count + " time." ;
         }
         else{
-          document.getElementById("cc").innerHTML = "You clicked " + count + " times." ;
-        }
-      
+          cc.innerHTML = "You clicked " + count + " times." ;
+        }   
 
-        if(count === 40){
-          document.getElementById("wow").innerHTML = "Fun to click, yeah...";
+        if(count == 40){
+          wow.innerHTML = "Fun to click, yeah...";
         }
-
-      
 
       }
-
 
     </script>
 
