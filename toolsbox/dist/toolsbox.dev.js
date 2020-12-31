@@ -81,7 +81,8 @@ function saveValue() {
   option.text = k;
   savedText.add(option); //add to box
 
-  text0.innerHTML = text1.innerHTML = text2.innerHTML = input.value = "";
+  text0.innerHTML = text1.innerHTML = text2.innerHTML = "&nbsp";
+  input.value = "";
 }
 
 function updateSave() {
@@ -90,7 +91,8 @@ function updateSave() {
 }
 
 function delSelected() {
-  var index = savedText.selectedIndex;
+  var index = savedText.selectedIndex >= 0 ? savedText.selectedIndex : 0; //default delete top item
+
   savedText.remove(index); //remove the selected index item from box
 
   total.splice(index, 1); //remove one elements from array
