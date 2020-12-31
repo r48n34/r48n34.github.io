@@ -75,7 +75,7 @@ function saveValue() {
 
   console.log(total);
   updateSave();
-  var k = "Values(" + types + ") = " + values + "  " + stringOne + "  " + stringTwo;
+  var k = "Values (" + types + ") = " + values + "  " + stringOne + "  " + stringTwo;
   var option = document.createElement("option"); //new option object
 
   option.text = k;
@@ -155,4 +155,4 @@ document.addEventListener("keyup", function (event) {
   if (event.keyCode === 13) {
     saveValue();
   }
-}); //console.log(decToBin(43) + " " + decToHex(69) + " " + binToDec(1010100110) + " " + hexToDec("FF") +" " + binToHex(1101011) +" " + hexToBin("F0"));
+});
