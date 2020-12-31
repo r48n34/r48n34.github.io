@@ -11,6 +11,20 @@ var types = ""; // Current types
 
 var currValues = 0; //current values in DEC
 
+var typesOption = document.getElementById("typesOption"); //data types options
+
+var input = document.getElementById("inputOne"); // Input Box
+
+var text0 = document.getElementById("text0"); // Input value (Input Box)
+
+var text1 = document.getElementById("text1"); // Second input value
+
+var text2 = document.getElementById("text2"); // Third input value
+
+var savedText = document.getElementById("savedText"); //select box
+
+var totalVal = document.getElementById("totalVal"); // Tota value op
+
 function decToBin(num) {
   // 10 to 2
   return num.toString(2);
@@ -54,32 +68,30 @@ function printAll(num) {
 
 function saveValue() {
   //save value to below
-  var values = document.getElementById("inputOne").value; //let index = document.getElementById("typesOption").selectedIndex;
+  var values = input.value;
+  total.push(currValues); //add to array
 
   totalValue += currValues; //update totalvalue 
 
-  total.push(currValues); //add to array
-
   console.log(total);
   updateSave();
-  var k = "Values(" + types + ") = " + values + "  " + stringOne + "  " + stringTwo; //let j = "Total value = " + totalValue + " Bin = " + decToBin(totalValue) + "  Hex = " +  decToHex(totalValue);
-
+  var k = "Values(" + types + ") = " + values + "  " + stringOne + "  " + stringTwo;
   var option = document.createElement("option"); //new option object
 
   option.text = k;
-  var x = document.getElementById("savedText");
-  x.add(option); //add to box
+  savedText.add(option); //add to box
+
+  text0.innerHTML = text1.innerHTML = text2.innerHTML = input.value = "";
 }
 
 function updateSave() {
   // current data types + current value
-  // document.getElementById("sv").innerHTML += "Values(" + types +") = "+ values + "  " + stringOne + "  "+ stringTwo + "<br>";
-  document.getElementById("totalVal").innerHTML = "Total value = " + totalValue + " Bin = " + decToBin(totalValue) + "  Hex = " + decToHex(totalValue); //console.log(total);
+  totalVal.innerHTML = "Total value = " + totalValue + " Bin = " + decToBin(totalValue) + "  Hex = " + decToHex(totalValue);
 }
 
 function delSelected() {
-  var index = document.getElementById("savedText").selectedIndex;
-  document.getElementById("savedText").remove(index); //remove the selected index item from box
+  var index = savedText.selectedIndex;
+  savedText.remove(index); //remove the selected index item from box
 
   total.splice(index, 1); //remove one elements from array
 
@@ -92,24 +104,22 @@ function delSelected() {
 
 function clearAllSv() {
   //clear all values
-  document.getElementById("sv").innerHTML = "";
-  document.getElementById("totalVal").innerHTML = "";
+  totalVal.innerHTML = "";
   totalValue = 0;
   total = [];
-  var x = document.getElementById("savedText");
-  var k = x.length;
+  var k = savedText.length; //fixed value
 
   for (var i = 0; i < k; i++) {
     //clear all options from box
-    x.remove(0);
+    savedText.remove(0);
   }
 }
 
 function updateMe() {
   //change when ever data typed
-  var values = document.getElementById("inputOne").value; //get values from "inputOne", assume the input is correct
+  var values = input.value; //get values from "inputOne", assume the input is correct
 
-  var index = document.getElementById("typesOption").selectedIndex; // 0 = dec, 1 = Bin, 2 = Hex
+  var index = typesOption.selectedIndex; // 0 = dec, 1 = Bin, 2 = Hex
 
   if (index == 0) {
     // Is a dec
@@ -117,8 +127,6 @@ function updateMe() {
     console.log(decToBin(values) + " " + decToHex(values));
     stringOne = "Bin = " + decToBin(values);
     stringTwo = "Hex = " + decToHex(values);
-    document.getElementById("text1").innerHTML = stringOne;
-    document.getElementById("text2").innerHTML = stringTwo;
     types = "Dec";
     currValues = parseInt(values, 10);
   } else if (index == 1) {
@@ -126,8 +134,6 @@ function updateMe() {
     console.log(binToDec(values) + " " + binToHex(values));
     stringOne = "Dec = " + binToDec(values);
     stringTwo = "Hex = " + binToHex(values);
-    document.getElementById("text1").innerHTML = stringOne;
-    document.getElementById("text2").innerHTML = stringTwo;
     types = "Bin";
     currValues = binToDec(values);
   } else {
@@ -135,14 +141,13 @@ function updateMe() {
     console.log(hexToBin(values) + " " + hexToDec(values));
     stringOne = "Bin = " + hexToBin(values);
     stringTwo = "Dec = " + hexToDec(values);
-    document.getElementById("text1").innerHTML = stringOne;
-    document.getElementById("text2").innerHTML = stringTwo;
     types = "Hex";
     currValues = hexToDec(values);
   }
 
-  document.getElementById("text0").innerHTML = "Input value = " + values; //printAll(values);
-
+  text0.innerHTML = "Input value = " + values;
+  text1.innerHTML = stringOne;
+  text2.innerHTML = stringTwo;
   console.log(index);
 }
 
