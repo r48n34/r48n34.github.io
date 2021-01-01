@@ -26,19 +26,14 @@ inputElement.addEventListener("change", handleFiles, false);
 function handleFiles() {
   var fileList = this.files;
   var file = fileList[0];
+
+  if (file == null) {
+    return;
+  }
+
   btn.style.display = btn.style.display = btj.style.display = rn.style.display = "none";
   load.innerHTML = "Loading";
   mes.innerHTML = "";
-  /*
-  if(file.type.match('image.*')){ // if it's a image type, not in use
-        const reader = new FileReader();        
-      reader.addEventListener('load', event => {
-          output.src = event.target.result;
-      });
-        reader.readAsDataURL(file);
-      return;
-  }
-  */
 
   if (file.type.match('text.html')) {
     // if it's a text type with html
