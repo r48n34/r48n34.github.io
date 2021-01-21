@@ -1,8 +1,8 @@
 "use strict";
 
 //Lazy to convert by hand, use js is better.
-var stringOne = "";
-var stringTwo = "";
+var stringOne = "",
+    stringTwo = "";
 var totalValue = 0; //Dec number in total sum
 
 var total = []; // each value saved 
