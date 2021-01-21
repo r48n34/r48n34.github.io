@@ -315,14 +315,9 @@
       function change() {       
         text.innerHTML = id[++count % id.length];
 
-        if(count == 1){
-          cc.innerHTML = "You clicked " + count + " time." ;
-        }
-        else{
-          cc.innerHTML = "You clicked " + count + " times." ;
-        }   
-
-        if(count == 40){
+        cc.innerHTML = count === 1 ? ("You clicked " + count + " time.") : ("You clicked " + count + " times.");
+        
+        if(count === 40){
           wow.innerHTML = "Fun to click, yeah...";
         }
 
