@@ -465,7 +465,7 @@
         //var tot = count.length - count.filter(x => x === 0).length;
         document.getElementById("cal").innerHTML = "Used counter : " + tot +" ("+ store+ ")" ;
         
-        if(tot == 0){ // No counter used, op N/A
+        if(tot === 0){ // No counter used, op N/A
           document.getElementById("maxer").innerHTML = "Max number : N/A"  ;
           document.getElementById("miner").innerHTML = "Min number : N/A"  ;
           return;  
