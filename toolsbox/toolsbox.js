@@ -1,6 +1,5 @@
 //Lazy to convert by hand, use js is better.
-let stringOne = "";
-let stringTwo = "";
+let stringOne = "" , stringTwo = "";
 let totalValue = 0; //Dec number in total sum
 let total = []; // each value saved 
 
@@ -14,7 +13,7 @@ const text0 = document.getElementById("text0"); // Input value (Input Box)
 const text1 = document.getElementById("text1"); // Second input value
 const text2 = document.getElementById("text2"); // Third input value
 
-const savedText =document.getElementById("savedText"); //select box
+const savedText = document.getElementById("savedText"); //select box
 const totalVal = document.getElementById("totalVal"); // Tota value op
 
 
