@@ -16,13 +16,12 @@ let videoList = request.responseText.split("\n"); //Array list of the video list
 let classList = [];
 
 for(let i = 0; i < videoList.length ; i += 2){
-     let temp = new WebLink (videoList[i], videoList[i+1]);
-     classList.push(temp);
+     classList.push(new WebLink (videoList[i], videoList[i+1]));
 }
 
 //classList = request.responseText; // if file is a JSON type
 
-videoList = [];
+videoList = new Array();
 
 let playedVideo = [];//Played video list
 
