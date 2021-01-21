@@ -20,12 +20,11 @@ var videoList = request.responseText.split("\n"); //Array list of the video list
 var classList = [];
 
 for (var i = 0; i < videoList.length; i += 2) {
-  var temp = new WebLink(videoList[i], videoList[i + 1]);
-  classList.push(temp);
+  classList.push(new WebLink(videoList[i], videoList[i + 1]));
 } //classList = request.responseText; // if file is a JSON type
 
 
-videoList = [];
+videoList = new Array();
 var playedVideo = []; //Played video list
 
 var toppic = document.getElementById("pvv");
