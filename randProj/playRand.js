@@ -25,18 +25,38 @@ videoList = new Array();
 
 let playedVideo = [];//Played video list
 
+const time = request.getResponseHeader("Last-Modified").slice(4,25); //last mod time of txt
 const toppic = document.getElementById("pvv");
 const below = document.getElementById("lin");
 const data =  document.getElementById("tt"); 
- 
+
+function youTubeGetID(url){
+     url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+     return undefined !== url[2]?url[2].split(/[^0-9a-z_\-]/i)[0]:url[0];
+}
 
 function goRandom(){
-        
-     let num = Math.floor(Math.random() * classList.length); //rand num of the array        
-                
-     let vName = classList[num].webName;
-     let video = classList[num].webUrl;
-                    
+     
+     let num = Math.floor(Math.random() * classList.length);
+     let code = youTubeGetID(classList[num].webUrl);
+     validVideoId(code,classList[num]);
+          
+}
+
+function validVideoId(id,li) {    
+     var img = new Image();
+     img.src = "http://img.youtube.com/vi/" + id + "/mqdefault.jpg";
+     img.onload = function () {
+          this.width === 120 ? (below.innerHTML += li.webName.link(li.webUrl) + "[May invalid]" + "<br/>") : openVdo(li);                              
+     }
+
+}
+
+function openVdo(li){
+
+     let vName = li.webName;
+     let video = li.webUrl;
+
      window.open(video, '_blank'); //Play video in a new windows
      playedVideo.push(video);
  
@@ -44,11 +64,11 @@ function goRandom(){
  
      toppic.innerHTML = "Played Video : (" + playedVideo.length + ")";
      below.innerHTML += vName.link(video) + "<br/>";
-          
+     
 }
  
-function total(){
-     data.innerHTML = "last update(29/11/20) <br> Total Video currently = " + parseInt(classList.length, 10);  
+window.onload = function total(){
+     data.innerHTML = "last update: "+ time + "<br> Total Video = " + parseInt(classList.length, 10);  
 }
 
 document.addEventListener("keyup", function(event) {
@@ -56,5 +76,3 @@ document.addEventListener("keyup", function(event) {
         goRandom();
      }
 });
-
-  
