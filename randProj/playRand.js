@@ -40,6 +40,7 @@ function goRandom(){
      let num = Math.floor(Math.random() * classList.length);
      let code = youTubeGetID(classList[num].webUrl);
      validVideoId(code,classList[num]);
+    
           
 }
 
@@ -76,3 +77,6 @@ document.addEventListener("keyup", function(event) {
         goRandom();
      }
 });
+
+
+
