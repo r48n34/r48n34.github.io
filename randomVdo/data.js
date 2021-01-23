@@ -1,42 +1,39 @@
 // Video of the random list
-
-    //new method
-   var request = new XMLHttpRequest();
-   request.open('GET', 'data.txt', false);
-   request.send();
+let request = new XMLHttpRequest();
+request.open('GET', 'data.txt', false);
+request.send();
         
-   var videoList = request.responseText.split("\n"); //Array list of the video list
-   var playedVideo = [];//Played video list
+let videoList = request.responseText.split("\n"); //Array list of the video list
+let playedVideo = [];//Played video list
 
-   var count = 0;//Played counter
+const time = request.getResponseHeader("Last-Modified").slice(4,25);
 
-    //random to to a video
-    function goRandom(){
-        let num = Math.floor(Math.random() * videoList.length); //rand num of the array
+//random to to a video
+function goRandom(){
+    let num = Math.floor(Math.random() * videoList.length); //rand num of the array
         
-        window.open(videoList[num], '_blank'); //Play video in a new windows
-        playedVideo.push(videoList[num]);
-        count ++;
-
-        console.log(playedVideo);
-
-        var vName = videoList[num];
-
-        document.getElementById("pvv").innerHTML = "Played Video : (" + count + ")";
-        document.getElementById("lin").innerHTML += count + ": " + vName.link(videoList[num]) + "<br />";
-        
-
-    }
-
-    function total(){
-        document.getElementById("tt").innerHTML = "Video DB last update(23/11/20) <br> Total Video currently = " + videoList.length;  
-    }
+    window.open(videoList[num], '_blank'); //Play video in a new windows
+    playedVideo.push(videoList[num]);
     
-    document.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-            goRandom();
-        }
-        });
+    console.log(playedVideo);
+
+    let vName = videoList[num];
+
+    document.getElementById("pvv").innerHTML = "Played Video : (" + playedVideo.length + ")";
+    document.getElementById("lin").innerHTML += playedVideo.length + ": " + vName.link(videoList[num]) + "<br />";
+        
+}
+
+window.onload = function total(){
+    document.getElementById("tt").innerHTML = "Video DB last update: " + time 
+                                            + "<br> Total Video = " + videoList.length;  
+}
+    
+document.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        goRandom();
+    }
+    });
    
 
 
