@@ -24,42 +24,46 @@ var load = document.getElementById("loading");
 inputElement.addEventListener("change", handleFiles, false);
 
 function handleFiles() {
-  var fileList = this.files;
-  var file = fileList[0];
+  var file;
+  return regeneratorRuntime.async(function handleFiles$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          file = this.files[0];
 
-  if (file == null) {
-    return;
-  }
+          if (!(file == null)) {
+            _context.next = 3;
+            break;
+          }
 
-  btn.style.display = btn.style.display = btj.style.display = rn.style.display = "none";
-  load.innerHTML = "Loading";
-  mes.innerHTML = "";
+          return _context.abrupt("return");
 
-  if (file.type.match('text.html')) {
-    // if it's a text type with html
-    var word = "";
-    var reader = new FileReader();
-    reader.addEventListener('load', function (event) {
-      word = reader.result;
-    });
+        case 3:
+          btn.style.display = btn.style.display = btj.style.display = rn.style.display = "none";
+          load.innerHTML = "Loading";
+          mes.innerHTML = "";
+          file.type.match('text.html') ? read(file).then(function (word) {
+            fineWeb(word);
+          }) : load.innerHTML = "Wrong type!";
+          return _context.abrupt("return");
+
+        case 8:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, null, this);
+}
+
+function read(file) {
+  var reader = new FileReader();
+  return new Promise(function (resolve, reject) {
+    reader.onload = function () {
+      resolve(reader.result);
+    };
+
     reader.readAsText(file);
-    setTimeout(function () {
-      load.innerHTML += "..";
-    }, 1500); // loading animation
-
-    setTimeout(function () {
-      fineWeb(word);
-    }, 3000); //avoid race condition
-
-    return;
-  }
-
-  if (!file.type.match('text.html')) {
-    load.innerHTML = "Wrong type!";
-    return;
-  }
-
-  return;
+  });
 }
 
 function fineWeb(word) {
@@ -69,6 +73,7 @@ function fineWeb(word) {
 
   arr.forEach(function (t) {
     if (reg.test(t)) {
+      // t is a web link
       var n = findname(t);
       var r = findURL(t, t.search(reg));
       wordFinal += n + "\n" + r + "\n"; // name,\n,url,\n
