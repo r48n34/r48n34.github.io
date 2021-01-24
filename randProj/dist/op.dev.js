@@ -15,7 +15,7 @@ function firstFunction() {
   return new Promise(function (resolve, reject) {
     var y = 0;
     var request = new XMLHttpRequest();
-    request.open('GET', 'songWebText.txt', false); // if file is a raw txt with line
+    request.open('GET', 'testt.txt', false); // if file is a raw txt with line
 
     request.send();
     var videoList = request.responseText.split("\n"); //Array list of the video list
@@ -34,8 +34,7 @@ function firstFunction() {
 function youTubeGetID2(url) {
   return new Promise(function (resolve, reject) {
     url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-    var k = undefined !== url[2] ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
-    resolve(k);
+    undefined !== url[2] ? resolve(url[2].split(/[^0-9a-z_\-]/i)[0]) : resolve(url[0]);
   });
 }
 
@@ -79,12 +78,8 @@ function doing() {
 
         case 10:
           b = _context.sent;
-
-          if (b != 0) {
-            console.log(b);
-          }
-
           console.log(i);
+          b != 0 ? console.log(b) : console.log();
 
         case 13:
           i++;
@@ -92,6 +87,9 @@ function doing() {
           break;
 
         case 16:
+          console.log("hihihihi");
+
+        case 17:
         case "end":
           return _context.stop();
       }
