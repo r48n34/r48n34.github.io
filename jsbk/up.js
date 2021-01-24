@@ -20,53 +20,40 @@ const load = document.getElementById("loading");
 
 inputElement.addEventListener("change", handleFiles, false);
 
-function handleFiles() {
+async function handleFiles() {
  
-    const fileList = this.files;
-    const file = fileList[0];
-
-    if(file == null){
-        return; 
-    }
+    const file = this.files[0];
+    if(file == null) return;
 
     btn.style.display = btn.style.display = btj.style.display = rn.style.display = "none";
     load.innerHTML = "Loading";
     mes.innerHTML = "";
 
-    if(file.type.match('text.html')){ // if it's a text type with html
-        let word = "";    
-
-        const reader = new FileReader();           
-        reader.addEventListener('load', event => {
-            word = reader.result;
-
-        });
-      
-        reader.readAsText(file);
-        
-        setTimeout(() => { load.innerHTML += ".."; }, 1500); // loading animation
-        setTimeout(() => { fineWeb(word); }, 3000); //avoid race condition
-
-        return;
-    }
-
-    if(!file.type.match('text.html')){
-        load.innerHTML = "Wrong type!";
-        return;
-
-    }
-
+    file.type.match('text.html') ? ( read(file).then(word => {fineWeb(word)}) ) : (load.innerHTML = "Wrong type!");
+    
     return; 
        
+}
+
+function read(file){   
+    const reader = new FileReader();
+
+    return new Promise((resolve, reject) => {       
+        reader.onload = () => {
+            resolve(reader.result);
+        }; 
+        reader.readAsText(file);
+    });        
+    
 }
 
 function fineWeb(word){ // get url and name from a array 
 
     let reg = new RegExp("\\(?\\b(http://|www[.]|https://)[-A-Za-z0-9+&@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&@#/%=~_()|]");
-
     let arr = word.split("\n"); // splited array with "\n"
+
     arr.forEach(function(t){       
-        if(reg.test(t)){ 
+        if(reg.test(t)){ // t is a web link
 
             let n = findname(t);
             let r = findURL(t, t.search(reg));             
