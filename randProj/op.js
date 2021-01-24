@@ -12,7 +12,7 @@ function firstFunction() {
     return new Promise((resolve, reject) => {
         let y = 0
         var request = new XMLHttpRequest();
-        request.open('GET', 'songWebText.txt', false); // if file is a raw txt with line
+        request.open('GET', 'testt.txt', false); // if file is a raw txt with line
         request.send();
         
         let videoList = request.responseText.split("\n"); //Array list of the video list
@@ -24,7 +24,7 @@ function firstFunction() {
 
         videoList = new Array();
         
-        resolve(classList)
+        resolve(classList);
         
     })
 }
@@ -32,9 +32,8 @@ function firstFunction() {
 function youTubeGetID2(url){
     return new Promise((resolve, reject) =>{
         url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-        let k = undefined !== url[2] ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
-        resolve(k)
-    })
+        undefined !== url[2] ? resolve(url[2].split(/[^0-9a-z_\-]/i)[0]) : resolve(url[0]);
+    });
 
 }
 
@@ -46,8 +45,7 @@ function checkValid(id,li) {
          this.width === 120 ? resolve(0) : resolve(li);                              
         }
 
-
-    })
+    });
 
 }
   
@@ -55,18 +53,19 @@ function checkValid(id,li) {
 async function doing() {
     let result = await firstFunction();
 
-    for(let i = 0; i < result.length;i++){
+    for(let i = 0; i < result.length; i++){
+
         let a = await youTubeGetID2(result[i].webUrl);
         let b = await checkValid(a, result[i]);
-        if(b != 0){
-            console.log(b);
-        }
+
         console.log(i);
-        
+        b != 0 ? console.log(b) : console.log();       
 
     }
-    
 
-}; 
+    console.log("hihihihi");
+   
+};
+
 
 doing();
