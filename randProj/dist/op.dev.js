@@ -44,13 +44,14 @@ function checkValid(id, li) {
     img.src = "http://img.youtube.com/vi/" + id + "/mqdefault.jpg";
 
     img.onload = function () {
-      this.width === 120 ? resolve(0) : resolve(li);
+      this.width === 120 ? resolve(0) : resolve(1);
     };
   });
 }
 
 function doing() {
-  var result, i, a, b;
+  var result, filted, fail, _loop, i;
+
   return regeneratorRuntime.async(function doing$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -60,36 +61,27 @@ function doing() {
 
         case 2:
           result = _context.sent;
-          i = 0;
+          filted = [];
+          fail = [];
 
-        case 4:
-          if (!(i < result.length)) {
-            _context.next = 16;
-            break;
+          _loop = function _loop(i) {
+            console.log(i);
+            youTubeGetID2(result[i].webUrl).then(function (e) {
+              return checkValid(e, result[i]);
+            }).then(function (b) {
+              b != 0 ? filted.push(result[i]) : fail.push(result[i]);
+            });
+          };
+
+          for (i = 0; i < result.length; i++) {
+            _loop(i);
           }
 
-          _context.next = 7;
-          return regeneratorRuntime.awrap(youTubeGetID2(result[i].webUrl));
-
-        case 7:
-          a = _context.sent;
-          _context.next = 10;
-          return regeneratorRuntime.awrap(checkValid(a, result[i]));
+          console.log(filted);
+          console.log("done");
+          console.log(fail);
 
         case 10:
-          b = _context.sent;
-          console.log(i);
-          b != 0 ? console.log(b) : console.log();
-
-        case 13:
-          i++;
-          _context.next = 4;
-          break;
-
-        case 16:
-          console.log("hihihihi");
-
-        case 17:
         case "end":
           return _context.stop();
       }
