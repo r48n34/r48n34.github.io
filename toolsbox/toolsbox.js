@@ -46,7 +46,7 @@ function justNumbers(str){ // Remove words
     return parseInt(nums);
 }
 
-function printAll(num){ //debug function
+function printAll(num){ 
     console.log(decToBin(num) + " " + decToHex(num) + " " + binToDec(num) + " " + hexToDec(num) +" " + binToHex(num) + " " + hexToBin(num));
 }
 
