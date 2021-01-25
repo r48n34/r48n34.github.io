@@ -77,7 +77,7 @@ function findname(str){ // Find names on bookmark
     let end = str.length - 4; // a data must end with </A>, hence -4
     let k = end;
 
-    while(k -- > 0){
+    while(k-- > 0){
         if(str.charAt(k) == '>' && str.charAt(k-1) == '"'){ // a data will be satrt with ">
             start = k + 1;
             break;
