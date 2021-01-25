@@ -42,7 +42,7 @@ function checkValid(id,li) {
         var img = new Image();
         img.src = "http://img.youtube.com/vi/" + id + "/mqdefault.jpg";
         img.onload = function () {
-         this.width === 120 ? resolve(0) : resolve(li);                              
+         this.width === 120 ? resolve(0) : resolve(1);                              
         }
 
     });
@@ -52,18 +52,22 @@ function checkValid(id,li) {
   
 async function doing() {
     let result = await firstFunction();
+    let filted = [];
+    let fail = []
 
     for(let i = 0; i < result.length; i++){
-
-        let a = await youTubeGetID2(result[i].webUrl);
-        let b = await checkValid(a, result[i]);
-
         console.log(i);
-        b != 0 ? console.log(b) : console.log();       
+
+        youTubeGetID2(result[i].webUrl)
+        .then(e => checkValid(e, result[i]))
+        .then(b => {b != 0 ? filted.push(result[i]) : fail.push(result[i]) });
+             
 
     }
 
-    console.log("hihihihi");
+    console.log(filted);
+    console.log("done");
+    console.log(fail);
    
 };
 
