@@ -62,7 +62,6 @@ function justNumbers(str) {
 }
 
 function printAll(num) {
-  //debug function
   console.log(decToBin(num) + " " + decToHex(num) + " " + binToDec(num) + " " + hexToDec(num) + " " + binToHex(num) + " " + hexToBin(num));
 }
 
