@@ -14,7 +14,7 @@
        max-width: 1310px;  
      }
 
-     h1, h2{
+     h1, h2, h3{
          color: white;
      }
 
@@ -87,6 +87,13 @@
         color: white;
 
       }
+
+      .objSqu {
+        animation: MoveUpDownSqu 1s linear infinite;
+        position: relative;
+        color: white;
+
+      }
       
       @keyframes MoveUpDownNormal {
         0%, 100% {
@@ -127,6 +134,15 @@
           }
       }
 
+      @keyframes MoveUpDownSqu {
+        0%, 100% {
+            top: 60px;
+          }
+          50% {
+            top: 50px;
+          }
+      }
+
     
 
        
@@ -139,6 +155,9 @@
 
     <div class="container ccw" style="text-align: center;">
         <h1>Demonstrate of Accelerometer Movement pattens</h1>
+        <h3>As the axis move, we can see a movement pattens that come from certain actions. </h3>
+        <h3>By understandarding the moving pattens, we can judge players actions by simple data compare and data algorithm to know that whether player actions is a standard move or not.</h3>
+        <hr style="width: 100%; color: white; height: 2px; background-color:white;" />
         <h1>Sensor Movement in z-axis in ideal (Legs)</h1>
         <hr style="width: 100%; color: white; height: 2px; background-color:white;" />
         <br>
@@ -217,7 +236,7 @@
             <div class="col-md-4" >
                 <h2>Squat</h2>
                 <br><br><br><br>
-                <div style="color: white;">
+                <div style="color: white;" class="objSqu">
                     □□□
                     □□□
         
@@ -269,7 +288,7 @@
             <div class="col-md-4" >
                 <h2>Squat</h2>
                 <br><br><br><br>
-                <div style="color: white;" >
+                <div style="color: white;" class="objSqu">
                     □□□
                     □□□
         
