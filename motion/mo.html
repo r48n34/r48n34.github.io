@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+
+     .container.ccw {
+       max-width: 1310px;  
+     }
+
+     h1, h2{
+         color: white;
+     }
+
+     .objNor {
+        animation: MoveUpDownNormal 0.5s linear infinite;
+        position: relative;
+        color: white;
+
+      }
+
+      .objFast {
+        animation: MoveUpDownNormal 0.3s linear infinite;
+        position: relative;
+        color: white;
+
+      }
+
+      .objSlow {
+        animation: MoveUpDownNormal 0.7s linear infinite;
+        position: relative;
+        color: white;
+
+      }
+
+      .objPush {
+        animation: MoveUpDownNormal 1.4s linear infinite;
+        position: relative;
+        color: white;
+
+      }
+
+      .objJump {
+        animation: MoveUpDownJp 1s linear infinite;
+        position: relative;
+        color: white;
+
+      }
+
+      .objPunch {
+        animation: MoveUpDownJp 1s linear infinite;
+        position: relative;
+        color: white;
+
+      }
+
+      .objSit {
+        animation: MoveUpDownNormal 2.1s linear infinite;
+        position: relative;
+        color: white;
+
+      }
+
+      .objLL {
+        animation: MoveUpDownNormal 0.6s linear infinite;
+        position: relative;
+        color: white;
+
+      }
+
+      .objRR {
+        animation: MoveUpDownNormalInv 0.6s linear infinite;
+        position: relative;
+        color: white;
+
+      }
+
+      .objHan {
+        animation: MoveUpDownHalf 0.9s linear infinite;
+        position: relative;
+        color: white;
+
+      }
+      
+      @keyframes MoveUpDownNormal {
+        0%, 100% {
+          top: 50px;
+        }
+        50% {
+          top: 200px;
+        }
+      }
+
+      @keyframes MoveUpDownNormalInv {
+        0%, 100% {
+          top: 200px;
+        }
+        50% {
+          top: 50px;
+        }
+      }
+
+      @keyframes MoveUpDownJp {
+        0%, 100% {
+          top: 50px;
+        }
+        90% {
+          top: 200px;
+        }
+        95% {
+            top: 60px;
+        }
+      }
+
+      @keyframes MoveUpDownHalf {
+        0%, 100% {
+            top: 150px;
+          }
+          50% {
+            top: 50px;
+          }
+      }
+
+    
+
+       
+    </style>
+   
+
+    <title>motion</title>
+  </head>
+  <body style="background-color:#007BFF ;">
+
+    <div class="container ccw" style="text-align: center;">
+        <h1>Demonstrate of Accelerometer Movement pattens</h1>
+        <h1>Sensor Movement in z-axis in ideal (Legs)</h1>
+        <hr style="width: 100%; color: white; height: 2px; background-color:white;" />
+        <br>
+
+        <div class="row">
+
+            <div class="col-md-4" >
+                <h2>Walking</h2>
+                <div class="objSlow">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+
+            <div class="col-md-4" >
+                <h2>Slow running</h2>
+                <div class="objNor">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+
+            <div class="col-md-4" >
+                <h2>Fast running</h2>
+                <div class="objFast">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+           
+    
+    
+        </div>
+
+        
+
+        
+
+        
+       
+
+    </div> <!-- container end-->
+
+    <div class="container ccw" style="text-align: center;">
+        <br><br><br><br><br><br><br><br><br>
+
+
+        <div class="row">
+
+            <div class="col-md-4" >
+                <h2>Push up</h2>
+                <div class="objPush">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+
+            <div class="col-md-4" >
+                <h2>Jump</h2>
+                <div class="objJump">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+
+            <div class="col-md-4" >
+                <h2>Squat</h2>
+                <div style="color: white;">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+           
+    
+    
+        </div>
+
+        
+
+        
+
+        
+       
+
+    </div> <!-- container end-->
+
+    <div class="container ccw" style="text-align: center;">
+        <br><br><br><br><br><br><br><br><br>
+        <h1>Sensor Movement in ideal (Arms)</h1>
+        <hr style="width: 100%; color: white; height: 2px; background-color:white;" />
+
+
+        <div class="row">
+
+            <div class="col-md-4" >
+                <h2>Direct punch [x-axis]</h2>
+                <div class="objPunch">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+
+            <div class="col-md-4" >
+                <h2>Sit up [y-axis]</h2>
+                <div class="objSit">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+
+            <div class="col-md-4" >
+                <h2>Squat</h2>
+                <div style="color: white;" >
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+           
+    
+    
+        </div>
+
+        
+
+        
+
+        
+       
+
+    </div> <!-- container end-->
+
+    <div class="container ccw" style="text-align: center;">
+        <br><br><br><br><br><br><br><br><br>
+        <h1>Sensor Movement for complex action in ideal (Arms & legs)</h1>
+        <hr style="width: 100%; color: white; height: 2px; background-color:white;" />
+        <h1>High Knees</h1>
+
+        <div class="row">
+
+            <div class="col-md-4" >
+                <h2>Left legs [z-axis]</h2>
+                <div class="objLL">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+
+            <div class="col-md-4" >
+                <h2>right legs [z-axis]</h2>
+                <div class="objRR">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+
+            <div class="col-md-4" >
+                <h2>arms [z-axis]</h2>
+                <div style="color: white;" class="objHan">
+                    □□□
+                    □□□
+        
+                </div>
+    
+            </div>
+           
+    
+    
+        </div>
+
+        
+
+        
+
+        
+       
+
+    </div> <!-- container end-->
+
+
+    <div class="container ccw" style="text-align: center;">
+        <br><br><br><br><br><br><br><br><br>
+    </div>
+
+    
+
+
+   
+
+ 
+
+    
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+ 
+    <script src="move.js"></script>
+
+ 
+ 
+
+  </body>
+</html>
