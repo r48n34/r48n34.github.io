@@ -11,7 +11,7 @@ function WebLink2(name, url) {
   this.webUrl = url;
 };
 
-function firstFunction() {
+function getInfo() {
   return new Promise(function (resolve, reject) {
     var y = 0;
     var request = new XMLHttpRequest();
@@ -57,7 +57,7 @@ function doing() {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return regeneratorRuntime.awrap(firstFunction());
+          return regeneratorRuntime.awrap(getInfo());
 
         case 2:
           result = _context.sent;
@@ -75,13 +75,12 @@ function doing() {
 
           for (i = 0; i < result.length; i++) {
             _loop(i);
-          }
+          } //console.log(filted);
+          //console.log("done");
+          //console.log(fail);
 
-          console.log(filted);
-          console.log("done");
-          console.log(fail);
 
-        case 10:
+        case 7:
         case "end":
           return _context.stop();
       }
