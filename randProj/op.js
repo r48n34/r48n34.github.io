@@ -8,7 +8,7 @@ class WebLink2{ // class method to implementing
 
 }
 
-function firstFunction() {
+function getInfo() {
     return new Promise((resolve, reject) => {
         let y = 0
         var request = new XMLHttpRequest();
@@ -51,7 +51,7 @@ function checkValid(id,li) {
   
   
 async function doing() {
-    let result = await firstFunction();
+    let result = await getInfo();
     let filted = [];
     let fail = []
 
@@ -65,9 +65,9 @@ async function doing() {
 
     }
 
-    console.log(filted);
-    console.log("done");
-    console.log(fail);
+    //console.log(filted);
+    //console.log("done");
+    //console.log(fail);
    
 };
 
