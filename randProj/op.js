@@ -1,4 +1,6 @@
 //Script to get all vaild available url from txt
+//old version, new on other project
+
 class WebLink2{ // class method to implementing
      
     constructor(name, url){  
@@ -10,7 +12,6 @@ class WebLink2{ // class method to implementing
 
 function getInfo() {
     return new Promise((resolve, reject) => {
-        let y = 0
         var request = new XMLHttpRequest();
         request.open('GET', 'testt.txt', false); // if file is a raw txt with line
         request.send();
@@ -65,9 +66,9 @@ async function doing() {
 
     }
 
-    //console.log(filted);
-    //console.log("done");
-    //console.log(fail);
+    console.log("done");
+    console.log("success array = " + filted); 
+    console.log("failed array = " + fail);
    
 };
 
