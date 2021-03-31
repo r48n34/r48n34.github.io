@@ -22,7 +22,7 @@
           color: #FFFFFF;
         }
 
-        #stageOne, #stagePage, #stageTwo, #stageThree{
+        #stageOne, #stagePage, #stageTwo, #stageThree, #ending{
             display: none;
         }
 
@@ -52,7 +52,7 @@
         }
 
         @keyframes rythms {
-            0%   { bottom: 0; }
+            0%   { bottom: -300px; }
             100% { bottom: 100%; }
         }
 
@@ -79,20 +79,20 @@
         </div>
 
         <div id="stagePage">
-            <h1 style="font-size: 140px; text-align: center;" id="stageMessage"></h1>
+            <h1 style="font-size: 160px; text-align: center;" id="stageMessage"></h1>
             
         </div>
 
         <div id ="stageOne">
-            <h1 style="font-size: 110px;">Keep Running!</h1>
-            <img src="img/rikujou_man_tankyori.png" width="300" height="300"alt="" id="runppl">
+            <h1 style="font-size: 110px; margin-top: 12px;" >Keep Running!</h1>
+            <img src="img/rikujou_man_tankgyori.gif" width="300" height="300"alt="" id="runppl">
             <hr style="width: 90%; color: white; height: 2px; background-color:white;" >
-            <h1 id="stageOneTimer"></h1>
+            <h1 id="stageOneTimer" style="font-size: 60px;"></h1>
             
         </div>
 
         <div id="stageTwo" style="text-align: center;">
-            <h1 id="twoTopMessgae"></h1>
+            <h1 id="twoTopMessgae" style="margin-top: 20px; font-size: 60px;"></h1>
             <div id="actionPic">
             </div>
             <h1 id="picMessage"></h1>
@@ -109,22 +109,22 @@
                 </div>
 
                 <div class="col-md-2" id="leftArr">
-                    <img src="img/left.png" width="200" height="200"alt="">
+                    <img src="img/left.png" width="180" height="180"alt="">
         
                 </div>
 
                 <div class="col-md-2" id="downArr">
-                    <img src="img/down.png" width="200" height="200"alt="">
+                    <img src="img/down.png" width="180" height="180"alt="">
         
                 </div>
 
                 <div class="col-md-2" id="upArr">
-                    <img src="img/up.png" width="200" height="200"alt="">
+                    <img src="img/up.png" width="180" height="180"alt="">
         
                 </div>
 
                 <div class="col-md-2" id="rightArr">
-                    <img src="img/right.png" width="200" height="200"alt="">
+                    <img src="img/right.png" width="180" height="180"alt="">
         
                 </div>
 
@@ -139,21 +139,16 @@
 
         </div>
 
-
-        
-       
-
+        <div id="ending" style="text-align: center;">
+            <h1 style="font-size: 160px; margin-top: 20px;"> Done! </h1>
+            <h1 style="font-size: 160px;"> Nice work! </h1>
+        </div>
 
 
 
 
     </div>
 
-
-    
-
-
-    
 
 
     <div class="footer fixed-bottom">

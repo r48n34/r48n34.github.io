@@ -1,20 +1,25 @@
+//main pages
 const mainPage = document.getElementById("mainPage");
 const startBtnEasy = document.getElementById("startBtnEasy");
 const startBtnHard = document.getElementById("startBtnHard");
 
+//stages transition
 const stagePage = document.getElementById("stagePage");
 const stageMessage = document.getElementById("stageMessage");
 
+//stage 1
 const stageOne = document.getElementById("stageOne");
 const runppl = document.getElementById("runppl");
 const stageOneTimer = document.getElementById("stageOneTimer");
 
+//stage 2
 const stageTwo = document.getElementById("stageTwo");
 const actionPic = document.getElementById("actionPic");
 const sTwoCount = document.getElementById("sTwoCount");
 const twoTopMessgae = document.getElementById("twoTopMessgae");
 const picMessage = document.getElementById("picMessage");
 
+//stage 3
 const stageThree = document.getElementById("stageThree");
 const threeTimer = document.getElementById("threeTimer");
 const leftArr = document.getElementById("leftArr");
@@ -23,6 +28,10 @@ const upArr = document.getElementById("upArr");
 const rightArr = document.getElementById("rightArr");
 const moveAct = document.getElementById("moveAct");
 
+//end
+const ending = document.getElementById("ending");
+
+//sound
 const bgmFx = new Audio('music/bgm.mp3');
 const readyFx = new Audio('music/ready.mp3');
 const goFx = new Audio('music/goo.mp3');
@@ -35,9 +44,10 @@ function controlBgm(){
     bgmPlaying ? bgmFx.play(): bgmFx.pause();
 }
 
-let stagePosition = 0;
 
-let times = 0;
+let stagePosition = 0; // current stage
+
+let times = 0; // share timer
 let isRunning = false;
 
 //stage 1 running time
@@ -53,7 +63,7 @@ let actionInverted = 8;
 //stage 3 variables
 let arrowImg = ["left.png", "down.png", "up.png", "right.png"];
 let arrowAction = ["pointLeft.png", "pointDown.png", "pointUp.png", "pointRight.png"];
-let musictime = 40;
+let endMusicTime = 40;
 
 
 var interval = setInterval(function() { // timer function
@@ -131,8 +141,8 @@ var interval = setInterval(function() { // timer function
                 console.log(srcName);               
 
                 img.src = srcName;
-                img.width = "200";
-                img.height = "200";            
+                img.width = "180";
+                img.height = "180";            
 
                 let arrName = "a" + times;
                 img.id = arrName
@@ -168,6 +178,14 @@ var interval = setInterval(function() { // timer function
                 
             }
 
+            if(times == endMusicTime){
+                isRunning = false;
+                times = 0;
+                endPage();
+
+
+            }
+
 
 
         }
@@ -200,7 +218,7 @@ startBtnHard.onclick = function() {
     doingtime = 50;
     actionInverted = 4;
 
-    musictime = 60;
+    endMusicTime = 60;
 
     goStage(1,mainPage);
     setTimeout(stageOneGame, 4000);
@@ -229,7 +247,8 @@ function stageTwoGame(){ //stage 2 game start function
     var img = document.createElement('img');
     let num = Math.floor(Math.random() * actionImg.length);
     let srcName = "img/" + actionImg[num];
-    console.log(srcName);   
+    console.log(srcName);
+    picMessage.innerHTML = textDescript[num];  
 
     img.height = "400";
 
@@ -248,3 +267,9 @@ function stageThreeGame(){ //stage 1 game start function
     threeTimer.innerHTML = "0 sec";
 
 }
+
+function endPage(){
+    stageThree.style.display = "none";
+    ending.style.display = "block";
+}
+
