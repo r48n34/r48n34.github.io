@@ -13,6 +13,7 @@ const stageTwo = document.getElementById("stageTwo");
 const actionPic = document.getElementById("actionPic");
 const sTwoCount = document.getElementById("sTwoCount");
 const twoTopMessgae = document.getElementById("twoTopMessgae");
+const picMessage = document.getElementById("picMessage");
 
 const stageThree = document.getElementById("stageThree");
 const threeTimer = document.getElementById("threeTimer");
@@ -20,7 +21,19 @@ const leftArr = document.getElementById("leftArr");
 const downArr = document.getElementById("downArr");
 const upArr = document.getElementById("upArr");
 const rightArr = document.getElementById("rightArr");
+const moveAct = document.getElementById("moveAct");
 
+const bgmFx = new Audio('music/bgm.mp3');
+const readyFx = new Audio('music/ready.mp3');
+const goFx = new Audio('music/goo.mp3');
+
+bgmFx.play();
+let bgmPlaying = true;
+
+function controlBgm(){
+    bgmPlaying = !bgmPlaying;
+    bgmPlaying ? bgmFx.play(): bgmFx.pause();
+}
 
 let stagePosition = 0;
 
@@ -32,13 +45,16 @@ let runningtime = 20;
 
 //stage 2 variables
 let actionImg = ["kintore_ojisan.png","walk_boy_run.png", "banzai_kids_girl2.png", "fashion_outdoor_girl.png", "undou_sports_family_haha_musume.png","sick_alcohol_chudoku.png","tabako_denshi_ojisan.png"]; //stage 2 patten
-let doingtime = 30;
+let textDescript = ["Lifting" , "Run", "Jump", "roller","bending", "Don't drink!","No smoking!"];
+let doingtime = 50;
 let preNum = 0;
-let actionInverted = 6;
+let actionInverted = 8;
 
 //stage 3 variables
 let arrowImg = ["left.png", "down.png", "up.png", "right.png"];
+let arrowAction = ["pointLeft.png", "pointDown.png", "pointUp.png", "pointRight.png"];
 let musictime = 40;
+
 
 var interval = setInterval(function() { // timer function
     if (isRunning) {
@@ -83,6 +99,8 @@ var interval = setInterval(function() { // timer function
                     twoTopMessgae.innerHTML = "Hold!";
                 }
 
+                picMessage.innerHTML = textDescript[num];
+
                 preNum = num;
                 
 
@@ -121,8 +139,18 @@ var interval = setInterval(function() { // timer function
 
                 img.className += "moveArrow";
 
+                /////////////moveAct
+                moveAct.innerHTML = "";
+                var imgLeft = document.createElement('img');
+                let srcNameLeft = "img/" + arrowAction[num];
+
+                imgLeft.src = srcNameLeft;
+                imgLeft.width = "180";
+
+                moveAct.appendChild(imgLeft);
+
                 if(num == 0){
-                    leftArr.appendChild(img);            
+                    leftArr.appendChild(img);           
                 }
                 else if(num == 1){
                     downArr.appendChild(img); 
@@ -153,8 +181,8 @@ function goStage(number, curPage){
     stageMessage.innerHTML = "Stage " + number + "<br>";
     stagePage.style.display = "block";
 
-    setTimeout(function(){ stageMessage.innerHTML += "Ready" + "<br>"; }, 1500);
-    setTimeout(function(){ stageMessage.innerHTML += "Go!" + "<br>"; }, 2500); // 4000 time
+    setTimeout(function(){ stageMessage.innerHTML += "Ready" + "<br>"; readyFx.play(); }, 1500);
+    setTimeout(function(){ stageMessage.innerHTML += "Go!" + "<br>"; goFx.play();}, 2200); // 4000 time
 
     setTimeout(function(){ stagePage.style.display = "none"; }, 4000);
 
@@ -169,7 +197,7 @@ startBtnEasy.onclick = function() {
 startBtnHard.onclick = function() {
     runningtime = 25;
 
-    doingtime = 45;
+    doingtime = 50;
     actionInverted = 4;
 
     musictime = 60;
