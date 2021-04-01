@@ -22,7 +22,7 @@
           color: #FFFFFF;
         }
 
-        #stageOne, #stagePage, #stageTwo, #stageThree, #ending{
+        #stageOne, #stagePage, #stageTwo, #stageThree, #stageFour, #ending{
             display: none;
         }
 
@@ -69,12 +69,14 @@
 
         <div id="mainPage" data-aos="fade-right">
 
-            <h1 style="font-size: 7vw; text-align: center; padding-top: 70px;" >健康生活大冒險!</h1>
+          <div style="text-align: center; margin-top: 20px;">
+            <img src="img/logogame-1.png" height="300" alt="">
+          </div>
 
-            <div style="text-align: center;">
-                <button style="font-size: 60px; margin-top: 12px; margin-right: 20px;" type="button" class="btn btn-light btn-lg" id="startBtnEasy">Easy</button>       
-                <button style="font-size: 60px; margin-top: 12px;" type="button" class="btn btn-light btn-lg" id="startBtnHard">Hard</button>
-            </div>
+          <div style="text-align: center;">
+            <button style="font-size: 60px; margin-top: 12px; margin-right: 20px;" type="button" class="btn btn-light btn-lg" id="startBtnEasy">Easy</button>       
+            <button style="font-size: 60px; margin-top: 12px;" type="button" class="btn btn-light btn-lg" id="startBtnHard">Hard</button>
+          </div>
 
         </div>
 
@@ -109,33 +111,66 @@
                 </div>
 
                 <div class="col-md-2" id="leftArr">
-                    <img src="img/left.png" width="180" height="180"alt="">
+                  <img src="img/left.png" width="180" height="180"alt="">
         
                 </div>
 
                 <div class="col-md-2" id="downArr">
-                    <img src="img/down.png" width="180" height="180"alt="">
+                  <img src="img/down.png" width="180" height="180"alt="">
         
                 </div>
 
                 <div class="col-md-2" id="upArr">
-                    <img src="img/up.png" width="180" height="180"alt="">
+                  <img src="img/up.png" width="180" height="180"alt="">
         
                 </div>
 
                 <div class="col-md-2" id="rightArr">
-                    <img src="img/right.png" width="180" height="180"alt="">
+                  <img src="img/right.png" width="180" height="180"alt="">
         
                 </div>
 
                 <div class="col-md-2" >
-                    <h1 id="threeTimer" style="padding-top: 30px;"></h1>
+                  <h1 id="sTwoCount"></h1>
+                  <h1 id="threeTimer" style="padding-top: 30px;"></h1>
         
                 </div>
         
         
         
               </div>
+
+        </div>
+
+        <div id="stageFour" style="text-align: center;">
+
+          <div class="row" style="margin-top: 30%;">
+
+            <div class="col-md-3">
+              <img src="img/normalB.png" width="230"  alt="" id="bushA">
+    
+            </div>
+
+            <div class="col-md-3">
+              <img src="img/normalB.png" width="230"  alt="" id="bushB">
+    
+            </div>
+
+            <div class="col-md-3">
+              <img src="img/normalB.png" width="230"  alt="" id="bushC">
+    
+            </div>
+
+            <div class="col-md-3" id="otherPos">
+              <h1 id="fourTimer"></h1>
+              <img src="img/wood_kanban.png" width="230" alt="">
+    
+            </div>
+
+    
+    
+    
+          </div>
 
         </div>
 

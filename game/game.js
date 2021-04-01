@@ -28,6 +28,10 @@ const upArr = document.getElementById("upArr");
 const rightArr = document.getElementById("rightArr");
 const moveAct = document.getElementById("moveAct");
 
+//stage 4
+const stageFour = document.getElementById("stageFour");
+const fourTimer = document.getElementById("fourTimer");
+
 //end
 const ending = document.getElementById("ending");
 
@@ -65,6 +69,11 @@ let arrowImg = ["left.png", "down.png", "up.png", "right.png"];
 let arrowAction = ["pointLeft.png", "pointDown.png", "pointUp.png", "pointRight.png"];
 let endMusicTime = 40;
 
+//stage 4 variables
+let specialBush = ["beerB.png","nosmoke2B.png","nosmokeB.png","smoke2B.png","smokeB.png"];
+let bId = ["bushA","bushB","bushC"];
+let st4Inverted = 3;
+let st4EndTime = 40;
 
 var interval = setInterval(function() { // timer function
     if (isRunning) {
@@ -133,7 +142,7 @@ var interval = setInterval(function() { // timer function
         else if(stagePosition == 3){
             threeTimer.innerHTML = times + " sec";
 
-            if(times % 3 == 0){
+            if(times % 3 == 0 || times == 1){
 
                 var img = document.createElement('img');
                 let num = Math.floor(Math.random() * arrowImg.length);
@@ -181,13 +190,44 @@ var interval = setInterval(function() { // timer function
             if(times == endMusicTime){
                 isRunning = false;
                 times = 0;
-                endPage();
+                //endPage();
+
+                setTimeout(goStage, 4000, 4 ,stageThree);
+                setTimeout(stageFourGame, 8000);
 
 
             }
 
 
 
+        }
+        else if(stagePosition == 4){
+
+            fourTimer.innerHTML = times;
+
+            if(times % st4Inverted == 0 || times == 1 ){
+                bId.forEach(e => document.getElementById(e).src = "img/normalB.png")
+
+                let ranBush = Math.floor(Math.random() * specialBush.length);
+                let ranThree = Math.floor(Math.random() * bId.length);
+
+                let location = "img/" + specialBush[ranBush];
+                console.log(location);
+
+                document.getElementById(bId[ranThree]).src = location;
+
+
+            }
+
+            if(times == st4EndTime){
+                isRunning = false;
+                times = 0;
+                fourTimer.innerHTML = "Done! Great!";
+                setTimeout(endPage, 4000);
+                //endPage();
+            }
+
+            
         }
                
     } 
@@ -219,6 +259,9 @@ startBtnHard.onclick = function() {
     actionInverted = 4;
 
     endMusicTime = 60;
+
+    st4Inverted = 2.5;
+    st4EndTime = 50;
 
     goStage(1,mainPage);
     setTimeout(stageOneGame, 4000);
@@ -268,8 +311,15 @@ function stageThreeGame(){ //stage 1 game start function
 
 }
 
+function stageFourGame(){ //stage 1 game start function
+    stagePosition = 4;
+    stageFour.style.display = "block";
+    isRunning = true;
+
+}
+
 function endPage(){
-    stageThree.style.display = "none";
+    stageFour.style.display = "none";
     ending.style.display = "block";
 }
 
