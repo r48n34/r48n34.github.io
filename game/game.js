@@ -48,7 +48,6 @@ function controlBgm(){
     bgmPlaying ? bgmFx.play(): bgmFx.pause();
 }
 
-
 let stagePosition = 0; // current stage
 
 let times = 0; // share timer
@@ -58,21 +57,21 @@ let isRunning = false;
 let runningtime = 20; 
 
 //stage 2 variables
-let actionImg = ["kintore_ojisan.png","walk_boy_run.png", "banzai_kids_girl2.png", "fashion_outdoor_girl.png", "undou_sports_family_haha_musume.png","sick_alcohol_chudoku.png","tabako_denshi_ojisan.png"]; //stage 2 patten
-let textDescript = ["Lifting" , "Run", "Jump", "roller","bending", "Don't drink!","No smoking!"];
+let actionImg = ["kintore_ojisan.png","walk_boy_run.png", "banzai_kids_girl2.png", "undou_sports_family_haha_musume.png", "sick_alcohol_chudoku.png", "tabako_denshi_ojisan.png", "taiiku_boushi_tate.png","ishi_keru_boy.png"]; //stage 2 patten
+let textDescript = ["Lifting" , "Run", "Jump", "Bending", "Drinking wine", "Smoking", "Marching", "Kicking"];
 let doingtime = 50;
 let preNum = 0;
-let actionInverted = 8;
+let actionInverted = 4;
 
 //stage 3 variables
 let arrowImg = ["left.png", "down.png", "up.png", "right.png"];
-let arrowAction = ["pointLeft.png", "pointDown.png", "pointUp.png", "pointRight.png"];
+let arrowAction = ["pointLeft.png","taiiku_suwari_boy.png", "pointUp.png", "pointRight.png"];
 let endMusicTime = 40;
 
 //stage 4 variables
 let specialBush = ["beerB.png","nosmoke2B.png","nosmokeB.png","smoke2B.png","smokeB.png"];
 let bId = ["bushA","bushB","bushC"];
-let st4Inverted = 3;
+let st4Inverted = 2;
 let st4EndTime = 40;
 
 var interval = setInterval(function() { // timer function
@@ -142,7 +141,7 @@ var interval = setInterval(function() { // timer function
         else if(stagePosition == 3){
             threeTimer.innerHTML = times + " sec";
 
-            if(times % 3 == 0 || times == 1){
+            if(times % 2 == 0 || times == 1){
 
                 var img = document.createElement('img');
                 let num = Math.floor(Math.random() * arrowImg.length);
@@ -256,11 +255,11 @@ startBtnHard.onclick = function() {
     runningtime = 25;
 
     doingtime = 50;
-    actionInverted = 4;
+    actionInverted = 3;
 
     endMusicTime = 60;
 
-    st4Inverted = 2.5;
+    st4Inverted = 1;
     st4EndTime = 50;
 
     goStage(1,mainPage);
