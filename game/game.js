@@ -39,8 +39,9 @@ const ending = document.getElementById("ending");
 const bgmFx = new Audio('music/bgm.mp3');
 const readyFx = new Audio('music/ready.mp3');
 const goFx = new Audio('music/goo.mp3');
+const clapp = new Audio('music/clap.mp3');
 
-bgmFx.play();
+//bgmFx.play();
 let bgmPlaying = true;
 
 function controlBgm(){
@@ -139,7 +140,7 @@ var interval = setInterval(function() { // timer function
 
         }
         else if(stagePosition == 3){
-            threeTimer.innerHTML = times + " sec";
+            threeTimer.innerHTML = times + " secs /" + endMusicTime + " secs";
 
             if(times % 2 == 0 || times == 1){
 
@@ -181,28 +182,23 @@ var interval = setInterval(function() { // timer function
                 }
                    
                 setTimeout(function(){ document.getElementById(arrName).style.display = "none"; }, 3000);
-
-
                 
             }
 
             if(times == endMusicTime){
                 isRunning = false;
                 times = 0;
-                //endPage();
 
                 setTimeout(goStage, 4000, 4 ,stageThree);
                 setTimeout(stageFourGame, 8000);
 
-
             }
-
 
 
         }
         else if(stagePosition == 4){
 
-            fourTimer.innerHTML = times;
+            fourTimer.innerHTML = times + " secs";
 
             if(times % st4Inverted == 0 || times == 1 ){
                 bId.forEach(e => document.getElementById(e).src = "img/normalB.png")
@@ -317,8 +313,16 @@ function stageFourGame(){ //stage 1 game start function
 
 }
 
+function mrefresh(){
+    window.location.reload();
+}
+
 function endPage(){
     stageFour.style.display = "none";
     ending.style.display = "block";
+    clapp.play();
+    console.log("refresh after 12s.");
+
+    setTimeout(mrefresh, 12000);
 }
 

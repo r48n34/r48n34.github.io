@@ -23,8 +23,26 @@
         }
 
         #stageOne, #stagePage, #stageTwo, #stageThree, #stageFour, #ending{
-            display: none;
+          display: none;
         }
+              
+        #keepText{
+          font-size: 7vw;
+          margin-top: 12px;
+
+          position: relative;
+          animation-name: shinning;
+          animation-duration: 3s;
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;
+
+        }
+
+        @keyframes shinning {
+          0%   {opacity: 1.0;}
+          50% {opacity: 0.6;}
+          100% {opacity: 1.0;}
+        }    
 
         .runningCss{
             position: relative;
@@ -35,7 +53,7 @@
             animation-fill-mode: forwards;
             animation-iteration-count: 6;
         }
-
+       
         @keyframes running {
             0%   {left:0;}
             100% {left:80%;}
@@ -69,35 +87,39 @@
         <div id="mainPage" data-aos="fade-right">
 
           <div style="text-align: center; margin-top: 20px;">
-            <img src="img/logogame-1.png" height="300" alt="">
+            <img src="img/logogame-1.png" width="90%" alt="">
           </div>
 
+          <hr style="width: 90%; color: white; height: 2px; background-color:white;" >
+
           <div style="text-align: center;">
-            <button style="font-size: 60px; margin-top: 12px; margin-right: 20px;" type="button" class="btn btn-light btn-lg" id="startBtnEasy">Easy</button>       
-            <button style="font-size: 60px; margin-top: 12px;" type="button" class="btn btn-light btn-lg" id="startBtnHard">Hard</button>
+            
+            <h1>Select difficulty</h1>
+            <button style="font-size: 4.5vw; margin-top: 12px; margin-right: 20px;" type="button" class="btn btn-light btn-lg" id="startBtnEasy"><i class="fas fa-hat-wizard"></i> Easy</button>       
+            <button style="font-size: 4.5vw; margin-top: 12px;" type="button" class="btn btn-light btn-lg" id="startBtnHard"> <i class="fas fa-book-dead"></i> Hard</button>
           </div>
 
         </div>
 
         <div id="stagePage">
-            <h1 style="font-size: 160px; text-align: center;" id="stageMessage"></h1>
+            <h1 style="font-size: 12vw; text-align: center;" id="stageMessage"></h1>
             
         </div>
 
         <div id ="stageOne">
-            <h1 style="font-size: 110px; margin-top: 12px;" >Keep Running!</h1>
-            <img src="img/rikujou_man_tankgyori.gif" width="300" height="300"alt="" id="runppl">
+            <h1 id="keepText">Keep Running!</h1>
+            <img src="img/rikujou_man_tankgyori.gif" width="30%" alt="" id="runppl">
             <hr style="width: 90%; color: white; height: 2px; background-color:white;" >
-            <h1 id="stageOneTimer" style="font-size: 60px;"></h1>
+            <h1 id="stageOneTimer" style="font-size: 5vw;"></h1>
             
         </div>
 
         <div id="stageTwo" style="text-align: center;">
-            <h1 id="twoTopMessgae" style="margin-top: 20px; font-size: 60px;"></h1>
-            <div id="actionPic">
-            </div>
-            <h1 id="picMessage"></h1>
-            <h1 id="sTwoCount"></h1>
+          <h1 id="twoTopMessgae" style="margin-top: 20px; font-size: 5vw"></h1>
+          <div id="actionPic">
+          </div>
+          <h1 id="picMessage" style="font-size: 5vw"></h1>
+          <h1 id="sTwoCount" style="font-size: 3.5vw"></h1>
 
         </div>
 
@@ -109,23 +131,23 @@
         
                 </div>
 
-                <div class="col-md-2" id="leftArr">
-                  <img src="img/left.png" width="180" height="180"alt="">
+                <div class="col-md-2 " id="leftArr">
+                  <img src="img/left.png" width="180" height="180" alt="">
         
                 </div>
 
                 <div class="col-md-2" id="downArr">
-                  <img src="img/down.png" width="180" height="180"alt="">
+                  <img src="img/down.png" width="180" height="180" alt="">
         
                 </div>
 
-                <div class="col-md-2" id="upArr">
-                  <img src="img/up.png" width="180" height="180"alt="">
+                <div class="col-md-2 " id="upArr">
+                  <img src="img/up.png" width="180" height="180" alt="">
         
                 </div>
 
                 <div class="col-md-2" id="rightArr">
-                  <img src="img/right.png" width="180" height="180"alt="">
+                  <img src="img/right.png" width="180" height="180" alt="">
         
                 </div>
 
@@ -161,8 +183,10 @@
             </div>
 
             <div class="col-md-3" id="otherPos">
-              <h1 id="fourTimer"></h1>
+                         
               <img src="img/wood_kanban.png" width="230" alt="">
+              <h1 id="fourTimer"></h1>
+              
     
             </div>
 
@@ -174,8 +198,9 @@
         </div>
 
         <div id="ending" style="text-align: center;">
-            <h1 style="font-size: 160px; margin-top: 20px;"> Done! </h1>
-            <h1 style="font-size: 160px;"> Nice work! </h1>
+          <h1 style="font-size: 8vw; margin-top: 5px;"> Done! </h1>
+          <img src="img/kunsyou2_blue.png" alt="" width="18%">
+          <h1 style="font-size: 8vw;"> Nice work! </h1>
         </div>
 
 
