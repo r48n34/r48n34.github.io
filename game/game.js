@@ -7,6 +7,23 @@ const startBtnHard = document.getElementById("startBtnHard");
 const stagePage = document.getElementById("stagePage");
 const stageMessage = document.getElementById("stageMessage");
 
+//cons
+const goCons = document.getElementById("goCons"); //button go this page
+const com = document.getElementById("com"); // div this page
+const consBack = document.getElementById("consBack"); // button back main
+const consPlay = document.getElementById("consPlay"); // button play
+const comErr = document.getElementById("comErr");
+
+const s1RunTime = document.getElementById("s1RunTime");
+
+const s2RunTime = document.getElementById("s2RunTime");
+const s2Inverted = document.getElementById("s2Inverted");
+
+const s3RunTime = document.getElementById("s3RunTime");
+
+const s4RunTime = document.getElementById("s4RunTime");
+const s4Inverted = document.getElementById("s4Inverted");
+
 //stage 1
 const stageOne = document.getElementById("stageOne");
 const runppl = document.getElementById("runppl");
@@ -263,6 +280,46 @@ startBtnHard.onclick = function() {
 
 }
 
+consPlay.onclick = function() {
+    co();  
+}
+
+function co(){
+    const idAll = [s1RunTime,s2RunTime,s2Inverted,s3RunTime,s4RunTime,s4Inverted];
+
+    for(let i = 0; i < idAll.length ; i++){
+
+        if(idAll[i].value <= 0){
+            comErr.innerHTML = "Value must bigger than 0.";
+            return;
+        }
+
+    }
+
+    runningtime = parseInt(s1RunTime.value,10);
+
+    doingtime = parseInt(s2RunTime.value,10);
+    actionInverted = parseInt(s2Inverted.value,10);
+
+    endMusicTime = parseInt(s3RunTime.value,10);
+
+    st4Inverted = parseInt(s4RunTime.value,10);
+    st4EndTime = parseInt(s4Inverted.value,10);
+ 
+    goStage(1,com);
+    setTimeout(stageOneGame, 4000);
+
+}
+
+goCons.onclick = function(){
+    mainPage.style.display = "none";
+    com.style.display = "block";
+}
+
+consBack.onclick = function(){
+    com.style.display = "none";
+    mainPage.style.display = "block"; 
+}
 
 
 function stageOneGame(){ //stage 1 game start function

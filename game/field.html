@@ -22,10 +22,6 @@
           color: #FFFFFF;
         }
 
-        #stageOne, #stagePage, #stageTwo, #stageThree, #stageFour, #ending{
-            display: none;
-        }
-
         .runningCss{
             position: relative;
             animation-name: running;
@@ -60,6 +56,12 @@
             height: 500px;
         }
 
+        input{
+          width: 150px;
+          height: 35px;
+          font-size: 35px;
+        }
+
 
     </style>
 
@@ -71,54 +73,33 @@
 
     <div class="container">
 
-        <div style="text-align: center;">
+      <div id="com">
 
-            <div class="row" style="width: 100%;">
+        <h1>Stage 1: (Running)</h1>
+        <h2>Running time <input type="number" id="s1RunTime"  min="1" value="15"></h2>
+        <br>
+        <h1>Stage 2: (Action)</h1>
+        <h2>Play Length <input type="number" id="s2RunTime"  min="1" value="50"></h2>
+        <h2>Inverted <input type="number" id="s2Inverted"  min="1" value="4"></h2>
+        <br>
+        <h1>Stage 3: (Dance)</h1>
+        <h2>Play Length <input type="number" id="s3RunTime"  min="1" value="40"></h2>
+        <br>
+        <h1>Stage 4: (Move)</h1>
+        <h2>Play Length <input type="number" id="s4RunTime"  min="1" value="40"></h2>
+        <h2>Inverted <input type="number" id="s4Inverted"  min="1" value="2"></h2>
+        <h2 id="comErr"></h2>
+        <button style="font-size: 2vw; margin-top: 12px; margin-right: 20px;" type="button" class="btn btn-light btn-lg" id="consBack"><i class="fas fa-arrow-left"></i> Back</button>       
+        <button style="font-size: 2vw; margin-top: 12px; margin-right: 20px;" type="button" class="btn btn-light btn-lg" id="consPlay"><i class="fas fa-hat-wizard"></i> Play</button>       
 
-                <div class="col-md-2" id="moveAct" style="padding-top: 30px;">
         
-                </div>
-                
-
-                <div class="col-md-2 " id="leftArr" style="width: 100%;">
-                  <img src="img/left.png" width="180" height="180" alt="">
-        
-                </div>
-
-                <div class="vl"></div>
-
-                <div class="col-md-2" id="downArr">
-                  <img src="img/down.png" width="180" height="180"alt="">
-        
-                </div>
-
-                <div class="vl"></div>
-
-                <div class="col-md-2 " id="upArr" >
-                  <img src="img/up.png" width="180" height="180"alt="">
-        
-                </div>
-
-                <div class="vl"></div>
-
-                <div class="col-md-2" id="rightArr">
-                  <img src="img/right.png" width="180" height="180"alt="">
-        
-                </div>
-
-                <div class="col-md-2" >
-                  <h1 id="sTwoCount"></h1>
-                  <h1 id="threeTimer" style="padding-top: 30px;"></h1>
-        
-                </div>
-        
-        
-        
-              </div>
 
 
 
-        </div>
+      </div>
+
+
+      
 
 
 
@@ -131,7 +112,7 @@
       <nav class="navbar navbar-expand-sm navbar-light">
         <ul class="navbar-nav">
           <li class="nav-item " >
-            <h1 style="font-size: 20px;">健康生活大冒險</h1>
+            <h1 style="font-size: 15px;">健康生活大冒險</h1>
             <button style="font-size: 15px;" type="button" class="btn btn-light btn-lg" onclick="controlBgm()">&#9658; / &#9632;</button>
   
             
