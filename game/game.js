@@ -88,7 +88,7 @@ let endMusicTime = 40;
 //stage 4 variables
 let specialBush = ["beerB.png","nosmoke2B.png","nosmokeB.png","smoke2B.png","smokeB.png"];
 let bId = ["bushA","bushB","bushC"];
-let st4Inverted = 2;
+let st4Inverted = 4;
 let st4EndTime = 40;
 
 var interval = setInterval(function() { // timer function
@@ -271,7 +271,7 @@ startBtnHard.onclick = function() {
 
     endMusicTime = 60;
 
-    st4Inverted = 1;
+    st4Inverted = 3;
     st4EndTime = 50;
 
     goStage(1,mainPage);
