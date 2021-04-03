@@ -1,64 +1,63 @@
 //main pages
-const mainPage = document.getElementById("mainPage");
-const startBtnEasy = document.getElementById("startBtnEasy");
-const startBtnHard = document.getElementById("startBtnHard");
+const mainPage = document.getElementById("mainPage"); // div
+const startBtnEasy = document.getElementById("startBtnEasy"); // button easy
+const startBtnHard = document.getElementById("startBtnHard"); // button hard
+const goCons = document.getElementById("goCons"); // button go this page
 
 //stages transition
-const stagePage = document.getElementById("stagePage");
-const stageMessage = document.getElementById("stageMessage");
+const stagePage = document.getElementById("stagePage"); // div
+const stageMessage = document.getElementById("stageMessage"); // text
 
 //cons
-const goCons = document.getElementById("goCons"); //button go this page
 const com = document.getElementById("com"); // div this page
 const consBack = document.getElementById("consBack"); // button back main
 const consPlay = document.getElementById("consPlay"); // button play
-const comErr = document.getElementById("comErr");
+const comErr = document.getElementById("comErr"); // error message
 
-const s1RunTime = document.getElementById("s1RunTime");
-
+const s1RunTime = document.getElementById("s1RunTime"); // input box
 const s2RunTime = document.getElementById("s2RunTime");
 const s2Inverted = document.getElementById("s2Inverted");
-
 const s3RunTime = document.getElementById("s3RunTime");
-
 const s4RunTime = document.getElementById("s4RunTime");
 const s4Inverted = document.getElementById("s4Inverted");
 
 //stage 1
-const stageOne = document.getElementById("stageOne");
-const runppl = document.getElementById("runppl");
-const stageOneTimer = document.getElementById("stageOneTimer");
+const stageOne = document.getElementById("stageOne"); //div
+const runppl = document.getElementById("runppl"); //img
+const stageOneTimer = document.getElementById("stageOneTimer"); //text
 
 //stage 2
-const stageTwo = document.getElementById("stageTwo");
-const actionPic = document.getElementById("actionPic");
-const sTwoCount = document.getElementById("sTwoCount");
-const twoTopMessgae = document.getElementById("twoTopMessgae");
-const picMessage = document.getElementById("picMessage");
+const stageTwo = document.getElementById("stageTwo"); //div
+const actionPic = document.getElementById("actionPic"); // div of img container
+const sTwoCount = document.getElementById("sTwoCount"); // text
+const twoTopMessgae = document.getElementById("twoTopMessgae"); // text
+const picMessage = document.getElementById("picMessage"); // text
 
 //stage 3
-const stageThree = document.getElementById("stageThree");
-const threeTimer = document.getElementById("threeTimer");
-const leftArr = document.getElementById("leftArr");
+const stageThree = document.getElementById("stageThree"); //div
+const threeTimer = document.getElementById("threeTimer"); //text
+
+const leftArr = document.getElementById("leftArr"); //img pos div
 const downArr = document.getElementById("downArr");
 const upArr = document.getElementById("upArr");
 const rightArr = document.getElementById("rightArr");
-const moveAct = document.getElementById("moveAct");
+
+const moveAct = document.getElementById("moveAct"); // cartoon div container
 
 //stage 4
-const stageFour = document.getElementById("stageFour");
-const fourTimer = document.getElementById("fourTimer");
+const stageFour = document.getElementById("stageFour"); // div
+const fourTimer = document.getElementById("fourTimer"); // text
 
 //end
-const ending = document.getElementById("ending");
+const ending = document.getElementById("ending"); // div
 
 //sound
-const bgmFx = new Audio('music/bgm.mp3');
-const readyFx = new Audio('music/ready.mp3');
-const goFx = new Audio('music/goo.mp3');
-const clapp = new Audio('music/clap.mp3');
+const bgmFx = new Audio('music/bgm.mp3'); // bgm
+const readyFx = new Audio('music/ready.mp3'); // ready
+const goFx = new Audio('music/goo.mp3'); // go
+const clapp = new Audio('music/clap.mp3'); // end clap
 
-//bgmFx.play();
+bgmFx.play();
 let bgmPlaying = true;
 
 function controlBgm(){
@@ -382,4 +381,3 @@ function endPage(){
 
     setTimeout(mrefresh, 12000);
 }
-
