@@ -106,7 +106,7 @@ var interval = setInterval(function() { // timer function
 function stageOneLoop(){
     stageOneTimer.innerHTML = times + "/" + runningtime + " seconds";
 
-    if(times == runningtime + 1){
+    if(times == runningtime + 1){ // done
         isRunning = false;
         times = 0;
         stageOneTimer.innerHTML = "Done! Great!"
@@ -127,8 +127,6 @@ function stageTwoLoop(){
         console.log(srcName);
 
         img.height = "400";
-
-
         img.src = srcName;
 
         actionPic.appendChild(img);
@@ -162,6 +160,8 @@ function stageTwoLoop(){
 
 }
 
+let threeHelper = [leftArr,downArr,upArr,rightArr];
+
 function stageThreeLoop(){
     threeTimer.innerHTML = times + " secs /" + endMusicTime + " secs";
 
@@ -191,18 +191,8 @@ function stageThreeLoop(){
 
         moveAct.appendChild(imgLeft);
 
-        if(num == 0){
-            leftArr.appendChild(img);           
-        }
-        else if(num == 1){
-            downArr.appendChild(img); 
-        }
-        else if(num == 2){
-            upArr.appendChild(img); 
-        }
-        else{
-            rightArr.appendChild(img);  
-        }
+        let k = threeHelper[num];
+        k.appendChild(img);
                    
         setTimeout(function(){ document.getElementById(arrName).style.display = "none"; }, 3000);
                 
@@ -250,7 +240,6 @@ function pageChange(a,b){
     a.style.display = "none";
     b.style.display = "block";
 }
-
 
 function goStage(number, curPage){
     curPage.style.display = "none";
