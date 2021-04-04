@@ -91,158 +91,166 @@ let bId = ["bushA","bushB","bushC"];
 let st4Inverted = 4;
 let st4EndTime = 40;
 
+let stageFuncArr = [stageOneLoop, stageTwoLoop, stageThreeLoop, stageFourLoop];
+
 var interval = setInterval(function() { // timer function
     if (isRunning) {
 
         times ++;
         console.log(times);
-
-        if(stagePosition == 1){
-            stageOneTimer.innerHTML = times + "/" +runningtime + " seconds";
-
-            if(times == runningtime + 1){
-                isRunning = false;
-                times = 0;
-                stageOneTimer.innerHTML = "Done! Great!"
-
-                setTimeout(goStage, 4000, 2 ,stageOne);
-                setTimeout(stageTwoGame, 8000);
-
-            }
-        }
-        else if(stagePosition == 2){
-
-            if(times % actionInverted == 0){
-                actionPic.innerHTML = "";
-
-                var img = document.createElement('img');
-                let num = Math.floor(Math.random() * actionImg.length);
-                let srcName = "img/" + actionImg[num];
-                console.log(srcName);
-
-                img.height = "400";
-
-
-                img.src = srcName;
-
-                actionPic.appendChild(img);
-                
-                if (preNum != num){
-                    twoTopMessgae.innerHTML = "Change!";
-                }
-                else{
-                    twoTopMessgae.innerHTML = "Hold!";
-                }
-
-                picMessage.innerHTML = textDescript[num];
-
-                preNum = num;
-                
-
-            }
-
-            sTwoCount.innerHTML = (times % actionInverted) + 1;
-
-            if(times == doingtime){
-                isRunning = false;
-                times = 0;
-                sTwoCount.innerHTML = "Done! Great!"
-
-                setTimeout(goStage, 4000, 3 ,stageTwo);
-                setTimeout(stageThreeGame, 8000);
-
-
-            }
-
-        }
-        else if(stagePosition == 3){
-            threeTimer.innerHTML = times + " secs /" + endMusicTime + " secs";
-
-            if(times % 2 == 0 || times == 1){
-
-                var img = document.createElement('img');
-                let num = Math.floor(Math.random() * arrowImg.length);
-                let srcName = "img/" + arrowImg[num];
-                console.log(srcName);               
-
-                img.src = srcName;
-                img.width = "180";
-                img.height = "180";            
-
-                let arrName = "a" + times;
-                img.id = arrName
-
-                img.className += "moveArrow";
-
-                /////////////moveAct
-                moveAct.innerHTML = "";
-                var imgLeft = document.createElement('img');
-                let srcNameLeft = "img/" + arrowAction[num];
-
-                imgLeft.src = srcNameLeft;
-                imgLeft.width = "180";
-
-                moveAct.appendChild(imgLeft);
-
-                if(num == 0){
-                    leftArr.appendChild(img);           
-                }
-                else if(num == 1){
-                    downArr.appendChild(img); 
-                }
-                else if(num == 2){
-                    upArr.appendChild(img); 
-                }
-                else{
-                    rightArr.appendChild(img);  
-                }
-                   
-                setTimeout(function(){ document.getElementById(arrName).style.display = "none"; }, 3000);
-                
-            }
-
-            if(times == endMusicTime){
-                isRunning = false;
-                times = 0;
-
-                setTimeout(goStage, 4000, 4 ,stageThree);
-                setTimeout(stageFourGame, 8000);
-
-            }
-
-
-        }
-        else if(stagePosition == 4){
-
-            fourTimer.innerHTML = times + " secs";
-
-            if(times % st4Inverted == 0 || times == 1 ){
-                bId.forEach(e => document.getElementById(e).src = "img/normalB.png")
-
-                let ranBush = Math.floor(Math.random() * specialBush.length);
-                let ranThree = Math.floor(Math.random() * bId.length);
-
-                let location = "img/" + specialBush[ranBush];
-                console.log(location);
-
-                document.getElementById(bId[ranThree]).src = location;
-
-
-            }
-
-            if(times == st4EndTime){
-                isRunning = false;
-                times = 0;
-                fourTimer.innerHTML = "Done! Great!";
-                setTimeout(endPage, 4000);
-                //endPage();
-            }
-
-            
-        }
+        stageFuncArr[stagePosition - 1]();
                
     } 
 }, 1000);
+
+function stageOneLoop(){
+    stageOneTimer.innerHTML = times + "/" + runningtime + " seconds";
+
+    if(times == runningtime + 1){
+        isRunning = false;
+        times = 0;
+        stageOneTimer.innerHTML = "Done! Great!"
+
+        setTimeout(goStage, 4000, 2 ,stageOne);
+        setTimeout(stageTwoGame, 8000);
+
+    }
+}
+
+function stageTwoLoop(){
+    if(times % actionInverted == 0){
+        actionPic.innerHTML = "";
+
+        var img = document.createElement('img');
+        let num = Math.floor(Math.random() * actionImg.length);
+        let srcName = "img/" + actionImg[num];
+        console.log(srcName);
+
+        img.height = "400";
+
+
+        img.src = srcName;
+
+        actionPic.appendChild(img);
+        
+        if (preNum != num){
+            twoTopMessgae.innerHTML = "Change!";
+        }
+        else{
+            twoTopMessgae.innerHTML = "Hold!";
+        }
+
+        picMessage.innerHTML = textDescript[num];
+
+        preNum = num;
+        
+
+    }
+
+    sTwoCount.innerHTML = (times % actionInverted) + 1;
+
+    if(times == doingtime){
+        isRunning = false;
+        times = 0;
+        sTwoCount.innerHTML = "Done! Great!"
+
+        setTimeout(goStage, 4000, 3 ,stageTwo);
+        setTimeout(stageThreeGame, 8000);
+
+
+    }
+
+}
+
+function stageThreeLoop(){
+    threeTimer.innerHTML = times + " secs /" + endMusicTime + " secs";
+
+    if(times % 2 == 0 || times == 1){
+
+        var img = document.createElement('img');
+        let num = Math.floor(Math.random() * arrowImg.length);
+        let srcName = "img/" + arrowImg[num];
+        console.log(srcName);               
+
+        img.src = srcName;
+        img.width = "180";
+        img.height = "180";            
+
+        let arrName = "a" + times;
+        img.id = arrName
+
+        img.className += "moveArrow";
+
+        /////////////moveAct
+        moveAct.innerHTML = "";
+        var imgLeft = document.createElement('img');
+        let srcNameLeft = "img/" + arrowAction[num];
+
+        imgLeft.src = srcNameLeft;
+        imgLeft.width = "180";
+
+        moveAct.appendChild(imgLeft);
+
+        if(num == 0){
+            leftArr.appendChild(img);           
+        }
+        else if(num == 1){
+            downArr.appendChild(img); 
+        }
+        else if(num == 2){
+            upArr.appendChild(img); 
+        }
+        else{
+            rightArr.appendChild(img);  
+        }
+                   
+        setTimeout(function(){ document.getElementById(arrName).style.display = "none"; }, 3000);
+                
+    }
+
+    if(times == endMusicTime){
+        isRunning = false;
+        times = 0;
+
+        setTimeout(goStage, 4000, 4 ,stageThree);
+        setTimeout(stageFourGame, 8000);
+
+    }
+
+}
+
+function stageFourLoop(){
+
+    fourTimer.innerHTML = times + " secs";
+
+    if(times % st4Inverted == 0 || times == 1 ){
+        bId.forEach(e => document.getElementById(e).src = "img/normalB.png")
+
+        let ranBush = Math.floor(Math.random() * specialBush.length);
+        let ranThree = Math.floor(Math.random() * bId.length);
+
+        let location = "img/" + specialBush[ranBush];
+        console.log(location);
+
+        document.getElementById(bId[ranThree]).src = location;
+
+    }
+
+    if(times == st4EndTime){
+        isRunning = false;
+        times = 0;
+        fourTimer.innerHTML = "Done! Great!";
+        setTimeout(endPage, 4000);
+
+    }
+
+}
+
+function pageChange(a,b){
+    a.style.display = "none";
+    b.style.display = "block";
+}
+
 
 function goStage(number, curPage){
     curPage.style.display = "none";
@@ -288,8 +296,13 @@ function co(){
 
     for(let i = 0; i < idAll.length ; i++){
 
-        if(idAll[i].value <= 0){
+        if(parseInt(idAll[i].value,10) <= 0){
             comErr.innerHTML = "Value must bigger than 0.";
+            return;
+        }
+
+        if(idAll[i].value == ""){
+            comErr.innerHTML = "Value can not be none.";
             return;
         }
 
@@ -311,13 +324,11 @@ function co(){
 }
 
 goCons.onclick = function(){
-    mainPage.style.display = "none";
-    com.style.display = "block";
+    pageChange(mainPage,com);
 }
 
 consBack.onclick = function(){
-    com.style.display = "none";
-    mainPage.style.display = "block"; 
+    pageChange(com,mainPage);
 }
 
 
@@ -353,7 +364,7 @@ function stageTwoGame(){ //stage 2 game start function
 
 }
 
-function stageThreeGame(){ //stage 1 game start function
+function stageThreeGame(){ //stage 3 game start function
     stagePosition = 3;
     stageThree.style.display = "block";
     isRunning = true;
@@ -362,7 +373,7 @@ function stageThreeGame(){ //stage 1 game start function
 
 }
 
-function stageFourGame(){ //stage 1 game start function
+function stageFourGame(){ //stage 4 game start function
     stagePosition = 4;
     stageFour.style.display = "block";
     isRunning = true;
@@ -374,8 +385,8 @@ function mrefresh(){
 }
 
 function endPage(){
-    stageFour.style.display = "none";
-    ending.style.display = "block";
+    pageChange(stageFour,ending);
+
     clapp.play();
     console.log("refresh after 12s.");
 
