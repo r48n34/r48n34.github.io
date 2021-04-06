@@ -72,7 +72,7 @@
       
       <a class="navbar-brand" href="index.html">
         <h4>
-        <img src="img/logo2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="img/logo2.png" width="30" height="30" class="lozad d-inline-block align-top" alt="">
         Reemo studio
         </h4>
       </a>
@@ -143,7 +143,7 @@
       <div class="row align-items-center justify-content-between">
         
         <div class="col-lg-5 col-md-5 left" data-aos="fade-right" data-aos-duration="1000" >
-          <img class="img-fluid" src="img/logo2.png" alt="">
+          <img class="lozad img-fluid" src="img/logo2.png" alt="">
         </div>
 
         <div class="col-lg-5 col-md-5 right" data-aos="fade-left" data-aos-duration="1000">
@@ -172,7 +172,7 @@
 
         <div class="item">
               
-              <img src="img/picc-1.jpg" width="width: 100%" height="auto">
+              <img class="lozad" src="img/picc-1.jpg" width="width: 100%" height="auto">
               <hr style="width: 50%;  height: 4px; background-color:#007BFF;">
               <h3>Simple UX/UI Design</h3>
               <p>Phone Apps / User Interface elements for layout or elements design.</p>
@@ -180,7 +180,7 @@
 
         </div>
         <div class="item">
-          <img src="img/dang.jpg" width="width: 100%" height="auto">
+          <img class="lozad" src="img/dang.jpg" width="width: 100%" height="auto">
           <hr style="width: 50%;  height: 4px; background-color:#007BFF;">
 
               <h3>Ae/Pr Video editing</h3>
@@ -188,7 +188,7 @@
 
         </div>
         <div class="item">
-          <img src="img/photo-1.jpg" width="width: 100%" height="auto">
+          <img class="lozad" src="img/photo-1.jpg" width="width: 100%" height="auto">
           <hr style="width: 50%;  height: 4px; background-color:#007BFF;">
 
               <h3>Photography / Filming</h3>
@@ -196,7 +196,7 @@
 
         </div>
         <div class="item">
-          <img src="img/ccccc1.jpg" width="width: 100%" height="auto">
+          <img class="lozad" src="img/ccccc1.jpg" width="width: 100%" height="auto">
           <hr style="width: 50%;  height: 4px; background-color:#dc3545;">
 
               <h3>Applications coding</h3>
@@ -204,14 +204,14 @@
 
         </div>
         <div class="item">
-          <img src="img/school.jpg" width="width: 100%" height="auto">
+          <img class="lozad" src="img/school.jpg" width="width: 100%" height="auto">
           <hr style="width: 50%;  height: 4px; background-color:#007BFF;">
 
               <h3>Ps/Lr Design</h3>
               <p>Processing photo, effects, color.</p>
         </div>
         <div class="item">
-          <img src="img/fpage-1.jpg" width="width: 100%" height="auto">
+          <img class="lozad" src="img/fpage-1.jpg" width="width: 100%" height="auto">
           <hr style="width: 50%;  height: 4px; background-color:#dc3545;">
 
               <h3>Web Development</h3>
@@ -294,11 +294,15 @@
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
     <script src="owl/owl.carousel.min.js"></script>
 
-    <script>
-      AOS.init();
-    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+
 
     <script>
+      AOS.init();
+
+      const observer = lozad(); 
+      observer.observe();
+
       $(document).ready(function(){
         $(".owl-carousel").owlCarousel();
       });
@@ -319,9 +323,7 @@
             }
         }
     })
-    </script>
 
-    <script> 
     var typed = new Typed('#typed',{
         stringsElement: '#typed-strings', 
         backSpeed: 60, 
@@ -329,6 +331,7 @@
         startDelay: 1600, 
         loop:true 
     });
+ 
     </script>
 
   </body>
