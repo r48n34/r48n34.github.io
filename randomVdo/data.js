@@ -25,15 +25,14 @@ function goRandom(){
 }
 
 window.onload = function total(){
-    document.getElementById("tt").innerHTML = "Video DB last update: " + time 
-                                            + "<br> Total Video = " + videoList.length;  
+    document.getElementById("tt").innerHTML = "Video DB last update: " + time + "<br> Total Video = " + videoList.length;  
 }
     
 document.addEventListener("keyup", function(event) {
     if (event.keyCode === 13) {
         goRandom();
     }
-    });
+});
    
 
 
