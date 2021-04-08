@@ -377,7 +377,7 @@ function endPage(){
     pageChange(stageFour,ending);
 
     clapp.play();
-    console.log("refresh after 12s.");
+    console.log("refresh after 5s.");
 
-    setTimeout(mrefresh, 12000);
+    setTimeout(mrefresh, 5000);
 }
