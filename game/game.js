@@ -57,7 +57,6 @@ const readyFx = new Audio('music/ready.mp3'); // ready
 const goFx = new Audio('music/goo.mp3'); // go
 const clapp = new Audio('music/clap.mp3'); // end clap
 
-bgmFx.play();
 let bgmPlaying = true;
 
 function controlBgm(){
@@ -86,7 +85,7 @@ let arrowAction = ["pointLeft.png","taiiku_suwari_boy.png", "pointUp.png", "poin
 let endMusicTime = 40;
 
 //stage 4 variables
-let specialBush = ["beerB.png","nosmoke2B.png","nosmokeB.png","smoke2B.png","smokeB.png"];
+let specialBush = ["beerB.png","nosmoke2B.png","nosmokeB.png","smoke2B.png","smokeB.png","nosmoke2B.png","nosmoke2B.png"];
 let bId = ["bushA","bushB","bushC"];
 let st4Inverted = 4;
 let st4EndTime = 40;
@@ -255,6 +254,7 @@ function goStage(number, curPage){
 }
 
 startBtnEasy.onclick = function() {
+    bgmFx.play();
     goStage(1,mainPage);
     setTimeout(stageOneGame, 4000);
 
@@ -271,6 +271,7 @@ startBtnHard.onclick = function() {
     st4Inverted = 3;
     st4EndTime = 50;
 
+    bgmFx.play();
     goStage(1,mainPage);
     setTimeout(stageOneGame, 4000);
 
@@ -304,9 +305,10 @@ function co(){
 
     endMusicTime = parseInt(s3RunTime.value,10);
 
-    st4Inverted = parseInt(s4RunTime.value,10);
-    st4EndTime = parseInt(s4Inverted.value,10);
+    st4EndTime = parseInt(s4RunTime.value,10);
+    st4Inverted = parseInt(s4Inverted.value,10);
  
+    bgmFx.play();
     goStage(1,com);
     setTimeout(stageOneGame, 4000);
 
