@@ -24,14 +24,11 @@
           color: #FFFFFF;
         }
 
-        a:link {
-          color: white; }
-   
-        a:visited {
-          color: white; }
-   
-        a:active {
-          color: blueviolet; }
+        .spinner-border {
+          width: 250px;
+          height: 250px;
+          
+        }
 
     </style>
    
@@ -40,14 +37,24 @@
   </head>
   <body style="background-color:#181818 ;">
 
-    <div class="container ccw" style="text-align: center;">
+    <div id="LoadingScr" style="text-align: center; padding-top: 40px;">
 
-        <h1>Hello</h1>
-        <video id="video" width="1000" height="800" autoplay></video>
+      <div class="spinner-border text-dark" role="status" style="color: white;">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <br><br>
+      <h3 style="color: white;">Loading...</h3>
+
+    </div>
+
+    <div class="container ccw" style="text-align: center; display: none;" id="mainScr">
+
+        <h1>Move</h1>  
         <br>
         <canvas id="canvas" width="1000" height="800"></canvas>
         <h1 id="curr"></h1>
         <h1 id="gameScore"></h1>
+        <video id="video" width="1000" height="800"></video>
 
     </div>
 
@@ -72,164 +79,11 @@
  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
  
- <script src="https://cdn.jsdelivr.net/npm/handtrackjs@latest/dist/handtrack.min.js"> </script>
+ <script src="https://cdn.jsdelivr.net/npm/handtrackjs@latest/dist/handtrack.min.js"></script>
+ <script src="capGame.js"></script>
 
 
 
-<script>
-    var video = document.getElementById('video');
-
-    const context = canvas.getContext("2d");
-    const curr =  document.getElementById("curr");
-    const gameScore = document.getElementById("gameScore");
-
-    let totalScore = 0;
-    let currText = "";
-    let isVideo = false;
-    let model;
-
-    let lb = ["point","closed",""]
-
-    const modelParams = {
-        flipHorizontal: false, // flip e.g for video
-        maxNumBoxes: 20, // maximum number of boxes to detect
-        iouThreshold: 0.5, // ioU threshold for non-max suppression
-        scoreThreshold: 0.6, // confidence threshold for predictions.
-    };
-
-    async function loadingScr(){
-        model =  await handTrack.load(modelParams);
-        isVideo = true;
-        startVideo();
-        //runDetection();
-    }
-
-    function startVideo() {
-        handTrack.startVideo(video).then(function (status) {
-            console.log("video started", status);
-
-            if (status) {
-                isVideo = true;
-                runDetection();
-            } 
-        });
-    }
-
-    window.onload = function(){
-        loadingScr();
-    }
-    
-
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-            //video.srcObject = stream;
-            //video.play();
-            
-        });
-    }
-
-
-    let currBlockPol = 0;
-    let currSector = 0;
-    function runDetection() {
-        model.detect(video).then((predictions) => {
-            console.log("Predictions: ", predictions);
-
-            if(predictions.length >= 1){
-                
-                let a = "";
-                
-                for(let i = 0; i < predictions.length; i++){
-                    a += predictions[i].label + " ";
-
-                }
-
-                console.log(a);
-
-                currText = predictions[0].label;
-                curr.innerHTML = currText + " " + predictions[0].bbox[0];
-
-                console.log(predictions[0].bbox[0]);
-                //bbox (x,y, width, height)
-
-                let xPol = predictions[0].bbox[0];
-                
-
-                if(xPol < 250){
-                    curr.innerHTML += " A";
-                    currSector = 0;
-                }
-                else if(xPol >= 250 && xPol < 500){
-                    curr.innerHTML += " B";
-                    currSector = 1;
-                }
-                else if(xPol >= 500 && xPol < 750){
-                    curr.innerHTML += " C";
-                    currSector = 2;
-                }
-                else{
-                    curr.innerHTML += " D";
-                    currSector = 3;
-                }
-                
-                
-                
-            }
-            
-            model.renderPredictions(predictions, canvas, context, video);
-            //62,375,625,875
-            context.fillRect(250,0,10,1000);
-            context.fillRect(500,0,10,1000);
-            context.fillRect(750,0,10,1000);
-
-
-            if(currSector == currBlockPol){
-                gameRand();
-                totalScore += 1;
-                gameScore.innerHTML = "Score: " + totalScore;
-
-            }
-
-            context.fillRect(blockPol[currBlockPol],0,100,100);
-
-            
-
-
-            if (isVideo) {
-                requestAnimationFrame(runDetection);
-            }
-        });
-        
-    }
-
-    const blockPol = [60,370,620,870];
-    function gameRand(){
-        let t = getRandomInt(4);
-        currBlockPol = t;
-
-    }
-
-
-
-
-
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-    }
-
-
-
-
-    /*
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-
-    document.getElementById("snap").addEventListener("click", function() {
-	    context.drawImage(video, 0, 0, 640, 480);
-    });
-    */
-
-</script>
 
 
   </body>
