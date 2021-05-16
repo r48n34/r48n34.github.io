@@ -19,16 +19,14 @@ for(let i = 0; i < videoList.length ; i += 2){
      classList.push(new WebLink (videoList[i], videoList[i+1]));
 }
 
-//classList = request.responseText; // if file is a JSON type
 
 videoList = new Array();
-
 let playedVideo = [];//Played video list
 
 const time = request.getResponseHeader("Last-Modified").slice(4,25); //last mod time of txt
-const toppic = document.getElementById("pvv");
-const below = document.getElementById("lin");
-const data =  document.getElementById("tt");
+const toppic = document.getElementById("pvv"); //Played video text
+const below = document.getElementById("lin"); // Played youtube name
+const data =  document.getElementById("tt"); //last update
 
 const linDetail = document.getElementById("linDetail");
 
@@ -41,8 +39,7 @@ function goRandom(){
      
      let num = Math.floor(Math.random() * classList.length);
      let code = youTubeGetID(classList[num].webUrl);
-     validVideoId(code,classList[num]);
-    
+     validVideoId(code, classList[num]);   
           
 }
 
@@ -50,42 +47,32 @@ function validVideoId(id,li) {
      var img = new Image();
      img.src = "http://img.youtube.com/vi/" + id + "/mqdefault.jpg";
      img.onload = function () {
-          this.width === 120 ? (below.innerHTML += li.webName.link(li.webUrl) + "[May invalid]" + "<br/>") : openVdo(li);                              
+          this.width === 120 ? (below.innerHTML = li.webName.link(li.webUrl) + "[May invalid]" + "<br/>") : openVdo(li);                              
      }
 
 }
 
 function openVdo(li){
 
-     let vName = li.webName;
-     let video = li.webUrl;
+     let yourImg = "https://img.youtube.com/vi/" + youTubeGetID(li.webUrl) + "/0.jpg";
 
-     let code = youTubeGetID(li.webUrl);
-     console.log(code);
-
-     var youImg = new Image();
-     youImg.src = "https://img.youtube.com/vi/" + code + "/0.jpg";
-     console.log(youImg.src);
-
-     window.open(video, '_blank'); //Play video in a new windows
-     playedVideo.push(video);
- 
-     console.log(video);
+     window.open(li.webUrl, '_blank'); //Play video in a new windows
+     playedVideo.push(li.webUrl);
 
      const k = `
             <div class="col-3 mt-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">${vName.link(video)}</h5>
+               <div class="card">
+                    <div class="card-body">              
+                        <h5 class="card-title">${li.webName.link(li.webUrl)}</h5>
                         <hr>
-                        <img src="${youImg.src}" width="200" height="100">
+                        <img src="${yourImg}" width="230" height="auto">                     
                     </div>
-                </div>
+               </div>
             </div>
      `    
      linDetail.innerHTML += k;
      toppic.innerHTML = "Played Video : (" + playedVideo.length + ")";
-     below.innerHTML += vName.link(video) + "<br/>";
+     below.innerHTML = li.webName.link(li.webUrl);
      
 }
  
