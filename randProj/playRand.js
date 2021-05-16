@@ -28,7 +28,9 @@ let playedVideo = [];//Played video list
 const time = request.getResponseHeader("Last-Modified").slice(4,25); //last mod time of txt
 const toppic = document.getElementById("pvv");
 const below = document.getElementById("lin");
-const data =  document.getElementById("tt"); 
+const data =  document.getElementById("tt");
+
+const linDetail = document.getElementById("linDetail");
 
 function youTubeGetID(url){
      url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
@@ -58,11 +60,30 @@ function openVdo(li){
      let vName = li.webName;
      let video = li.webUrl;
 
+     let code = youTubeGetID(li.webUrl);
+     console.log(code);
+
+     var youImg = new Image();
+     youImg.src = "https://img.youtube.com/vi/" + code + "/0.jpg";
+     console.log(youImg.src);
+
      window.open(video, '_blank'); //Play video in a new windows
      playedVideo.push(video);
  
-     console.log(video);       
- 
+     console.log(video);
+
+     const k = `
+            <div class="col-3 mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${vName.link(video)}</h5>
+                        <hr>
+                        <img src="${youImg.src}" width="200" height="100">
+                    </div>
+                </div>
+            </div>
+     `    
+     linDetail.innerHTML += k;
      toppic.innerHTML = "Played Video : (" + playedVideo.length + ")";
      below.innerHTML += vName.link(video) + "<br/>";
      
