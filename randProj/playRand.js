@@ -26,9 +26,20 @@ let playedVideo = [];//Played video list
 const time = request.getResponseHeader("Last-Modified").slice(4,25); //last mod time of txt
 const toppic = document.getElementById("pvv"); //Played video text
 const below = document.getElementById("lin"); // Played youtube name
-const data =  document.getElementById("tt"); //last update
+const data = document.getElementById("tt"); //last update
 
-const linDetail = document.getElementById("linDetail");
+const his = document.getElementById("his"); //history div
+const hisBtn = document.getElementById("hisBtn"); //history div button
+const hisClearBtn = document.getElementById("hisClearBtn"); //history div button
+
+const linDetail = document.getElementById("linDetail"); // div box
+
+let historyArray = []; //local info
+let t = JSON.parse(localStorage.getItem('record'));
+if(t != null){
+     historyArray = [...t];
+     genHistory();
+}
 
 function youTubeGetID(url){
      url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
@@ -73,6 +84,12 @@ function openVdo(li){
      linDetail.innerHTML += k;
      toppic.innerHTML = "Played Video : (" + playedVideo.length + ")";
      below.innerHTML = li.webName.link(li.webUrl);
+
+     historyArray.push(li);
+     localStorage.setItem('record', JSON.stringify(historyArray) );
+
+     let temp = `<h2>Name: ${li.webName}</h2> <h2>URL: ${li.webUrl}</h2> </br>`
+     his.innerHTML += temp;
      
 }
  
@@ -80,11 +97,27 @@ window.onload = function total(){
      data.innerHTML = "last update: "+ time + "<br> Total Video = " + parseInt(classList.length, 10);  
 }
 
+function genHistory(){
+
+     for(i of Object.keys(historyArray)){
+          let temp = `<h2>Name: ${historyArray[i].webName}</h2> <h2>URL: ${historyArray[i].webUrl}</h2> </br>`
+          his.innerHTML += temp;
+     }
+
+}
+
+hisClearBtn.onclick = function(){
+     try{
+          localStorage.removeItem('record');
+          alert("Clear success. F5 to refresh.");
+     }
+     catch(e){
+          alert("Clear fail.");
+     }
+}
+
 document.addEventListener("keyup", function(event) {
      if (event.keyCode === 13) {
         goRandom();
      }
 });
-
-
-
