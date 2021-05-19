@@ -7,6 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
 
     <style>
 
@@ -24,20 +25,6 @@
           color: #FFFFFF;
         }
 
-        a:link {
-          color: white; }
-   
-        a:visited {
-          color: white; }
-   
-        a:active {
-          color: blueviolet; }
-
-        #linDetail a:link {
-          color: black; }
-   
-        #linDetail a:visited{
-          color: black; }
 
     </style>
    
@@ -47,24 +34,35 @@
   <body style="background-color:#181818 ;">
 
     <div class="container ccw" style="text-align: center;">
-        <br>
+
+      <div id="appMusic" style="padding-top: 20px;">
         <h1 class="badge" style="font-size: 4vw; color:white;">Random Songs</h1>
-        <h1 id="tt"></h1>
-        <br>
-        <button style="font-size: 50px;" id="gogo" type="button" class="btn btn-light btn-lg"  onclick="goRandom()" >GO!</button>
-        <br>
-        <h1>Or click enter!</h1>
-
-        <button class="btn btn-light btn-lg" data-toggle="collapse" data-target="#his" id="hisBtn">History</button>
-        <button class="btn btn-light btn-lg" id="hisClearBtn">Clear History</button>
-        <div id="his" class="collapse">
-        </div>
-
+        <h1 v-html="lastUpdate"></h1>
+        <button style="font-size: 50px;" type="button" class="btn btn-light btn-lg" v-on:click="goRandom">Go!</button>
         <br><br>
+
         
-        <h1 id="pvv">Played Video:</h1>
-        <h2 id="lin"></h2>
-        <div id="linDetail" class="row"></div>
+        <button v-b-toggle.collapse-2 type="button" class="btn btn-light btn-lg">History</button>
+        <button type="button" class="btn btn-light btn-lg" v-on:click="clearLocal">Clear History</button>    
+        <b-collapse id="collapse-2" v-html="historyRecord">
+        </b-collapse>
+        
+
+        <h1>{{ messageTop }}</h1>
+        <h2 v-html="currentVdo"></h2>
+        <div class="row">
+          <video-box
+            v-for="i in currentList"
+            v-bind:item="i[0]" 
+            v-bind:imgg="i[1]"                 
+          >       
+          </video-box>
+        </div>  
+
+      </div>
+
+       
+    </div>
 
     </div>
 
@@ -90,7 +88,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script src="playRand.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+  
+    <script src="playRandV.js"></script>
 
 
   </body>
