@@ -23,10 +23,6 @@ videoList = new Array();
 
 let historyArray = []; //local info
 let t = JSON.parse(localStorage.getItem('record'));
-if(t != null){
-     historyArray = [...t];
-     //genHistory();
-}
 
 const time = request.getResponseHeader("Last-Modified").slice(4,25); //last mod time of txt
 
@@ -89,7 +85,7 @@ var appHa = new Vue({
                var img = new Image();
                img.src = "http://img.youtube.com/vi/" + id + "/mqdefault.jpg";
                img.onload = function () {
-                    this.width === 120 ? appHa.currentVdoChange(li) : ( appHa.openVdo(li) );                              
+                    this.width === 120 ? appHa.currentVdoChange(li) : appHa.openVdo(li);                              
                }
           },
 
