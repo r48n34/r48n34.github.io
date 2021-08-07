@@ -1,0 +1,86 @@
+.liBrand{
+    font-size: 30px;
+}
+
+.liStuff >a {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 35px;
+}
+
+.liStuff >a:hover {
+    color: rgb(77, 77, 77);
+}
+
+.topBox{
+    margin-top: 8vh;
+    height: 91vh;
+    background-color: white;
+    color: black;
+    box-shadow: rgba(18, 18, 19, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    border-radius: 20px;
+}
+
+.boxContent{
+    text-align: center;
+    font-size: 70px;
+    color: white;
+    text-shadow: 2px 2px 6px rgba(150, 150, 150, 1);
+}
+
+.smallBox{
+    color: white;
+    width: 50px;
+    height: 50px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    position: relative;
+    left: 50%;
+}
+
+.middleBox{
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.bottomSticky{
+    color: rgb(41, 41, 41);
+    text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+    margin-right: 20px;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.navbar{
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    border-radius: 20px;
+
+}
+
+.navbar .collapse .navbar-collapse .myNav .topp{
+    z-index: 1;
+}
+
+.diagonal-box { /* Outside bg Diagonal*/
+    background:#6303B1;
+    transform: skewY(4deg);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;    height: 600px;
+    margin-top: 80px;
+    z-index: -1;
+}
+
+.diagonal-box2 { /* Outside bg Diagonal*/
+    background:#6303B1;
+    transform: skewY(-6deg);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;    height: 400px;
+    z-index: -2;
+}
+
+.topp{
+    transform: skewY(6deg); 
+}
+
+.content { 	/* Inside content */
+    padding-top: 110px;
+    transform: skewY(-3deg);
+    color: white;
+}
