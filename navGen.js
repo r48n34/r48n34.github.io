@@ -6,7 +6,9 @@ const myNav =
         
         <div class="container-fluid">
 
-            <a class="navbar-brand liBrand" href="index.html"> <b>Reemo Studio</b> </a>
+            <a class="navbar-brand liBrand" href="index.html">
+                <i class="bi bi-globe2"></i> <b>Reemo Studio</b> 
+            </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -23,16 +25,22 @@ const myNav =
                     <ul class="navbar-nav me-auto">
 
                         <li class="nav-item liStuff">
-                            <a class="nav-link liStuff" href="aboutMe.html" style="color: black;">About me</a>
+                            <a class="nav-link liStuff" href="aboutMe.html" style="color: black;">
+                            <i class="bi bi-file-earmark-person"></i> About me
+                            </a>
                         </li>
 
                         <li class="nav-item liStuff">
-                            <a class="nav-link liStuff" href="#" style="color: black;">Projects</a>
+                            <a class="nav-link liStuff" href="projects.html" style="color: black;">
+                            <i class="bi bi-box"></i> Projects
+                            </a>
                         </li>
 
 
                         <li class="nav-item liStuff">
-                            <a class="nav-link" href="#" style="color: black;">Creations</a>
+                            <a class="nav-link" href="creations.html" style="color: black;">
+                            <i class="bi bi-brush"></i> Creations
+                            </a>
                         </li>
 
                     </ul>

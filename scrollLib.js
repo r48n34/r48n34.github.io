@@ -24,9 +24,11 @@ document.addEventListener('mousemove', (e) => { // Mouse Pol handler
     yPolMouse = e.pageY;
     
     const offset = 2; // move angle max / min
-    let pre = (xPolMouse - windowsWidthMiddle) / (windowsWidthMiddle) // left (+) right (-)
+    let preX = (xPolMouse - windowsWidthMiddle) / (windowsWidthMiddle) // left (+) right (-)
+    let preY = (yPolMouse - windowsHeightMiddle) / (windowsHeightMiddle) 
 
-    moveObj.style.left = `${(pre * offset )}%`;
+    moveObj.style.left = `${(preX * offset )}%`;
+    moveObj.style.bottom = `${(preY * offset * 5)}px`;
 
 })
 
@@ -37,6 +39,7 @@ window.addEventListener('resize', (e) => { // resize handler
     windowsHeightMiddle = window.innerHeight / 2
 })
 
+//type.js
 var typed = new Typed('#typed', {
     stringsElement: '#typed-strings',
     backSpeed: 25,
@@ -45,6 +48,7 @@ var typed = new Typed('#typed', {
     loop: true,
 });
 
+//vanta.js
 VANTA.DOTS({
     el: "#boxInside",
     mouseControls: true,
@@ -53,5 +57,7 @@ VANTA.DOTS({
     minHeight: 200.00,
     minWidth: 200.00,
     scale: 1.00,
-    scaleMobile: 1.00
+    scaleMobile: 1.00,
+    color: 0x207bff,
+    color2: 0x207bff
 })

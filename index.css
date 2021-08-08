@@ -84,3 +84,46 @@
     transform: skewY(-3deg);
     color: white;
 }
+
+.dboxAbout {
+    margin-top: -40px;
+    background:#6303B1;
+    height: 345px;
+    transform: skewY(4deg);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;    
+    z-index: -1;
+}
+
+.dboxAbout1 {
+    margin-top: -140px;
+    background:#a293ad;
+    transform: skewY(-3deg);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    z-index: -1;
+}
+
+.dboxAbout2 {
+    background:#a293ad;
+    transform: skewY(-3deg);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    z-index: -1;
+}
+
+.swiper-slide{
+    color: white;
+    font-size: 18px;
+}
+
+.textBlank{
+    font-size: 100px;
+            color: rgb(255, 255, 255);
+            text-shadow:
+                0 0 7px rgb(72, 117, 241),
+                0 0 10px rgb(72, 117, 241),
+                0 0 21px rgb(72, 117, 241),
+                0 0 42px rgb(154, 177, 241),
+                0 0 82px rgb(154, 177, 241),
+                0 0 92px rgb(154, 177, 241),
+                0 0 102px rgb(154, 177, 241),
+                0 0 151px rgb(154, 177, 241);
+}
