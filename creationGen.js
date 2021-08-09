@@ -2,7 +2,7 @@ const selectByYear = document.getElementById("selectByYear");
 const contentBox = document.getElementById("contentBox");
 
 const data = {
-    years: ["2018", "2019","2020", "2021"]
+    years: ["2018", "2019", "2020", "2021"]
 }
 
 let currentYearSelect = [];
@@ -41,8 +41,7 @@ function initAll(){
                 currentYearSelect = currentYearSelect.filter( e => e != v);
             }
 
-            showHandler();
-        
+            showHandler();    
         
         });    
 
@@ -59,7 +58,7 @@ function displayGen(arr){
 
                 <div class="card" style="border-radius: 15px;">
                     <div class="card-body">
-                        <h5><b>${v.year}</b></h5>
+                        <span class="badge bg-dark">${v.year}</span>
                         <h1><b>${v.title}</b></h1>
                         <h5><b>${v.des}</b></h5>
                         <img src="${v.imgLink}" alt="" class="card-img-top">
@@ -103,4 +102,3 @@ function showHandler(){
 
 initAll();
 displayGen(allProj);
-
