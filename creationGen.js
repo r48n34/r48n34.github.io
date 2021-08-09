@@ -9,7 +9,6 @@ let currentYearSelect = [];
 
 const allProj = [
     {year: "2018", title: "Minecraft school", des:"Secondary school build in minecraft" ,imgLink: "img/school.jpg", url: "https://r48n34.github.io/school/schoolmain.html"},
-    {year: "2020", title: "Counter", des:"counter practice" , imgLink: "img/tin1.jpg", url: "https://r48n34.github.io/labo/yolo.html"},
     {year: "2020", title: "Tic Tac Toe", des:"Simple AI XO game" , imgLink: "img/0xx-1.jpg", url: "https://r48n34.github.io/labo/xo.html"},
     {year: "2020", title: "Data calculator", des:"Dec, Bin, Hex calculator" , imgLink: "img/cal.jpg", url: "https://r48n34.github.io/toolsbox/tools.html"},
     {year: "2021", title: "BK exporter", des:"layout & combiner" , imgLink: "img/bkkk-1.jpg", url: "https://r48n34.github.io/jsbk/upweb.html"},
@@ -17,6 +16,8 @@ const allProj = [
     {year: "2021", title: "ML algorithm PY", des:"For solving HandWriting question" , imgLink: "img/yo1.jpg", url: "https://peaceful-galileo-6fead0.netlify.app/#/"},
     
 ]
+//    {year: "2020", title: "Counter", des:"counter practice" , imgLink: "img/tin1.jpg", url: "https://r48n34.github.io/labo/yolo.html"},
+
 
 function initAll(){
 
