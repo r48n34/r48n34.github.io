@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+
+  </style>
+</head>
+<body>
+
+  <!--
+  <section class="overlay" aria-hidden="true">
+    <canvas id="playGround" style="display:inline-flex"></canvas>
+  </section>
+
+  <div id="debugMessage">
+  </div>
+  -->
+
+  <div class="container-fluid mt-3" style="text-align: center;">
+    <h1>Monster slider</h1>
+    <div class="progress" style="height: 35px;">
+      <div id="progressHp" class="progress-bar" role="progressbar" style="width: 100%;" ></div>
+    </div>
+    <h3 id="hpMessage"></h3>
+  </div>
+
+  <video id="video" autoplay style="
+  -webkit-transform: scaleX(-1); transform: scaleX(-1);
+  visibility: hidden; width:auto; height:auto;">
+  </video>
+  
+  <div class="fixed-bottom">
+    <div class="d-flex justify-content-end">
+      <canvas id="output"></canvas>
+    </div>
+  </div>
+    
+      
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+
+<script src="index.js"></script>
+
+</html>
