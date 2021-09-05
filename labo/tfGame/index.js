@@ -213,7 +213,7 @@ function generateShopInfo(){
             
             tom.gold -= v.now;
             v.now += v.increaseRate;
-            
+
             document.getElementById("playerGold").innerHTML = tom.gold;
 
             v["action"].forEach((subV,i) =>{
@@ -228,9 +228,6 @@ function generateShopInfo(){
     })
 
 }
-
-
-
 
 class Monster{
     constructor(hp, gold, expGive){
@@ -295,7 +292,7 @@ async function predictModel(){
                 if(pt.score > 0.2){
                     //ctx.fillRect(pt.x, pt.y, 50, 50);
                     ctx.beginPath()
-                    ctx.arc(pt.x, pt.y, 10, 0, 2 * Math.PI, false)
+                    ctx.arc(pt.x, pt.y, 5, 0, 2 * Math.PI, false)
                     ctx.fill()
 
                     if(pt.name == 'left_wrist' || pt.name == 'right_wrist'){
