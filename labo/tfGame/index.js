@@ -29,6 +29,7 @@ const debugMessage = document.getElementById("debugMessage")
 console.log("Width:", window.innerWidth)
 console.log("Height:", window.innerHeight)
 
+// video setup
 var constraints = window.constraints = {
     audio: false,
     video: {
@@ -38,7 +39,6 @@ var constraints = window.constraints = {
     }
 
 };
-
 getMedia(constraints);
 
 async function getMedia(constraints) {
@@ -59,6 +59,7 @@ async function getMedia(constraints) {
     }
 }
 
+// creata load model and active cameras
 async function loadModel(){
 
     model = await poseDetection.createDetector(
@@ -117,10 +118,8 @@ const xThreshold = 100;
 const yThreshold = 100;
 const overallThreshold = 130;
 
-// [x,y]
+// left[] and right[]
 let previousPt = [[],[]];
-
-//let hp = 0;
 
 class Player{
     constructor(attackDam, weapon, gold, exp){
@@ -151,6 +150,7 @@ class Player{
     }
 }
 
+// player card generater and info
 const playerCard = document.getElementById("playerCard");
 let playerAttributeList = [
     {title: "Attack Damage:", id:"playerAttDam", defalutVal:1},
@@ -170,30 +170,29 @@ function generatePlayerInfo(){
     })
 }
 
+// shop card generater and info
 const shopCard = document.getElementById("shopCard");
 // action 1 = increase damage [1,2] => action 1, increate dam by 2
 // action 2 = changing weapomns [2,5] => action 2, changing weapons id 5
-/*
+let currentWeaponsLevel = 1;
 let shopAttributeList = [
     {title: "Increase Damage:", id:"shopIncreaseDamagae", initialGoldSpend:50, increaseRate:10, now:50 , action:[[1,1]] },
     {title: "Better Weapons:", id:"shopBetterWeapons", initialGoldSpend:300, increaseRate:100, now:300, action:[[1,5],[2,1]] },
 ]
-*/
-let shopAttributeList = [
-    {title: "Increase Damage:", id:"shopIncreaseDamagae", initialGoldSpend:50, increaseRate:10, now:50 , action:[[1,1]] },
-    {title: "Better Weapons:", id:"shopBetterWeapons", initialGoldSpend:300, increaseRate:100, now:300, action:[[1,5],[2,1]] },
-]
+
+const weaponsList = ["wooden Sword", "Better wooden sword", "iron sword", "gold sword"]
 
 const actionList = {
     1: function(val){
         tom.updateAttackDam(val);
     },
-    2: function(name){
-        tom.updateWeapons(name);
+    2: function(name){ // btw name here = numbers
+        tom.updateWeapons(weaponsList[name]);
     }
 }
 
 function generateShopInfo(){
+    // Create html elements
     shopAttributeList.forEach( (v,i) =>{
         shopCard.innerHTML +=`
         <div class="d-flex justify-content-between mt-2">
@@ -201,33 +200,46 @@ function generateShopInfo(){
               <div> <button id=${v.id} type="button" class="btn btn-light"> Buy it (${v.now} gold)</button> </div>
         </div>
         `
-    })
+    });
+    // Then adding evevnt for each actions
     shopAttributeList.forEach( (v,i) =>{
 
         document.getElementById(v.id).addEventListener("click", (e)=>{
 
+            // not enough gold
             if(tom.gold < v.now){
                 hpMessage.innerHTML = "You don't have enough gold to do this."
                 return;
             }
             
+            // compute gold
             tom.gold -= v.now;
             v.now += v.increaseRate;
-
             document.getElementById("playerGold").innerHTML = tom.gold;
 
-            v["action"].forEach((subV,i) =>{
+            // adding event for button click with event list
+            v["action"].forEach((subV) =>{
+
+                // do actions
                 actionList[subV[0]](subV[1]);
+
+                // update weaopns level if it's action 2
+                if(subV[0] == 2){
+                    subV[1] ++;
+                }
+
             })
 
+            // Button text update
             document.getElementById(v.id).innerHTML = `Buy it (${v.now} gold)`;
-
 
         })
 
     })
 
 }
+
+let monsterDeadCount = 0;
 
 class Monster{
     constructor(hp, gold, expGive){
@@ -266,11 +278,8 @@ class Monster{
     }
 }
 
-
-
 let slime = new Monster(10,10,10)
 let tom = new Player(1, "wooden_sword", 0,0 );
-let monsterDeadCount = 0;
 
 async function predictModel(){
 
@@ -373,11 +382,16 @@ async function predictModel(){
 
 }
 
-
-
 video.addEventListener('loadeddata', async (event) => {
-    console.log('Yay! The readyState just increased to ' +'HAVE_CURRENT_DATA or greater for the first time.');
+    console.log('Yay!');
     loadModel();
     generatePlayerInfo();
     generateShopInfo();
 });
+
+/*
+let shopAttributeList = [
+    {title: "Increase Damage:", id:"shopIncreaseDamagae", initialGoldSpend:50, increaseRate:10, now:50 , action:[[1,1]] },
+    {title: "Better Weapons:", id:"shopBetterWeapons", initialGoldSpend:300, increaseRate:100, now:300, action:[[1,5],[2,1]] },
+]
+*/
