@@ -61,17 +61,21 @@ async function getMedia(constraints) {
 
 // creata load model and active cameras
 async function loadModel(){
-
+    //SINGLEPOSE_LIGHTNING = faster , SINGLEPOSE_THUNDER = acc up
     model = await poseDetection.createDetector(
         poseDetection.SupportedModels.MoveNet,
-        {modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER}
+        {modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING}
     );
 
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
-    const targetFps = 25
+    const targetFps = 28
     const timeInvert = Math.floor(1000 / targetFps);
+
+    // while(true){
+    //    await predictModel(); 
+    // }
 
     setInterval(predictModel, timeInvert);
 
@@ -111,12 +115,12 @@ let hitInvertStatus = true;
 
 // Max 4 hit per seconds
 const resetHitInvertStatus = () => hitInvertStatus = true;
-setInterval(resetHitInvertStatus, 250);
+setInterval(resetHitInvertStatus, 260);
 
 // diff > Threshold => hit conditions
 const xThreshold = 100;
 const yThreshold = 100;
-const overallThreshold = 130;
+const overallThreshold = 160;
 
 // left[] and right[]
 let previousPt = [[],[]];
@@ -283,102 +287,110 @@ let tom = new Player(1, "wooden_sword", 0,0 );
 
 async function predictModel(){
 
-    const poses = await model.estimatePoses(video);
-    ctx.drawImage(video, 0, 0, video.videoWidth , video.videoHeight);
+    return new Promise( async (rec,rej) =>{
 
-    if(poses.length >= 1){
-       
-        for (const pt of poses) {
-            pt.keypoints != null && drawKeypoint(pt.keypoints)
-        }
-                           
-        function drawKeypoint(keypoint) {
-               
-            ctx.fillStyle = 'blue';
-
-            for (let pt of keypoint){
-
-                if(pt.score > 0.2){
-                    //ctx.fillRect(pt.x, pt.y, 50, 50);
-                    ctx.beginPath()
-                    ctx.arc(pt.x, pt.y, 5, 0, 2 * Math.PI, false)
-                    ctx.fill()
-
-                    if(pt.name == 'left_wrist' || pt.name == 'right_wrist'){
-
-                        const rlNum = pt.name == 'left_wrist' ? 0 : 1;
-
-                        const xPol = (pt.x / canvas.width) * window.innerWidth;
-                        const yPol = (pt.y / canvas.height) * window.innerHeight;
-
-                        if(previousPt[rlNum].length <=0){
-                            previousPt[rlNum] = [xPol,yPol];
-                            continue;
-                        }
-
-                        const diff = pointDIff(previousPt[rlNum], [xPol,yPol]);
-                        const diffX = pointDIffOnePt(previousPt[rlNum][0],xPol);
-                        const diffY = pointDIffOnePt(previousPt[rlNum][1],yPol);                    
-
-                        debugInfo[rlNum].minX = Math.min(debugInfo[rlNum].minX, diffX);
-                        debugInfo[rlNum].maxX = Math.max(debugInfo[rlNum].maxX , diffX);
-
-                        debugInfo[rlNum].minY = Math.min(debugInfo[rlNum].minY, diffY);
-                        debugInfo[rlNum].maxY = Math.max(debugInfo[rlNum].maxY , diffY);
-
-                        debugInfo[rlNum].minOverall = Math.min(debugInfo[rlNum].minOverall, diff);
-                        debugInfo[rlNum].maxOverall = Math.max(debugInfo[rlNum].maxOverall , diff);
-
-                        const mesX = diffX > xThreshold;
-                        const mesY = diffY > yThreshold;
-                        const mesOver = diff > overallThreshold;
-
-                        let hitIdentify = hitInvertStatus && (mesX || mesY || mesOver);
-                        if(hitIdentify){
-                            slime.hit(tom);
-                            hitInvertStatus = false;
-                        }
-
-                        /*
-                        let debugMessagePrint = `
-                        <h1>now X: ${diffX} ${mesX}</h1>
-                        <h1>now Y: ${diffY} ${mesY}</h1>
-                        <h1>now overall: ${diff} ${mesOver}</h1>
-                        <br>
-                        <h1>minX: ${debugInfo[rlNum].minX}</h1>
-                        <h1>maxX: ${debugInfo[rlNum].maxX}</h1>
-                        <br>
-                        <h1>minY: ${debugInfo[rlNum].minY}</h1>
-                        <h1>maxY: ${debugInfo[rlNum].maxY}</h1>
-                        <br>
-                        <h1>minOverall: ${debugInfo[rlNum].minOverall}</h1>
-                        <h1>maxOverall: ${debugInfo[rlNum].maxOverall}</h1>
-                        <br>
-                        <h1>${hitIdentify}</h1>
-                        `
-                        */
-
-                        previousPt[rlNum] = [xPol,yPol];
-                        
-                        //console.log(xPol)
-                        //console.log(yPol)
-                        
-                        //ctxPlay.clearRect(0, 0, canvasPlay.width, canvasPlay.height);
-                        //ctxPlay.fillRect(xPol, yPol, 30, 30);
-
-                        //cursor.style.left = `${xPol}px`;
-                        //cursor.style.top = `${yPol}px`;
-                    }
-                }
-
+        const poses = await model.estimatePoses(video);
+        ctx.drawImage(video, 0, 0, video.videoWidth , video.videoHeight);
+    
+        if(poses.length >= 1){
+           
+            for (const pt of poses) {
+                pt.keypoints != null && drawKeypoint(pt.keypoints)
             }
-            
+                               
+            function drawKeypoint(keypoint) {
+                   
+                ctx.fillStyle = 'blue';
+    
+                for (let pt of keypoint){
+    
+                    if(pt.score > 0.2){
+                        //ctx.fillRect(pt.x, pt.y, 50, 50);
+                        ctx.beginPath()
+                        ctx.arc(pt.x, pt.y, 5, 0, 2 * Math.PI, false)
+                        ctx.fill()
+    
+                        if(pt.name == 'left_wrist' || pt.name == 'right_wrist'){
+    
+                            const rlNum = pt.name == 'left_wrist' ? 0 : 1;
+    
+                            const xPol = (pt.x / canvas.width) * window.innerWidth;
+                            const yPol = (pt.y / canvas.height) * window.innerHeight;
+    
+                            if(previousPt[rlNum].length <=0){
+                                previousPt[rlNum] = [xPol,yPol];
+                                continue;
+                            }
+    
+                            const diff = pointDIff(previousPt[rlNum], [xPol,yPol]);
+                            const diffX = pointDIffOnePt(previousPt[rlNum][0],xPol);
+                            const diffY = pointDIffOnePt(previousPt[rlNum][1],yPol);                    
+    
+                            debugInfo[rlNum].minX = Math.min(debugInfo[rlNum].minX, diffX);
+                            debugInfo[rlNum].maxX = Math.max(debugInfo[rlNum].maxX , diffX);
+    
+                            debugInfo[rlNum].minY = Math.min(debugInfo[rlNum].minY, diffY);
+                            debugInfo[rlNum].maxY = Math.max(debugInfo[rlNum].maxY , diffY);
+    
+                            debugInfo[rlNum].minOverall = Math.min(debugInfo[rlNum].minOverall, diff);
+                            debugInfo[rlNum].maxOverall = Math.max(debugInfo[rlNum].maxOverall , diff);
+    
+                            const mesX = diffX > xThreshold;
+                            const mesY = diffY > yThreshold;
+                            const mesOver = diff > overallThreshold;
+    
+                            let hitIdentify = hitInvertStatus && (mesX || mesY || mesOver);
+                            if(hitIdentify){
+                                slime.hit(tom);
+                                hitInvertStatus = false;
+                            }
+    
+                            /*
+                            let debugMessagePrint = `
+                            <h1>now X: ${diffX} ${mesX}</h1>
+                            <h1>now Y: ${diffY} ${mesY}</h1>
+                            <h1>now overall: ${diff} ${mesOver}</h1>
+                            <br>
+                            <h1>minX: ${debugInfo[rlNum].minX}</h1>
+                            <h1>maxX: ${debugInfo[rlNum].maxX}</h1>
+                            <br>
+                            <h1>minY: ${debugInfo[rlNum].minY}</h1>
+                            <h1>maxY: ${debugInfo[rlNum].maxY}</h1>
+                            <br>
+                            <h1>minOverall: ${debugInfo[rlNum].minOverall}</h1>
+                            <h1>maxOverall: ${debugInfo[rlNum].maxOverall}</h1>
+                            <br>
+                            <h1>${hitIdentify}</h1>
+                            `
+                            */
+    
+                            previousPt[rlNum] = [xPol,yPol];
+                            
+                            //console.log(xPol)
+                            //console.log(yPol)
+                            
+                            //ctxPlay.clearRect(0, 0, canvasPlay.width, canvasPlay.height);
+                            //ctxPlay.fillRect(xPol, yPol, 30, 30);
+    
+                            //cursor.style.left = `${xPol}px`;
+                            //cursor.style.top = `${yPol}px`;
+                        }
+                    }
+    
+                }
+                
+            }
+
+            rec();
+                          
         }
-                      
-    }
-    else{
-        console.log("nope")
-    }
+        else{
+            console.log("nope");
+            rec();
+        }
+
+    })
+
 
 }
 
@@ -387,6 +399,7 @@ video.addEventListener('loadeddata', async (event) => {
     loadModel();
     generatePlayerInfo();
     generateShopInfo();
+    hpMessage.innerHTML = "Move to play!";
 });
 
 /*
