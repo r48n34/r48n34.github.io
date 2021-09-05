@@ -113,9 +113,9 @@ const resetHitInvertStatus = () => hitInvertStatus = true;
 setInterval(resetHitInvertStatus, 250);
 
 // diff > Threshold => hit conditions
-const xThreshold = 80;
-const yThreshold = 80;
-const overallThreshold = 80;
+const xThreshold = 100;
+const yThreshold = 100;
+const overallThreshold = 130;
 
 // [x,y]
 let previousPt = [[],[]];
@@ -132,12 +132,105 @@ class Player{
 
     getGold(amount){
         this.gold += amount;
+        document.getElementById("playerGold").innerHTML = this.gold;
     }
     
     getExp(amount){
         this.exp += amount;
+        document.getElementById("playerExp").innerHTML = this.exp;
+    }
+
+    updateAttackDam(amount){
+        this.attackDam += amount;
+        document.getElementById("playerAttDam").innerHTML = this.attackDam;
+    }
+    
+    updateWeapons(name){
+        this.weapon = name;
+        document.getElementById("playerWeapon").innerHTML = this.weapon;
     }
 }
+
+const playerCard = document.getElementById("playerCard");
+let playerAttributeList = [
+    {title: "Attack Damage:", id:"playerAttDam", defalutVal:1},
+    {title: "Weapons:", id:"playerWeapon", defalutVal:"wooden Sword"},
+    {title: "Exp:", id:"playerExp", defalutVal:0},
+    {title: "Gold:", id:"playerGold", defalutVal:0},
+]
+
+function generatePlayerInfo(){
+    playerAttributeList.forEach( (v,i) =>{
+        playerCard.innerHTML +=`
+        <div class="d-flex justify-content-between mt-2">
+              <div> <h4>${v.title}</h4></div>
+              <div> <h4 id=${v.id}>${v.defalutVal}</h4> </div>
+        </div>
+        `
+    })
+}
+
+const shopCard = document.getElementById("shopCard");
+// action 1 = increase damage [1,2] => action 1, increate dam by 2
+// action 2 = changing weapomns [2,5] => action 2, changing weapons id 5
+/*
+let shopAttributeList = [
+    {title: "Increase Damage:", id:"shopIncreaseDamagae", initialGoldSpend:50, increaseRate:10, now:50 , action:[[1,1]] },
+    {title: "Better Weapons:", id:"shopBetterWeapons", initialGoldSpend:300, increaseRate:100, now:300, action:[[1,5],[2,1]] },
+]
+*/
+let shopAttributeList = [
+    {title: "Increase Damage:", id:"shopIncreaseDamagae", initialGoldSpend:50, increaseRate:10, now:50 , action:[[1,1]] },
+    {title: "Better Weapons:", id:"shopBetterWeapons", initialGoldSpend:300, increaseRate:100, now:300, action:[[1,5],[2,1]] },
+]
+
+const actionList = {
+    1: function(val){
+        tom.updateAttackDam(val);
+    },
+    2: function(name){
+        tom.updateWeapons(name);
+    }
+}
+
+function generateShopInfo(){
+    shopAttributeList.forEach( (v,i) =>{
+        shopCard.innerHTML +=`
+        <div class="d-flex justify-content-between mt-2">
+              <div> <h4>${v.title} </h4></div>
+              <div> <button id=${v.id} type="button" class="btn btn-light"> Buy it (${v.now} gold)</button> </div>
+        </div>
+        `
+    })
+    shopAttributeList.forEach( (v,i) =>{
+
+        document.getElementById(v.id).addEventListener("click", (e)=>{
+
+            if(tom.gold < v.now){
+                hpMessage.innerHTML = "You don't have enough gold to do this."
+                return;
+            }
+            
+            tom.gold -= v.now;
+            v.now += v.increaseRate;
+            
+            document.getElementById("playerGold").innerHTML = tom.gold;
+
+            v["action"].forEach((subV,i) =>{
+                actionList[subV[0]](subV[1]);
+            })
+
+            document.getElementById(v.id).innerHTML = `Buy it (${v.now} gold)`;
+
+
+        })
+
+    })
+
+}
+
+
+
 
 class Monster{
     constructor(hp, gold, expGive){
@@ -166,7 +259,7 @@ class Monster{
             player.getGold(this.gold);
             player.getExp(this.expGive);
 
-            let buffer = 10 * monsterDeadCount;
+            let buffer = 10 + monsterDeadCount;
             slime = new Monster(buffer,buffer,buffer);
             progressHp.style.width = `100%`;
             hpMessage.innerHTML = `Monster Dead! ${this.expGive} exp gain!`;
@@ -283,7 +376,11 @@ async function predictModel(){
 
 }
 
+
+
 video.addEventListener('loadeddata', async (event) => {
     console.log('Yay! The readyState just increased to ' +'HAVE_CURRENT_DATA or greater for the first time.');
     loadModel();
+    generatePlayerInfo();
+    generateShopInfo();
 });
