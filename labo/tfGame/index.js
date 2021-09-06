@@ -113,7 +113,7 @@ let debugInfo = [
 // Max hit that you can deal in shord period 
 let hitInvertStatus = true;
 
-// Max 4 hit per seconds
+// Max 260/1000 hit per seconds
 const resetHitInvertStatus = () => hitInvertStatus = true;
 setInterval(resetHitInvertStatus, 260);
 
