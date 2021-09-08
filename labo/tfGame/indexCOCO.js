@@ -7,7 +7,6 @@ const video = document.querySelector('video');
 const canvas = document.getElementById('output');
 const ctx = canvas.getContext('2d');
 
-
 // debugMessage
 const debugMessage = document.getElementById("debugMessage")
 console.log("Width:", window.innerWidth)
@@ -46,12 +45,15 @@ async function loadModel(){
     //SINGLEPOSE_LIGHTNING = faster , SINGLEPOSE_THUNDER = acc up
     model = await cocoSsd.load();
 
+    // Set up canvas w and h
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
+    // Set fps for canvas draw
     const targetFps = 25
     const timeInvert = Math.floor(1000 / targetFps);
 
+    // draw each timeInvert  seconds
     setInterval(predictModel, timeInvert);
 
 }
