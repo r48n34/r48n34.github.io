@@ -21,17 +21,14 @@ console.log("Height:", window.innerHeight); // video setup
 
 var constraints = window.constraints = {
   audio: false,
-  video: {
-    deviceId: 'b270185bf679aaa1050856c79b4285f4df54fa12560ee2a47f38651bb7f84626',
-    facingMode: {
-      exact: 'environment'
-    }
-  }
+  video: {}
 };
 getMedia(constraints);
+var cameraMessage = document.getElementById("cameraMessage");
 
 function getMedia(constraints) {
-  var stream, res;
+  var stream, res, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, i;
+
   return regeneratorRuntime.async(function getMedia$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -43,28 +40,72 @@ function getMedia(constraints) {
         case 3:
           res = _context.sent;
           console.log(res);
-          _context.prev = 5;
-          _context.next = 8;
+          _iteratorNormalCompletion = true;
+          _didIteratorError = false;
+          _iteratorError = undefined;
+          _context.prev = 8;
+
+          for (_iterator = res[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            i = _step.value;
+            cameraMessage.innerHTML += i.deviceId + i.label + '<br>'; //cameraMessage.innerHTML += i.label;
+          }
+
+          _context.next = 16;
+          break;
+
+        case 12:
+          _context.prev = 12;
+          _context.t0 = _context["catch"](8);
+          _didIteratorError = true;
+          _iteratorError = _context.t0;
+
+        case 16:
+          _context.prev = 16;
+          _context.prev = 17;
+
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+
+        case 19:
+          _context.prev = 19;
+
+          if (!_didIteratorError) {
+            _context.next = 22;
+            break;
+          }
+
+          throw _iteratorError;
+
+        case 22:
+          return _context.finish(19);
+
+        case 23:
+          return _context.finish(16);
+
+        case 24:
+          _context.prev = 24;
+          _context.next = 27;
           return regeneratorRuntime.awrap(navigator.mediaDevices.getUserMedia(constraints));
 
-        case 8:
+        case 27:
           stream = _context.sent;
           console.log(stream);
           window.stream = stream;
           video.srcObject = stream;
-          _context.next = 16;
+          _context.next = 35;
           break;
 
-        case 14:
-          _context.prev = 14;
-          _context.t0 = _context["catch"](5);
+        case 33:
+          _context.prev = 33;
+          _context.t1 = _context["catch"](24);
 
-        case 16:
+        case 35:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[5, 14]]);
+  }, null, null, [[8, 12, 16, 24], [17,, 19, 23], [24, 33]]);
 } // creata load model and active cameras
 
 
@@ -83,7 +124,7 @@ function loadModel() {
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight; // Set fps for canvas draw
 
-          targetFps = 30;
+          targetFps = 28;
           timeInvert = Math.floor(1000 / targetFps); // draw each timeInvert  seconds
 
           setInterval(predictModel, timeInvert);

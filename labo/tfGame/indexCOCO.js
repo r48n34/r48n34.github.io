@@ -12,24 +12,29 @@ const debugMessage = document.getElementById("debugMessage")
 console.log("Width:", window.innerWidth)
 console.log("Height:", window.innerHeight)
 
+
 // video setup
 var constraints = window.constraints = {
     audio: false,
     video: {
-        deviceId: 'b270185bf679aaa1050856c79b4285f4df54fa12560ee2a47f38651bb7f84626',
-        facingMode: {
-            exact: 'environment'
-        }
-    }
 
+    }
 };
 getMedia(constraints);
+
+const cameraMessage = document.getElementById("cameraMessage");
+
 
 async function getMedia(constraints) {
     let stream = null;
 
     let res = await navigator.mediaDevices.enumerateDevices();
     console.log(res)
+
+    for(let i of res){
+        cameraMessage.innerHTML += i.deviceId + i.label + '<br>';
+        //cameraMessage.innerHTML += i.label;
+    }
   
     try {
       stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -53,7 +58,7 @@ async function loadModel(){
     canvas.height = video.videoHeight;
 
     // Set fps for canvas draw
-    const targetFps = 30
+    const targetFps = 28;
     const timeInvert = Math.floor(1000 / targetFps);
 
     // draw each timeInvert  seconds
