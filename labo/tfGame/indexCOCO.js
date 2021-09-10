@@ -16,27 +16,8 @@ console.log("Height:", window.innerHeight)
 // video setup
 
 
-const cameraMessage = document.getElementById("cameraMessage");
-const videoSource = document.getElementById("videoSource");
-
-let globalId;
-async function getResult(){
-    let res = await navigator.mediaDevices.enumerateDevices();
-    console.log(res)
-
-    for(let i of res){
-        videoSource.innerHTML += ` <option value="${i.deviceId}">${i.label}</option>`;
-    }
-
-    videoSource.addEventListener('change', async ()=>{
-        globalId = videoSource.value;
-        console.log(globalId);
-        getMedia();
-    })
-
-}
-
-getResult();
+//const cameraMessage = document.getElementById("cameraMessage");
+//const videoSource = document.getElementById("videoSource");
 
 
 getMedia();
@@ -46,9 +27,7 @@ async function getMedia() {
     var constraints = window.constraints = {
         audio: false,
         video: {
-            deviceId: globalId,
             facingMode: "environment" 
-
         }
     };
 
@@ -81,6 +60,23 @@ async function loadModel(){
 
     // draw each timeInvert  seconds
     setInterval(predictModel, timeInvert);
+
+    const capBtn = document.getElementById("capBtn");
+
+    capBtn.addEventListener("click", async()=>{
+
+        let imgURL = canvas.toDataURL("image/png");
+
+        let dlLink = document.createElement('a');
+        dlLink.download = "fileName";
+        dlLink.href = imgURL;
+        dlLink.dataset.downloadurl = ["image/png", dlLink.download, dlLink.href].join(':');
+
+        document.body.appendChild(dlLink);
+        dlLink.click();
+        document.body.removeChild(dlLink);
+        
+    })
 
 }
 
