@@ -14,19 +14,42 @@ console.log("Height:", window.innerHeight)
 
 
 // video setup
-var constraints = window.constraints = {
-    audio: false,
-    video: {
 
-    }
-};
-getMedia(constraints);
 
 const cameraMessage = document.getElementById("cameraMessage");
 
+const videoSource = document.getElementById("videoSource");
 
-async function getMedia(constraints) {
+let globalId;
+async function getResult(){
+    let res = await navigator.mediaDevices.enumerateDevices();
+    console.log(res)
+
+    for(let i of res){
+        videoSource.innerHTML += ` <option value="${i.deviceId}">${i.label}</option>`;
+    }
+
+    videoSource.addEventListener('change', async ()=>{
+        globalId = videoSource.value;
+        console.log(globalId);
+        getMedia();
+    })
+
+}
+
+getResult();
+
+
+getMedia();
+async function getMedia() {
     let stream = null;
+
+    var constraints = window.constraints = {
+        audio: false,
+        video: {
+            deviceId: globalId
+        }
+    };
 
     let res = await navigator.mediaDevices.enumerateDevices();
     console.log(res)
