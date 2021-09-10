@@ -83,7 +83,7 @@ function loadModel() {
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight; // Set fps for canvas draw
 
-          targetFps = 28;
+          targetFps = 30;
           timeInvert = Math.floor(1000 / targetFps); // draw each timeInvert  seconds
 
           setInterval(predictModel, timeInvert);

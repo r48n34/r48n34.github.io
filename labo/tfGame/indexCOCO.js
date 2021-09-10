@@ -53,7 +53,7 @@ async function loadModel(){
     canvas.height = video.videoHeight;
 
     // Set fps for canvas draw
-    const targetFps = 28
+    const targetFps = 30
     const timeInvert = Math.floor(1000 / targetFps);
 
     // draw each timeInvert  seconds
