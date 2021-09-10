@@ -17,7 +17,6 @@ console.log("Height:", window.innerHeight)
 
 
 const cameraMessage = document.getElementById("cameraMessage");
-
 const videoSource = document.getElementById("videoSource");
 
 let globalId;
@@ -47,17 +46,13 @@ async function getMedia() {
     var constraints = window.constraints = {
         audio: false,
         video: {
-            deviceId: globalId
+            deviceId: globalId,
+            facingMode: 'enironment'
+
         }
     };
 
-    let res = await navigator.mediaDevices.enumerateDevices();
-    console.log(res)
-
-    for(let i of res){
-        cameraMessage.innerHTML += i.deviceId + i.label + '<br>';
-        //cameraMessage.innerHTML += i.label;
-    }
+    //let res = await navigator.mediaDevices.enumerateDevices();
   
     try {
       stream = await navigator.mediaDevices.getUserMedia(constraints);
