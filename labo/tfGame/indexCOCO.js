@@ -47,7 +47,7 @@ async function getMedia() {
         audio: false,
         video: {
             deviceId: globalId,
-            facingMode: 'enironment'
+            facingMode: { exact: "environment" }
 
         }
     };
