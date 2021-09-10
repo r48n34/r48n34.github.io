@@ -22,7 +22,10 @@ console.log("Height:", window.innerHeight); // video setup
 var constraints = window.constraints = {
   audio: false,
   video: {
-    deviceId: 'b270185bf679aaa1050856c79b4285f4df54fa12560ee2a47f38651bb7f84626'
+    deviceId: 'b270185bf679aaa1050856c79b4285f4df54fa12560ee2a47f38651bb7f84626',
+    facingMode: {
+      exact: 'environment'
+    }
   }
 };
 getMedia(constraints);
@@ -80,7 +83,7 @@ function loadModel() {
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight; // Set fps for canvas draw
 
-          targetFps = 25;
+          targetFps = 28;
           timeInvert = Math.floor(1000 / targetFps); // draw each timeInvert  seconds
 
           setInterval(predictModel, timeInvert);

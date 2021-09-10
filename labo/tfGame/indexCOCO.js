@@ -16,7 +16,10 @@ console.log("Height:", window.innerHeight)
 var constraints = window.constraints = {
     audio: false,
     video: {
-        deviceId: 'b270185bf679aaa1050856c79b4285f4df54fa12560ee2a47f38651bb7f84626'
+        deviceId: 'b270185bf679aaa1050856c79b4285f4df54fa12560ee2a47f38651bb7f84626',
+        facingMode: {
+            exact: 'environment'
+        }
     }
 
 };
@@ -50,7 +53,7 @@ async function loadModel(){
     canvas.height = video.videoHeight;
 
     // Set fps for canvas draw
-    const targetFps = 25
+    const targetFps = 28
     const timeInvert = Math.floor(1000 / targetFps);
 
     // draw each timeInvert  seconds
