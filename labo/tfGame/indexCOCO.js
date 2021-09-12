@@ -43,7 +43,7 @@ async function getMedia() {
       video.srcObject = stream
 
     } catch(err) {
-
+        console.log(err);
     }
 }
 
@@ -87,6 +87,12 @@ async function loadModel(){
 
 }
 
+var requestAnimationFrame = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame;
+
 async function predictModel(){
     
     stats.begin();
@@ -113,7 +119,7 @@ async function predictModel(){
     }
 
     stats.end();
-    window.requestAnimationFrame(predictModel);        
+    requestAnimationFrame(predictModel);        
 }
 
 video.addEventListener('loadeddata', async (event) => {
