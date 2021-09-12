@@ -49,6 +49,8 @@ async function getMedia() {
 
 getMedia();
 
+
+
 // creata load model and active cameras
 async function loadModel(){
     //SINGLEPOSE_LIGHTNING = faster , SINGLEPOSE_THUNDER = acc up
@@ -56,16 +58,12 @@ async function loadModel(){
 
     model = await cocoSsd.load();
 
+    //console.log(navigator.platform)
+
     // Set up canvas w and h
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
-    // Set fps for canvas draw
-    //const targetFps = 28;
-    //const timeInvert = Math.floor(1000 / targetFps);
-
-    // draw each timeInvert  seconds
-    //setInterval(predictModel, timeInvert);
     predictModel();
 
     const capBtn = document.getElementById("capBtn");
@@ -87,11 +85,16 @@ async function loadModel(){
 
 }
 
-var requestAnimationFrame = window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame;
+video.addEventListener('loadeddata', async (event) => {
+    console.log('Yay!');
+    loadModel();
+});
+
+var requestAnimationFrameCross = window.webkitRequestAnimationFrame ||
+        window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame || window.msRequestAnimationFrame;
+
+console.log(requestAnimationFrameCross)
 
 async function predictModel(){
     
@@ -119,11 +122,5 @@ async function predictModel(){
     }
 
     stats.end();
-    requestAnimationFrame(predictModel);        
+    requestAnimationFrameCross(predictModel);        
 }
-
-video.addEventListener('loadeddata', async (event) => {
-    console.log('Yay!');
-    loadModel();
-});
-
