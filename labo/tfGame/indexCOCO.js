@@ -19,8 +19,10 @@ console.log("Height:", window.innerHeight)
 //const cameraMessage = document.getElementById("cameraMessage");
 //const videoSource = document.getElementById("videoSource");
 
+var stats = new Stats();
+stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild( stats.dom );
 
-getMedia();
 async function getMedia() {
     let stream = null;
 
@@ -45,9 +47,13 @@ async function getMedia() {
     }
 }
 
+getMedia();
+
 // creata load model and active cameras
 async function loadModel(){
     //SINGLEPOSE_LIGHTNING = faster , SINGLEPOSE_THUNDER = acc up
+    
+
     model = await cocoSsd.load();
 
     // Set up canvas w and h
@@ -55,11 +61,12 @@ async function loadModel(){
     canvas.height = video.videoHeight;
 
     // Set fps for canvas draw
-    const targetFps = 28;
-    const timeInvert = Math.floor(1000 / targetFps);
+    //const targetFps = 28;
+    //const timeInvert = Math.floor(1000 / targetFps);
 
     // draw each timeInvert  seconds
-    setInterval(predictModel, timeInvert);
+    //setInterval(predictModel, timeInvert);
+    predictModel();
 
     const capBtn = document.getElementById("capBtn");
 
@@ -81,33 +88,32 @@ async function loadModel(){
 }
 
 async function predictModel(){
-
-    return new Promise( async (rec,rej) =>{
-        // img , maxNumBoxes, minScore
-        const result = await model.detect(video, 10, 0.45);
+    
+    stats.begin();
+    
+    // img , maxNumBoxes, minScore
+    const result = await model.detect(video, 10, 0.45);
         
-        ctx.drawImage(video, 0, 0);
-        ctx.font = '40px Arial';
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = "blue";
-        ctx.fillStyle = "blue";
+    ctx.drawImage(video, 0, 0);
+    ctx.font = '40px Arial';
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "blue";
+    ctx.fillStyle = "blue";
 
-        for (let i = 0; i < result.length; i++) {
-            ctx.beginPath();
-            //three dots mean spread over object get all its properties
-            ctx.rect(...result[i].bbox);     
-            ctx.stroke();
-            ctx.fillText(
-                result[i].score.toFixed(3) + ' ' + result[i].class,
-                result[i].bbox[0],
-                result[i].bbox[1] - 5
-            );
-        } 
+    for (let i = 0; i < result.length; i++) {
+        ctx.beginPath();
+        //three dots mean spread over object get all its properties
+        ctx.rect(...result[i].bbox);     
+        ctx.stroke();
+        ctx.fillText(
+            result[i].score.toFixed(3) + ' ' + result[i].class,
+            result[i].bbox[0],
+            result[i].bbox[1] - 5
+        );
+    }
 
-        rec(); 
-
-    })
-
+    stats.end();
+    window.requestAnimationFrame(predictModel);        
 }
 
 video.addEventListener('loadeddata', async (event) => {
