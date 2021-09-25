@@ -8,7 +8,7 @@ const data = {
 let currentYearSelect = [];
 
 const allProj = [
-    {year: "2018", title: "Minecraft school", des:"Secondary school build in minecraft" ,imgLink: "img/school.jpg", url: "https://r48n34.github.io/school/newSchoolmain.html"},
+    {year: "2018", title: "Minecraft school", des:"Secondary school build in minecraft" ,imgLink: "img/school.jpg", url: "https://r48n34.github.io/school/newSchoool.html"},
     {year: "2020", title: "Data calculator", des:"Dec, Bin, Hex calculator" , imgLink: "img/cal.jpg", url: "https://r48n34.github.io/toolsbox/tools.html"},
     {year: "2021", title: "BK exporter", des:"layout & combiner" , imgLink: "img/bkkk-1.jpg", url: "https://r48n34.github.io/jsbk/upweb.html"},
     {year: "2021", title: "React project", des:"Random react tools" , imgLink: "img/reaa.jpg", url: "https://peaceful-galileo-6fead0.netlify.app/#/"},
