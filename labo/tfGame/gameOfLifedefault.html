@@ -1,0 +1,386 @@
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+  </head>
+
+  <body>
+
+    <h3 class="text-center">Game of Life</h3>
+
+    <div class="mb-2" style="text-align: center;">
+        <button class="btn btn-primary" id="reset-game">Reset Game</button>
+    </div>
+
+    <div id="canvas"></div>
+
+    <video id="video" autoplay style="
+    -webkit-transform: scaleX(-1); transform: scaleX(-1);
+    visibility: hidden; width:auto; height:auto;">
+    </video>
+    
+    <div class="fixed-bottom">
+      <div class="d-flex justify-content-end">
+        <canvas id="output"></canvas>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/stats-js@1.0.1/build/stats.min.js"></script>
+    
+    <script>
+
+    // Unit length
+    const unitLength = 20; //board grid size
+    const boxColor = 110; //board dot color
+    const strokeColor = 50; //board grid color
+
+    let columns; // To be determined by window width
+    let rows; // To be determined by window height 
+    let currentBoard;
+    let nextBoard;
+
+    //Setup function only run once in the entire program
+    function setup() {
+        const canvas = createCanvas(windowWidth, windowHeight * 0.8);
+        canvas.parent(document.querySelector('#canvas'));
+
+        // Calculate columns and rows
+        columns = floor(width / unitLength);
+        rows = floor(height / unitLength);
+
+        currentBoard = [];
+        nextBoard = [];
+        for (let i = 0; i < columns; i++) {
+            currentBoard[i] = nextBoard[i] = [];
+        }
+
+        frameRate(25); //p5.js frameRate
+        init();
+    }
+
+    function windowResized() {
+        setup();
+    }
+
+    //Initialize/reset the board state
+    function init() {
+        for (let i = 0; i < columns; i++) {
+            for (let j = 0; j < rows; j++) {
+                currentBoard[i][j] = nextBoard[i][j] = 0;
+            }
+        }
+    }
+
+    //Draw to the canvas base on the current board
+    //By default, p5.js loops through draw() continuously
+    function draw() {
+        background(255);
+        generate();
+
+        videoLoadIn && predictModel();
+
+        for (let i = 0; i < columns; i++) {
+            for (let j = 0; j < rows; j++) {
+                currentBoard[i][j] == 1 ? fill(boxColor) : fill(255); // cb have dot ? boxColor : white;
+                stroke(strokeColor);
+                rect(i * unitLength, j * unitLength, unitLength, unitLength);
+            }
+        }
+    }
+ 
+    //When mouse is dragged, draw and record the dot
+    function mouseDragged() {
+
+        //If the mouse coordinate is outside the board
+        if (mouseX > unitLength * columns || mouseY > unitLength * rows) {
+            return;
+        }
+
+        const x = Math.floor(mouseX / unitLength);
+        const y = Math.floor(mouseY / unitLength);
+        currentBoard[x][y] = 1;
+        fill(boxColor);
+        stroke(strokeColor);
+        rect(x * unitLength, y * unitLength, unitLength, unitLength);
+    }
+
+    //p5.js stop loop draw when mouse is pressed
+    function mousePressed() {
+        noLoop();
+        mouseDragged();
+    }
+
+    //When mouse is released (p5.js loop draw)
+    function mouseReleased() {
+        loop();
+    }
+
+    //Generate next generation based on the current board
+    function generate() {
+
+        //Loop over every single box on the board
+        for (let x = 0; x < columns; x++) {
+            for (let y = 0; y < rows; y++) { // Count all living members in the Moore neighborhood(8 boxes surrounding)
+                
+                let neighbors = 0;
+                for (let i of [-1, 0, 1]) {
+                    for (let j of [-1, 0, 1]) {
+
+                        if (i === 0 && j === 0) { // the cell itself is not its own neighbor        
+                            continue;
+                        }
+                        // The modulo operator is crucial for wrapping on the edge
+                        neighbors += currentBoard[(x + i + columns) % columns][(y + j + rows) % rows];
+
+                    }
+                }
+
+                // Rules of Life
+                if (currentBoard[x][y] == 1 && (neighbors < 2 || neighbors > 3)) { // Die of Loneliness or Overpopulation          
+                    nextBoard[x][y] = 0; 
+                }
+                else if (currentBoard[x][y] == 0 && neighbors == 3) { // New life due to Reproduction          
+                    nextBoard[x][y] = 1;
+                }
+                else { // Stasis       
+                    nextBoard[x][y] = currentBoard[x][y];
+                }
+
+            }
+        }
+
+        // Swap the nextBoard to be the current Board
+        [currentBoard, nextBoard] = [nextBoard, currentBoard];
+    }
+
+    document.querySelector('#reset-game').addEventListener('click', function () { 
+        init(); 
+    });
+
+    /* Notes
+        speed: line 46 frameRate(10)
+        rules (survival, repro...): line 127 to 139
+        start / stop: noLoop() and loop()
+        color: line 90 fill(boxColor)
+        check stable life:
+        random: init() function gen with 1 and 0
+        new patterns: neighbors == 3 can vary to other nums
+        game size : line 23 unitLength 
+
+    */
+
+    let model;
+    let videoLoadIn = false;
+
+    // webCam
+    const video = document.querySelector('video');
+
+    // webCam display
+    const canvas = document.getElementById('output');
+    const ctx = canvas.getContext('2d');
+
+    var constraints = window.constraints = {
+        audio: false,
+        video: {
+            width:  360,
+            height: 270,
+            deviceId: 'b270185bf679aaa1050856c79b4285f4df54fa12560ee2a47f38651bb7f84626'
+        }
+    };
+
+    getMedia(constraints);
+
+    async function getMedia(constraints) {
+        let stream = null;
+
+        let res = await navigator.mediaDevices.enumerateDevices();
+        console.log(res)
+    
+        try {
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+        console.log(stream)
+
+        window.stream = stream
+        video.srcObject = stream
+
+        } catch(err) {
+
+        }
+    }
+
+    async function loadModelTF(){
+        //SINGLEPOSE_LIGHTNING = faster , SINGLEPOSE_THUNDER = acc up
+        model = await poseDetection.createDetector(
+            poseDetection.SupportedModels.MoveNet,
+            {modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING}
+        );
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        videoLoadIn = true;
+
+    }
+
+    var statsFPS = new Stats();
+    statsFPS.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild( statsFPS.dom );
+
+    function pointDIff(p1,p2){
+        return Math.sqrt( (p1[0]-p2[0])**2 + (p1[1]-p2[1])**2 )
+    }
+
+    function pointDIffOnePt(p1,p2){
+        return Math.abs(p1 - p2)
+    }
+
+    let debugInfo = [  
+        {  //left [0]
+            minX:99999,
+            maxX:0,
+            minY:99999,
+            maxY:0,
+            minOverall:99999,
+            maxOverall:0, 
+        },  
+        {  //right [1]
+            minX:99999,
+            maxX:0,
+            minY:99999,
+            maxY:0,
+            minOverall:99999,
+            maxOverall:0, 
+        },
+    ]
+
+    const xThreshold = 70;
+    const yThreshold = 70;
+    const overallThreshold = 110;
+
+    // left[] and right[]
+    let previousPt = [[],[]];
+
+    async function predictModel(){
+
+        statsFPS.begin();
+
+        const poses = await model.estimatePoses(video);
+        ctx.drawImage(video, 0, 0, video.videoWidth , video.videoHeight);
+
+        if(poses.length >= 1){
+                 
+            for (const pt of poses) {
+                pt.keypoints != null && drawKeypoint(pt.keypoints);
+
+            }
+                            
+            function drawKeypoint(keypoint) {
+                
+                ctx.fillStyle = 'blue';
+                let handExist = false;
+
+                for (let pt of keypoint){
+
+                    if(pt.score > 0.2){
+                        //ctx.fillRect(pt.x, pt.y, 50, 50);
+                        ctx.beginPath()
+                        ctx.arc(pt.x, pt.y, 5, 0, 2 * Math.PI, false)
+                        ctx.fill()
+
+                        if(pt.name == 'left_wrist' || pt.name == 'right_wrist'){
+
+                            const rlNum = pt.name == 'left_wrist' ? 0 : 1;
+                            handExist = true
+
+                            const xPol = (pt.x / canvas.width) * window.innerWidth;
+                            const yPol = (pt.y / canvas.height) * window.innerHeight;
+
+                            if(previousPt[rlNum].length <=0){
+                                previousPt[rlNum] = [xPol,yPol];
+                                continue;
+                            }
+
+                            const diff = pointDIff(previousPt[rlNum], [xPol,yPol]);
+                            const diffX = pointDIffOnePt(previousPt[rlNum][0],xPol);
+                            const diffY = pointDIffOnePt(previousPt[rlNum][1],yPol);                    
+
+                            debugInfo[rlNum].minX = Math.min(debugInfo[rlNum].minX, diffX);
+                            debugInfo[rlNum].maxX = Math.max(debugInfo[rlNum].maxX , diffX);
+
+                            debugInfo[rlNum].minY = Math.min(debugInfo[rlNum].minY, diffY);
+                            debugInfo[rlNum].maxY = Math.max(debugInfo[rlNum].maxY , diffY);
+
+                            debugInfo[rlNum].minOverall = Math.min(debugInfo[rlNum].minOverall, diff);
+                            debugInfo[rlNum].maxOverall = Math.max(debugInfo[rlNum].maxOverall , diff);
+
+                            const mesX = diffX > xThreshold;
+                            const mesY = diffY > yThreshold;
+                            const mesOver = diff > overallThreshold;                
+
+                            const x = Math.floor(xPol / unitLength);
+                            const y = Math.floor(yPol / unitLength);
+
+                            const colorLeft = rlNum === 0 ? 'rgb(0,0,255)' : 'rgb(255,0,0)';
+
+                            fill(colorLeft);
+                            stroke(strokeColor);
+                            rect(x * unitLength, y * unitLength, unitLength, unitLength);
+
+                            if(mesX || mesY || mesOver){
+                                //noLoop();
+
+                                for( let k = 0; k < 2; k++){
+                                    for( let j = 0; j < 2; j++){
+                                        currentBoard[x+k][y+j] = 1;
+                                    }
+                                }
+                                    
+                            }
+                            else{
+                                //loop();
+                            }
+                            
+                            previousPt[rlNum] = [xPol,yPol];
+                            
+                        }
+                    }
+
+                }
+
+                if(!handExist){
+                    init();
+                }
+                
+            }
+                        
+        }
+        else{
+            console.log("nope");
+            init();  
+        }
+
+        statsFPS.end();
+
+    }
+
+    video.addEventListener('loadeddata', async (event) => {
+        console.log('Yay!');
+        loadModelTF();
+
+    });
+
+    </script>
+  </body>
+</html>
