@@ -4,15 +4,44 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+
+    <style>
+        body{
+            background-color: #171717;
+            color: #FFFFFF;
+            height: 100%;
+            overflow-y: hidden;   
+        }
+    </style>
   </head>
 
   <body>
 
     <h3 class="text-center">Swing of life</h3>
-    <h5 class="text-center">Shack your arms to control (Out of range = clear all)</h5>
 
-    <div class="mb-2" style="text-align: center;">
-        <button class="btn btn-primary" id="reset-game">Reset Game</button>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-4">
+                <h4 id="xThresholdMessage">xThreshold: 40</h4>
+                <input type="range" class="form-control-range" id="rangexThreshold" min="5" max="120" value="40">
+            </div>
+
+            <div class="col-lg-4">
+                <h4 id="yThresholdMessage">yThreshold: 40</h4>
+                <input type="range" class="form-control-range" id="rangeyThreshold" min="5" max="120" value="40">
+            </div>
+            
+            <div class="col-lg-4">
+                <h4 id="overallThresholdMessage">overallThreshold: 90</h4>
+                <input type="range" class="form-control-range" id="rangeoverallThreshold" min="10" max="180" value="90">
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-2 mt-2" style="text-align: center;">
+        <button class="btn btn-light" id="reset-game">Reset Game</button>
+        <button class="btn btn-light" id="boxCount">Light Up total:</button>
     </div>
 
     <div id="canvas"></div>
@@ -23,10 +52,12 @@
     </video>
     
     <div class="fixed-bottom">
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-end" >
         <canvas id="output"></canvas>
       </div>
     </div>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" ></script>
@@ -43,14 +74,21 @@
     <script>
 
     // Unit length
-    const unitLength = 20; //board grid size
+    let unitLength = 70; //board grid size
     const boxColor = 110; //board dot color
-    const strokeColor = 50; //board grid color
+    const strokeColor = 255; //board grid color
 
     let columns; // To be determined by window width
     let rows; // To be determined by window height 
     let currentBoard;
     let nextBoard;
+
+    let totalBox = 0;
+    let lightUpBox = 0;
+
+    let stageNum = 1;
+    let stageBoxLengthDecrease = 10;
+    let loadingNextStage = true;
 
     //Setup function only run once in the entire program
     function setup() {
@@ -60,6 +98,8 @@
         // Calculate columns and rows
         columns = floor(width / unitLength);
         rows = floor(height / unitLength);
+
+        totalBox = columns * rows;
 
         currentBoard = [];
         nextBoard = [];
@@ -83,7 +123,7 @@
             }
         }
     }
-
+    
     //Draw to the canvas base on the current board
     //By default, p5.js loops through draw() continuously
     function draw() {
@@ -92,13 +132,84 @@
 
         videoLoadIn && predictModel();
 
+        let tempBoxCount = 0;
+
         for (let i = 0; i < columns; i++) {
-            for (let j = 0; j < rows; j++) {
-                currentBoard[i][j] == 1 ? fill(boxColor) : fill(255); // cb have dot ? boxColor : white;
+            for (let j = 0; j < rows; j++) { // cb have dot ? boxColor : white;
+
+                if(currentBoard[i][j] == 1){
+                    fill(boxColor)
+                    tempBoxCount ++;
+                }
+                else{
+                    fill(255)
+                } 
+                
                 stroke(strokeColor);
                 rect(i * unitLength, j * unitLength, unitLength, unitLength);
             }
         }
+
+        lightUpBox = tempBoxCount;
+        document.getElementById("boxCount").innerHTML = `Light Up total: ${tempBoxCount}/${totalBox}`
+
+        if(tempBoxCount / totalBox > 0.75){
+            goToNextStage();
+        }
+    }
+
+    function goToNextStage(){
+
+        init();
+        loadingNextStage = true;
+        const stageMsg = `Stage ${stageNum} clear!`
+        stageNum++;
+
+        Swal.fire({
+            title: stageMsg,
+            html: 'Ready for the next stage in <b></b>.',
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+                }, 100)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
+            }).then((result) => {
+
+                if(unitLength - stageBoxLengthDecrease >= 1){
+                    unitLength -= stageBoxLengthDecrease;
+                    setup();
+                    loadingNextStage = false;
+                }
+                else{
+
+                    Swal.fire({
+                        title: 'Congratulations!',
+                        html: 'You clear all the stages!',
+                        timerProgressBar: true,
+                        allowEscapeKey: false,
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        showConfirmButton: true,
+                        allowOutsideClick: false,
+                        confirmButtonText: 'Play again!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+
+                }
+                
+            }
+        )
+
     }
  
     //When mouse is dragged, draw and record the dot
@@ -148,16 +259,18 @@
                     }
                 }
 
-                // Rules of Life
-                if (currentBoard[x][y] == 1 && (neighbors < 2 || neighbors > 3)) { // Die of Loneliness or Overpopulation          
-                    nextBoard[x][y] = 0; 
-                }
-                else if (currentBoard[x][y] == 0 && neighbors == 3) { // New life due to Reproduction          
-                    nextBoard[x][y] = 1;
-                }
-                else { // Stasis       
-                    nextBoard[x][y] = currentBoard[x][y];
-                }
+                nextBoard[x][y] = currentBoard[x][y];
+
+                // // Rules of Life
+                // if (currentBoard[x][y] == 1 && neighbors < 2) { // Die of Loneliness               
+                //     nextBoard[x][y] = 0;
+                // } else if (currentBoard[x][y] == 1 && neighbors > 3) { // Die of Overpopulation              
+                //     nextBoard[x][y] = 0;
+                // } else if (currentBoard[x][y] == 0 && neighbors == 3) { // New life due to Reproduction              
+                //     nextBoard[x][y] = 1;
+                // } else { // Stasis
+                //     nextBoard[x][y] = currentBoard[x][y];
+                // }
 
             }
         }
@@ -169,18 +282,6 @@
     document.querySelector('#reset-game').addEventListener('click', function () { 
         init(); 
     });
-
-    /* Notes
-        speed: line 46 frameRate(10)
-        rules (survival, repro...): line 127 to 139
-        start / stop: noLoop() and loop()
-        color: line 90 fill(boxColor)
-        check stable life:
-        random: init() function gen with 1 and 0
-        new patterns: neighbors == 3 can vary to other nums
-        game size : line 23 unitLength 
-
-    */
 
     let model;
     let videoLoadIn = false;
@@ -217,7 +318,7 @@
         video.srcObject = stream
 
         } catch(err) {
-
+            console.log(err)
         }
     }
 
@@ -232,6 +333,22 @@
         canvas.height = video.videoHeight;
 
         videoLoadIn = true;
+
+        Swal.close();
+
+        Swal.fire({
+            icon: 'question',
+            title: 'How to play?',
+            text: 'Try to fill out all the color box by your arms!',
+            confirmButtonText: 'Got it!',
+            footer: '<a href="https://github.com/r48n34" target="_blank">Credits: reemo</a>'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                loadingNextStage = false;
+            }
+        })
+
+        return;
 
     }
 
@@ -266,9 +383,17 @@
         },
     ]
 
-    const xThreshold = 70;
-    const yThreshold = 70;
-    const overallThreshold = 110;
+    // xThreshold, yThreshold , overallThreshold
+    let thresholdData = [40,40,90];
+
+    const nameArr = ["xThreshold", "yThreshold", "overallThreshold"]
+  
+    nameArr.forEach( (v,i) =>{
+        document.getElementById("range" + v).addEventListener("input", (e) =>{
+            thresholdData[i] = parseInt(e.currentTarget.value);
+            document.getElementById(v + "Message").innerHTML = `${v}: ${thresholdData[i]}`;
+        });
+    });
 
     // left[] and right[]
     let previousPt = [[],[]];
@@ -326,9 +451,9 @@
                             debugInfo[rlNum].minOverall = Math.min(debugInfo[rlNum].minOverall, diff);
                             debugInfo[rlNum].maxOverall = Math.max(debugInfo[rlNum].maxOverall , diff);
 
-                            const mesX = diffX > xThreshold;
-                            const mesY = diffY > yThreshold;
-                            const mesOver = diff > overallThreshold;                
+                            const mesX = diffX > thresholdData[0];
+                            const mesY = diffY > thresholdData[1];
+                            const mesOver = diff > thresholdData[2];                
 
                             const x = Math.floor(xPol / unitLength);
                             const y = Math.floor(yPol / unitLength);
@@ -339,14 +464,20 @@
                             stroke(strokeColor);
                             rect(x * unitLength, y * unitLength, unitLength, unitLength);
 
-                            if(mesX || mesY || mesOver){
+                            if( (mesX || mesY || mesOver) && !loadingNextStage ){
                                 //noLoop();
 
-                                for( let k = 0; k < 2; k++){
-                                    for( let j = 0; j < 2; j++){
-                                        currentBoard[x+k][y+j] = 1;
-                                    }
-                                }
+                                // for( let k = 0; k < 2; k++){
+                                //     for( let j = 0; j < 2; j++){
+                                //         currentBoard[x+k][y+j] = 1;
+                                //     }
+                                // }
+
+                                currentBoard[x][y] = 1;
+                                currentBoard[x-1][y] = 1;
+                                currentBoard[x+1][y] = 1;
+                                currentBoard[x][y-1] = 1;
+                                currentBoard[x][y+1] = 1;
                                     
                             }
                             else{
@@ -360,9 +491,10 @@
 
                 }
 
-                if(!handExist){
-                    init();
-                }
+                // function for clear board if both hands are not exist
+                // if(!handExist){
+                //     init();
+                // }
                 
             }
                         
@@ -377,8 +509,24 @@
     }
 
     video.addEventListener('loadeddata', async (event) => {
-        console.log('Yay!');
+        console.log('Camera loading success yeah!');
+
+        Swal.fire({
+            title: 'Model loading...',
+            html: 'Waiting for model load in, please wait.',
+            timerProgressBar: true,
+            allowEscapeKey: false,
+            showCloseButton: false,
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+
         loadModelTF();
+        
 
     });
 

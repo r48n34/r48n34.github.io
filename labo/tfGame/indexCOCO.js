@@ -54,6 +54,20 @@ getMedia();
 // creata load model and active cameras
 async function loadModel(){
     //SINGLEPOSE_LIGHTNING = faster , SINGLEPOSE_THUNDER = acc up
+
+    Swal.fire({
+        title: 'Model loading...',
+        html: 'Waiting for model load in, please wait.',
+        timerProgressBar: true,
+        allowEscapeKey: false,
+        showCloseButton: false,
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading()
+        }
+    });
     
 
     model = await cocoSsd.load();
@@ -63,6 +77,8 @@ async function loadModel(){
     // Set up canvas w and h
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
+
+    Swal.close();
 
     predictModel();
 
