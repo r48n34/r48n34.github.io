@@ -40,8 +40,14 @@
     </div>
 
     <div class="mb-2 mt-2" style="text-align: center;">
-        <button class="btn btn-light" id="reset-game">Reset Game</button>
+        <button class="btn btn-light" id="reset-game">Reset Board</button>
         <button class="btn btn-light" id="boxCount">Light Up total:</button>
+        <button class="btn btn-light" id="timerBtn">Time taken:</button>
+        <button class="btn btn-light" id="totalTimerBtn">Time collapse:</button>
+    </div>
+
+    <div class="progress">
+        <div id="progeressBar" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100">25%</div>
     </div>
 
     <div id="canvas"></div>
@@ -84,11 +90,15 @@
     let nextBoard;
 
     let totalBox = 0;
-    let lightUpBox = 0;
+    //let lightUpBox = 0;
 
-    let stageNum = 1;
-    let stageBoxLengthDecrease = 10;
-    let loadingNextStage = true;
+    let stageNum = 1; // stage start from 1
+    let stageBoxLengthDecrease = 10; // each stage decrease the unitLength by this num
+    let loadingNextStage = true; // is in loading state
+    const gameEndUnitLength = 10; // end the game when reach this gameEndUnitLength
+    const nextStageProgress = 0.7; // pass the stage with regarding %
+
+    let stageTimeArr = []; // store the time of each round play
 
     //Setup function only run once in the entire program
     function setup() {
@@ -124,11 +134,10 @@
         }
     }
     
-    //Draw to the canvas base on the current board
     //By default, p5.js loops through draw() continuously
     function draw() {
         background(255);
-        generate();
+        //generate();
 
         videoLoadIn && predictModel();
 
@@ -150,10 +159,15 @@
             }
         }
 
-        lightUpBox = tempBoxCount;
+        //lightUpBox = tempBoxCount;
+
         document.getElementById("boxCount").innerHTML = `Light Up total: ${tempBoxCount}/${totalBox}`
 
-        if(tempBoxCount / totalBox > 0.75){
+        const stageProgressCurrent = ( tempBoxCount / (totalBox * nextStageProgress) ) * 100 ;
+        document.getElementById("progeressBar").style.width = `${stageProgressCurrent}%`;
+        document.getElementById("progeressBar").innerHTML = `${stageProgressCurrent.toFixed(1)}%`;
+
+        if(tempBoxCount / totalBox > nextStageProgress){
             goToNextStage();
         }
     }
@@ -161,9 +175,38 @@
     function goToNextStage(){
 
         init();
+        stopStageTimerReset();
+
         loadingNextStage = true;
-        const stageMsg = `Stage ${stageNum} clear!`
-        stageNum++;
+        const stageMsg = `Stage ${ stageNum ++ } clear!`
+
+        if(unitLength - stageBoxLengthDecrease <= gameEndUnitLength){
+
+            let htmlStr = `<h5>You clear all the stages!</h5>`;
+
+            stageTimeArr.forEach((v,i) =>{
+                htmlStr += `<h5>Stage ${i+1}: ${v} seconds</h5>`;
+            })
+
+            Swal.fire({
+                title: 'Congratulations!',
+                html: htmlStr,
+                timerProgressBar: true,
+                allowEscapeKey: false,
+                showCloseButton: false,
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false,
+                confirmButtonText: 'Play again!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+
+            return;
+
+        }
 
         Swal.fire({
             title: stageMsg,
@@ -173,43 +216,43 @@
             didOpen: () => {
                 Swal.showLoading()
                 const b = Swal.getHtmlContainer().querySelector('b')
-                timerInterval = setInterval(() => {
-                b.textContent = Swal.getTimerLeft()
-                }, 100)
+                timerInterval = setInterval(() => { b.textContent = Swal.getTimerLeft() }, 100);
             },
             willClose: () => {
                 clearInterval(timerInterval)
             }
             }).then((result) => {
-
-                if(unitLength - stageBoxLengthDecrease >= 1){
-                    unitLength -= stageBoxLengthDecrease;
-                    setup();
-                    loadingNextStage = false;
-                }
-                else{
-
-                    Swal.fire({
-                        title: 'Congratulations!',
-                        html: 'You clear all the stages!',
-                        timerProgressBar: true,
-                        allowEscapeKey: false,
-                        showCloseButton: false,
-                        showCancelButton: false,
-                        showConfirmButton: true,
-                        allowOutsideClick: false,
-                        confirmButtonText: 'Play again!',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.reload();
-                        }
-                    });
-
-                }
-                
+                unitLength -= stageBoxLengthDecrease;
+                setup();
+                satrtStageTimer();
+                loadingNextStage = false;   
             }
         )
 
+    }
+
+    let globalTimer = setInterval(() => { updateGlobalTimerDom() }, 1000); //totalTimerBtn
+    let globalTime = 0;
+
+    function updateGlobalTimerDom(){
+        document.getElementById("totalTimerBtn").innerHTML = `Time collapse: ${ ++ globalTime }s`;
+    }
+
+    let stageTimer;
+    let stageTime = 0;
+
+    function satrtStageTimer(){
+        stageTime = 0;
+        globalTimer = setInterval(() => { updateStageTimerDom() }, 1000);
+    }
+
+    function updateStageTimerDom(){
+        document.getElementById("timerBtn").innerHTML = `Time taken: ${++ stageTime}s`;
+    }
+
+    function stopStageTimerReset() {
+        stageTimeArr.push(stageTime);
+        clearInterval(globalTimer);
     }
  
     //When mouse is dragged, draw and record the dot
@@ -237,46 +280,6 @@
     //When mouse is released (p5.js loop draw)
     function mouseReleased() {
         loop();
-    }
-
-    //Generate next generation based on the current board
-    function generate() {
-
-        //Loop over every single box on the board
-        for (let x = 0; x < columns; x++) {
-            for (let y = 0; y < rows; y++) { // Count all living members in the Moore neighborhood(8 boxes surrounding)
-                
-                let neighbors = 0;
-                for (let i of [-1, 0, 1]) {
-                    for (let j of [-1, 0, 1]) {
-
-                        if (i === 0 && j === 0) { // the cell itself is not its own neighbor        
-                            continue;
-                        }
-                        // The modulo operator is crucial for wrapping on the edge
-                        neighbors += currentBoard[(x + i + columns) % columns][(y + j + rows) % rows];
-
-                    }
-                }
-
-                nextBoard[x][y] = currentBoard[x][y];
-
-                // // Rules of Life
-                // if (currentBoard[x][y] == 1 && neighbors < 2) { // Die of Loneliness               
-                //     nextBoard[x][y] = 0;
-                // } else if (currentBoard[x][y] == 1 && neighbors > 3) { // Die of Overpopulation              
-                //     nextBoard[x][y] = 0;
-                // } else if (currentBoard[x][y] == 0 && neighbors == 3) { // New life due to Reproduction              
-                //     nextBoard[x][y] = 1;
-                // } else { // Stasis
-                //     nextBoard[x][y] = currentBoard[x][y];
-                // }
-
-            }
-        }
-
-        // Swap the nextBoard to be the current Board
-        [currentBoard, nextBoard] = [nextBoard, currentBoard];
     }
 
     document.querySelector('#reset-game').addEventListener('click', function () { 
@@ -345,6 +348,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 loadingNextStage = false;
+                satrtStageTimer();
             }
         })
 
@@ -414,16 +418,28 @@
                             
             function drawKeypoint(keypoint) {
                 
-                ctx.fillStyle = 'blue';
                 let handExist = false;
 
                 for (let pt of keypoint){
 
                     if(pt.score > 0.2){
-                        //ctx.fillRect(pt.x, pt.y, 50, 50);
-                        ctx.beginPath()
-                        ctx.arc(pt.x, pt.y, 5, 0, 2 * Math.PI, false)
-                        ctx.fill()
+           
+                        ctx.beginPath();
+
+                        if(pt.name == 'left_wrist'){
+                            ctx.fillStyle = 'blue';
+                            ctx.arc(pt.x, pt.y, 8, 0, 2 * Math.PI, false);
+                        }
+                        else if(pt.name == 'right_wrist'){
+                            ctx.fillStyle = 'red';
+                            ctx.arc(pt.x, pt.y, 8, 0, 2 * Math.PI, false);
+                        }
+                        else{
+                            ctx.fillStyle = 'white';
+                            ctx.arc(pt.x, pt.y, 2, 0, 2 * Math.PI, false);
+                        }
+                        
+                        ctx.fill();
 
                         if(pt.name == 'left_wrist' || pt.name == 'right_wrist'){
 
@@ -487,6 +503,7 @@
                             previousPt[rlNum] = [xPol,yPol];
                             
                         }
+
                     }
 
                 }
@@ -501,7 +518,7 @@
         }
         else{
             console.log("nope");
-            init();  
+            //init();  
         }
 
         statsFPS.end();
@@ -529,6 +546,46 @@
         
 
     });
+
+    //Generate next generation based on the current board
+    // function generate() {
+
+    //     //Loop over every single box on the board
+    //     for (let x = 0; x < columns; x++) {
+    //         for (let y = 0; y < rows; y++) { // Count all living members in the Moore neighborhood(8 boxes surrounding)
+                
+    //             let neighbors = 0;
+    //             for (let i of [-1, 0, 1]) {
+    //                 for (let j of [-1, 0, 1]) {
+
+    //                     if (i === 0 && j === 0) { // the cell itself is not its own neighbor        
+    //                         continue;
+    //                     }
+    //                     // The modulo operator is crucial for wrapping on the edge
+    //                     neighbors += currentBoard[(x + i + columns) % columns][(y + j + rows) % rows];
+
+    //                 }
+    //             }
+
+    //             nextBoard[x][y] = currentBoard[x][y];
+
+    //             // Rules of Life
+    //             if (currentBoard[x][y] == 1 && neighbors < 2) { // Die of Loneliness               
+    //                 nextBoard[x][y] = 0;
+    //             } else if (currentBoard[x][y] == 1 && neighbors > 3) { // Die of Overpopulation              
+    //                 nextBoard[x][y] = 0;
+    //             } else if (currentBoard[x][y] == 0 && neighbors == 3) { // New life due to Reproduction              
+    //                 nextBoard[x][y] = 1;
+    //             } else { // Stasis
+    //                 nextBoard[x][y] = currentBoard[x][y];
+    //             }
+
+    //         }
+    //     }
+
+    //     // Swap the nextBoard to be the current Board
+    //     [currentBoard, nextBoard] = [nextBoard, currentBoard];
+    // }
 
     </script>
   </body>
