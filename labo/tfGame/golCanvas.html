@@ -1,0 +1,225 @@
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+
+    <style>
+        body{
+            background-color: #171717;
+            color: #FFFFFF;
+            height: 100%;
+            overflow-y: hidden;   
+        }
+    </style>
+  </head>
+
+  <body>
+
+    <h3 class="text-center">Demo of Machine learning</h3>
+
+    <div id="canvas"></div>
+
+    <div class="container-fluid mt-2">
+        <div class="row">
+
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-light" id="startPredict">Predict</button>
+                <button type="button" class="btn btn-light" id="clearBtn">Clear</button>
+            </div>
+            <div class="col-sm-2">
+                <h4>Method: </h4>
+                <select id="selectMethod" class="form-control">
+                    <option value="kMeans">kMeans</option>
+                </select>
+            </div>
+
+            <div class="col-sm-2">
+                <h4>Class Number: </h4>
+                <select id="selectClassNum" class="form-control">
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>
+
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+    <script src="mlAlgo.js"></script>
+    
+    <script>
+
+    // Unit length
+    let unitLength = 30; //board grid size
+    const boxColor = 110; //board dot color
+    const strokeColor = 255; //board grid color
+
+    let columns; // To be determined by window width
+    let rows; // To be determined by window height 
+    let currentBoard;
+
+    //Setup function only run once in the entire program
+    function setup() {
+        const canvas = createCanvas(windowWidth, windowHeight * 0.8);
+        canvas.parent(document.querySelector('#canvas'));
+
+        // Calculate columns and rows
+        columns = floor(width / unitLength);
+        rows = floor(height / unitLength);
+
+        totalBox = columns * rows;
+
+        currentBoard = [];
+        pointArr = [];
+        
+
+        for (let i = 0; i < columns; i++) {
+            currentBoard[i] = [];
+        }
+
+        background(255);
+        frameRate(25); //p5.js frameRate
+        init();
+    }
+
+    function windowResized() {
+        setup();
+    }
+
+    //Initialize/reset the board state
+    function init() {
+        for (let i = 0; i < columns; i++) {
+            for (let j = 0; j < rows; j++) {
+                currentBoard[i][j] = 0;
+            }
+        }
+
+        background(255);
+        pointArr = [];
+
+    }
+
+    let pointArr = [];
+
+    class Point{
+
+        constructor(x, y, label){
+            this.x = x;
+            this.y = y;
+            this.label = label;
+        }
+
+        getPt(){
+            return [this.x, this.y];
+        }
+
+        getLabel(){
+            return this.label
+        }
+
+    }
+ 
+    //When mouse is dragged, draw and record the dot
+    function mouseDragged() {
+
+        //If the mouse coordinate is outside the board
+        if (mouseX > unitLength * columns || mouseY > unitLength * rows) {
+            return;
+        }
+
+        const x = Math.floor(mouseX / unitLength);
+        const y = Math.floor(mouseY / unitLength);
+
+        if(currentBoard[x][y] == 1){
+            return;
+        }
+
+        currentBoard[x][y] = 1;
+
+        pointArr.push( new Point(x,y,1) );
+
+        fill(boxColor);
+        stroke(strokeColor);
+        rect(x * unitLength, y * unitLength, unitLength, unitLength);
+
+        console.log(pointArr)
+    }
+
+    //p5.js stop loop draw when mouse is pressed
+    function mousePressed() {
+        mouseDragged();
+    }
+    
+    const startPredict = document.getElementById("startPredict");
+    startPredict.addEventListener("click", () =>{
+        clustersCalculated();
+    })
+    
+    const clearBtn = document.getElementById("clearBtn");
+    clearBtn.addEventListener("click", () =>{
+        init();
+    })
+
+    const selectClassNum = document.getElementById("selectClassNum");
+    for(let i = 1; i < 11; i++){
+        selectClassNum.innerHTML += `<option value="${i}">${i}</option>`
+    }
+    
+
+    // When the model is loaded
+    async function clustersCalculated() {
+
+        //const data = [{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 0 }, { x: 1, y: 1 }];
+        const data = pointArr.map(v => { return { x: v.x, y: v.y } });
+        const data2 = pointArr.map(v => { return [v.x, v.y] });
+    
+
+        console.log(data2);
+        const kmeans = await kMeans(data2, parseInt(selectClassNum.value), 10)
+
+        console.log(kmeans);
+
+        // const options = {
+        //     k: parseInt(selectClassNum.value),
+        //     maxIter: 4,
+        //     threshold: 0.5,
+        // };
+
+        //const kmeans = await ml5.kmeans(data, options);
+
+        //console.log('Points Clustered!');
+        //console.log(kmeans.dataset);
+
+        const colorArr = ["blue", "yellow","red" ,"purple", "green", "black" ];
+        kmeans.forEach((v,i) =>{
+
+            fill(colorArr[v[1]]);
+
+            rect(v[0][0] * unitLength, v[0][1] * unitLength, unitLength, unitLength);
+
+        })
+
+        return;
+    }
+
+    //console.log( normDist([4,4], [2,2]) );
+    
+    //console.log( kMeans([ [4,4,4], [2,2,2],[6,6,6],[3,4,5],[1,1,1] ],2,3) );
+    
+
+
+
+
+    </script>
+
+  </body>
+</html>

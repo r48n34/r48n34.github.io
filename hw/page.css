@@ -1,0 +1,72 @@
+body{
+    background-color: #334249;
+    color: #cab9b2;
+    font-family: "Audiowide", sans-serif;
+}
+
+.headingNavFix{
+    position: fixed;
+    top: 0;    
+}
+
+.headingNav{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    flex-wrap: wrap;
+
+    width: ;
+    
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.selectClass{
+    color: #cab9b2;
+    text-decoration: none;
+}
+
+.selectClass:hover{
+    color: #ac9c95;
+}
+
+.paddClass{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.headingClass{
+    font-size: 40px;
+}
+
+.middlePhotoShow{
+    display: flex;
+    justify-content: center;
+}
+
+.caroStyle{
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.bottomSection{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.inputStyle{
+    width: 80%;
+    height: 30px;
+}
+
+.footerClass{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+
+    background-color: white;
+    width: 100%;
+}
