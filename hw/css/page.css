@@ -1,14 +1,11 @@
+/* body style */
 body{
     background-color: #334249;
     color: #cab9b2;
     font-family: "Audiowide", sans-serif;
 }
 
-.headingNavFix{
-    position: fixed;
-    top: 0;    
-}
-
+/* top section for nav bar */
 .headingNav{
     display: flex;
     justify-content: space-between;
@@ -19,33 +16,35 @@ body{
     margin-right: 20px;
 }
 
+/* select box style */
 .selectClass{
     color: #cab9b2;
     text-decoration: none;
 }
 
+/* select box style whrn hover*/
 .selectClass:hover{
     color: #ac9c95;
 }
 
+/* padding left and right for style */
 .paddClass{
     margin-left: 20px;
     margin-right: 20px;
 }
 
+/* heading style for left text */
 .headingClass{
     font-size: 40px;
 }
 
+/* middle photo flex box */
 .middlePhotoShow{
     display: flex;
     justify-content: center;
 }
 
-.caroStyle{
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-}
-
+/* index page middle crystal display */
 .bottomSection{
     display: flex;
     justify-content: space-around;
@@ -55,11 +54,13 @@ body{
     margin-right: 20px;
 }
 
+/* contach style for input elementss */
 .inputStyle{
     width: 80%;
     height: 30px;
 }
 
+/* bottom stack box style */
 .footerClass{
     position: fixed;
     left: 0;
@@ -69,6 +70,7 @@ body{
     width: 100%;
 }
 
+/* spinning class for define spin animations */
 .aboutSpin{
   animation-name: spin;
   animation-duration: 5000ms;
@@ -77,6 +79,7 @@ body{
 
 }
 
+/* spin animation keyfilm */
 @keyframes spin {
     from {
         transform:rotate(0deg);
