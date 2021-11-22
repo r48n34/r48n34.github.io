@@ -79,7 +79,7 @@ body{
 
 }
 
-/* spin animation keyfilm */
+/* spin animation key frames for doing spin */
 @keyframes spin {
     from {
         transform:rotate(0deg);
