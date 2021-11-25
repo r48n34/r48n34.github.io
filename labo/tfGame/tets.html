@@ -69,14 +69,6 @@
             
         }
 
-        function init() {
-            for (let i = 0; i < columns; i++) {
-                for (let j = 0; j < rows; j++) {
-                currentBoard[i][j] = 0;
-                nextBoard[i][j] = 0;
-                }
-            }
-        }
 
 
         function drawBoxDir(x,y,z){
@@ -126,33 +118,22 @@
        
         }
 
-
-        /**
-         * When mouse is dragged
-         */
         function mouseDragged() {
-            /**
-             * If the mouse coordinate is outside the board
-             */
+
             if (mouseX > unitLength * columns || mouseY > unitLength * rows || !canCreate) {
                 return;
             }
             const x = Math.floor(mouseX / unitLength);
             const y = Math.floor(mouseY / unitLength);
             currentBoard[x][y] = 1;
-            //console.log(x,y)
 
             normalMaterial();
-            //fill(boxColor);
-            //stroke(strokeColor);
 
             drawBoxDir( x * 50, y * 50 ,0)
             //rect(x * unitLength, y * unitLength, unitLength, unitLength);
         }
 
-        /**
-         * When mouse is pressed
-         */
+        
         function mousePressed() {
 
             if(canCreate){
@@ -161,17 +142,11 @@
             }
             
         }
-
-        /**
-         * When mouse is released
-         */
+       
         function mouseReleased() {
             loop();
         }
 
-        /**
-         * Generate next generation based on the current board
-         */
         function generate() {
             //Loop over every single box on the board
             for (let x = 0; x < columns; x++) {
@@ -209,6 +184,15 @@
 
             // Swap the nextBoard to be the current Board
             [currentBoard, nextBoard] = [nextBoard, currentBoard];
+        }
+
+        function init() {
+            for (let i = 0; i < columns; i++) {
+                for (let j = 0; j < rows; j++) {
+                    currentBoard[i][j] = 0;
+                    nextBoard[i][j] = 0;
+                }
+            }
         }
 
 
