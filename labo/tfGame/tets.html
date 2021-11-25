@@ -18,8 +18,18 @@
     </div> -->
 
     <div id="canvas"></div>
-    <button type="button" class="btn btn-primary" id="stopCreate">Stop create</button>
-    <button type="button" class="btn btn-primary" id="stopRotate">Stop rotate</button>
+    
+    <div class="d-flex">
+        <button type="button" class="btn btn-primary" id="stopCreate">Stop create</button>
+        <button type="button" class="btn btn-primary" id="stopRotate">Stop rotate</button>
+        <h4> Rotate speed: </h4>
+        <div style="width: 600px; margin-left: 30px;">
+            <input type="range" class="form-range" id="rotateSpeedSlider" min="1" max="100" step="5" value="10">
+        </div>
+
+        
+    </div>
+
 
 
 
@@ -53,6 +63,12 @@
             canRotate = !canRotate;
             frameCount = 0
             stopRotate.innerHTML = canRotate ? "Stop rotate" : "Start rotate";
+        })
+
+        let defaultRotateSpeed = 0.0001;
+        const rotateSpeedSlider = document.getElementById("rotateSpeedSlider")
+        rotateSpeedSlider.addEventListener("input", ()=>{
+            defaultRotateSpeed = parseInt(rotateSpeedSlider.value) / 100000
         })
 
         function setup() {
@@ -123,10 +139,13 @@
 
                     drawBoxDir( i * 50, j * 50 ,0);
 
-                    canRotate && rotateY(frameCount * 0.0001);
+                    if(canRotate){
+                        rotateY(frameCount * defaultRotateSpeed);
+                        //rotateX(frameCount * 0.0001);
 
-                    //stroke(strokeColor);
-                    //rect(i * unitLength, j * unitLength, unitLength, unitLength);
+                    }
+
+
                 }
             }
             
