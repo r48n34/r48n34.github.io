@@ -18,6 +18,8 @@
     </div> -->
 
     <div id="canvas"></div>
+    <button type="button" class="btn btn-primary" id="stopCreate">Stop create</button>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -37,6 +39,14 @@
         const boxSize = 50;
         const unitLength = 50;
 
+        let canCreate = true;
+        const stopCreate = document.getElementById("stopCreate");
+        stopCreate.addEventListener("click", () =>{
+            canCreate = !canCreate;
+            stopCreate.innerHTML = canCreate ? "Stop create" : "Start create";
+            //console.log(canCreate)
+        })
+
         function setup() {
             const canvas = createCanvas(windowWidth, windowHeight * 0.95, WEBGL);
             canvas.parent(document.querySelector('#canvas'));
@@ -54,9 +64,8 @@
                 nextBoard[i] = [];
             }
 
-            frameRate();
+            frameRate(10);
             init();
-
             
         }
 
@@ -75,16 +84,20 @@
             push();
             translate(x,y,z);
 
-            rotateY(10);
-            //rotateX(-0.9);
-
+            rotateY(-10);
             box(boxSize,boxSize,boxSize);
+
+            //rotateY(30);
+            //sphere(boxSize);
             pop();
         }
 
         function draw() {
 
             background(250);
+
+            !canCreate && orbitControl();
+
             translate((windowWidth * 0.45) * -1, (windowHeight * 0.43) * -1, 0);
             normalMaterial();
 
@@ -93,15 +106,17 @@
             for (let i = 0; i < columns; i++) {
                 for (let j = 0; j < rows; j++) {
 
-                    if (currentBoard[i][j] == 1) {
-                        //fill(boxColor);
+                    if (currentBoard[i][j] == 1 && nextBoard[i][j] == 1) {
+                        fill(60);
+                    }
+                    else if(currentBoard[i][j] == 1){
                         normalMaterial();
-                    } else {
+                    }
+                    else {
                         fill(255);
                     }
 
                     drawBoxDir( i * 50, j * 50 ,0)
-
 
                     //stroke(strokeColor);
                     //rect(i * unitLength, j * unitLength, unitLength, unitLength);
@@ -119,17 +134,17 @@
             /**
              * If the mouse coordinate is outside the board
              */
-            if (mouseX > unitLength * columns || mouseY > unitLength * rows) {
+            if (mouseX > unitLength * columns || mouseY > unitLength * rows || !canCreate) {
                 return;
             }
             const x = Math.floor(mouseX / unitLength);
             const y = Math.floor(mouseY / unitLength);
             currentBoard[x][y] = 1;
-            console.log(x,y)
+            //console.log(x,y)
 
-            
-            fill(boxColor);
-            stroke(strokeColor);
+            normalMaterial();
+            //fill(boxColor);
+            //stroke(strokeColor);
 
             drawBoxDir( x * 50, y * 50 ,0)
             //rect(x * unitLength, y * unitLength, unitLength, unitLength);
@@ -139,8 +154,12 @@
          * When mouse is pressed
          */
         function mousePressed() {
-            noLoop();
-            mouseDragged();
+
+            if(canCreate){
+                noLoop();
+                mouseDragged();
+            }
+            
         }
 
         /**
