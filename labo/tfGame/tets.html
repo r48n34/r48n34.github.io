@@ -19,6 +19,7 @@
 
     <div id="canvas"></div>
     <button type="button" class="btn btn-primary" id="stopCreate">Stop create</button>
+    <button type="button" class="btn btn-primary" id="stopRotate">Stop rotate</button>
 
 
 
@@ -44,14 +45,21 @@
         stopCreate.addEventListener("click", () =>{
             canCreate = !canCreate;
             stopCreate.innerHTML = canCreate ? "Stop create" : "Start create";
-            //console.log(canCreate)
+        })
+
+        let canRotate = true;
+        const stopRotate = document.getElementById("stopRotate");
+        stopRotate.addEventListener("click", () =>{
+            canRotate = !canRotate;
+            frameCount = 0
+            stopRotate.innerHTML = canRotate ? "Stop rotate" : "Start rotate";
         })
 
         function setup() {
             const canvas = createCanvas(windowWidth, windowHeight * 0.95, WEBGL);
             canvas.parent(document.querySelector('#canvas'));
 
-            console.log(windowWidth, windowHeight * 0.95)
+            //console.log(windowWidth, windowHeight * 0.95)
 
             columns = floor(width / unitLength);
             rows = floor(height / unitLength);
@@ -88,6 +96,11 @@
 
             background(250);
 
+            let locX = mouseX - height / 2;
+            let locY = mouseY - width / 2;
+
+            pointLight(255, 255, 255, locX , locY, 250);
+
             !canCreate && orbitControl();
 
             translate((windowWidth * 0.45) * -1, (windowHeight * 0.43) * -1, 0);
@@ -108,13 +121,15 @@
                         fill(255);
                     }
 
-                    drawBoxDir( i * 50, j * 50 ,0)
+                    drawBoxDir( i * 50, j * 50 ,0);
+
+                    canRotate && rotateY(frameCount * 0.0001);
 
                     //stroke(strokeColor);
                     //rect(i * unitLength, j * unitLength, unitLength, unitLength);
                 }
             }
-
+            
        
         }
 
