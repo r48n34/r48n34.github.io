@@ -168,22 +168,3 @@ function pickRanNumArray(len, num){
 //         rec(resultArr);
 //     })
 // }
-
-function fun1(){
-
-    // current array
-    const arr1 = [2,1,3,4,5];
-    
-    // target array
-    const arr2 = [5,3,2,0,1];
-    
-    // set method
-    const set1 = new Set(arr1);
-
-    for(let i of arr2){
-        !set1.has(i) && console.log('Missing elements is:' , i)
-    }
- 
-}
-
-fun1();

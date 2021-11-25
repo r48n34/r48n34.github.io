@@ -54,12 +54,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>
 
     <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+    <script src="https://www.lactame.com/lib/ml/6.0.0/ml.min.js"></script>
     <script src="mlAlgo.js"></script>
     
     <script>
 
     // Unit length
-    let unitLength = 30; //board grid size
+    let unitLength = 25; //board grid size
     const boxColor = 110; //board dot color
     const strokeColor = 255; //board grid color
 
@@ -214,6 +215,29 @@
     //console.log( normDist([4,4], [2,2]) );
     
     //console.log( kMeans([ [4,4,4], [2,2,2],[6,6,6],[3,4,5],[1,1,1] ],2,3) );
+
+    var train_dataset = [
+            [0, 0, 0],
+            [0, 1, 1],
+            [1, 1, 0],
+            [2, 2, 2],
+            [1, 2, 2],
+            [2, 1, 2]
+        ];
+
+        var train_labels = [0, 0, 0, 1, 1, 1];
+        var knn = new ML.KNN(train_dataset, train_labels, {k:2});
+
+        var test_dataset = [
+            [0.9, 0.9, 0.9],
+            [1.1, 1.1, 1.1],
+            [1.1, 1.1, 1.2],
+            [1.2, 1.2, 1.2],
+        ]
+
+        var ans = knn.predict(test_dataset)
+
+        console.log(ans)
     
 
 

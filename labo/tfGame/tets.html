@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+    <!-- <div class="container">
+        <div class="d-flex justify-content-center">
+
+            
+        </div>
+    </div> -->
+
+    <div id="canvas"></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    
+    <script>
+
+        
+        const boxColor = 150;
+        const strokeColor = 50;
+        let columns; /* To be determined by window width*/
+        let rows; /* To be determined by window height */
+        let currentBoard;
+        let nextBoard;
+
+
+        const boxSize = 50;
+        const unitLength = 50;
+
+        function setup() {
+            const canvas = createCanvas(windowWidth, windowHeight * 0.95, WEBGL);
+            canvas.parent(document.querySelector('#canvas'));
+
+            console.log(windowWidth, windowHeight * 0.95)
+
+            columns = floor(width / unitLength);
+            rows = floor(height / unitLength);
+
+            currentBoard = [];
+            nextBoard = [];
+
+            for (let i = 0; i < columns; i++) {
+                currentBoard[i] = [];
+                nextBoard[i] = [];
+            }
+
+            frameRate();
+            init();
+
+            
+        }
+
+        function init() {
+            for (let i = 0; i < columns; i++) {
+                for (let j = 0; j < rows; j++) {
+                currentBoard[i][j] = 0;
+                nextBoard[i][j] = 0;
+                }
+            }
+        }
+
+
+        function drawBoxDir(x,y,z){
+
+            push();
+            translate(x,y,z);
+
+            rotateY(10);
+            //rotateX(-0.9);
+
+            box(boxSize,boxSize,boxSize);
+            pop();
+        }
+
+        function draw() {
+
+            background(250);
+            translate((windowWidth * 0.45) * -1, (windowHeight * 0.43) * -1, 0);
+            normalMaterial();
+
+            generate();
+
+            for (let i = 0; i < columns; i++) {
+                for (let j = 0; j < rows; j++) {
+
+                    if (currentBoard[i][j] == 1) {
+                        //fill(boxColor);
+                        normalMaterial();
+                    } else {
+                        fill(255);
+                    }
+
+                    drawBoxDir( i * 50, j * 50 ,0)
+
+
+                    //stroke(strokeColor);
+                    //rect(i * unitLength, j * unitLength, unitLength, unitLength);
+                }
+            }
+
+       
+        }
+
+
+        /**
+         * When mouse is dragged
+         */
+        function mouseDragged() {
+            /**
+             * If the mouse coordinate is outside the board
+             */
+            if (mouseX > unitLength * columns || mouseY > unitLength * rows) {
+                return;
+            }
+            const x = Math.floor(mouseX / unitLength);
+            const y = Math.floor(mouseY / unitLength);
+            currentBoard[x][y] = 1;
+            console.log(x,y)
+
+            
+            fill(boxColor);
+            stroke(strokeColor);
+
+            drawBoxDir( x * 50, y * 50 ,0)
+            //rect(x * unitLength, y * unitLength, unitLength, unitLength);
+        }
+
+        /**
+         * When mouse is pressed
+         */
+        function mousePressed() {
+            noLoop();
+            mouseDragged();
+        }
+
+        /**
+         * When mouse is released
+         */
+        function mouseReleased() {
+            loop();
+        }
+
+        /**
+         * Generate next generation based on the current board
+         */
+        function generate() {
+            //Loop over every single box on the board
+            for (let x = 0; x < columns; x++) {
+                for (let y = 0; y < rows; y++) {
+                // Count all living members in the Moore neighborhood(8 boxes surrounding)
+                let neighbors = 0;
+                for (let i of [-1, 0, 1]) {
+                    for (let j of [-1, 0, 1]) {
+                    if (i === 0 && j === 0) {
+                        // the cell itself is not its own neighbor
+                        continue;
+                    }
+                    // The modulo operator is crucial for wrapping on the edge
+                    neighbors +=
+                        currentBoard[(x + i + columns) % columns][(y + j + rows) % rows];
+                    }
+                }
+
+                // Rules of Life
+                if (currentBoard[x][y] == 1 && neighbors < 2) {
+                    // Die of Loneliness
+                    nextBoard[x][y] = 0;
+                } else if (currentBoard[x][y] == 1 && neighbors > 3) {
+                    // Die of Overpopulation
+                    nextBoard[x][y] = 0;
+                } else if (currentBoard[x][y] == 0 && neighbors == 3) {
+                    // New life due to Reproduction
+                    nextBoard[x][y] = 1;
+                } else {
+                    // Stasis
+                    nextBoard[x][y] = currentBoard[x][y];
+                }
+                }
+            }
+
+            // Swap the nextBoard to be the current Board
+            [currentBoard, nextBoard] = [nextBoard, currentBoard];
+        }
+
+
+        
+    </script>
+    
+</body>
+</html>
