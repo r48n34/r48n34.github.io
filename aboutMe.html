@@ -8,17 +8,19 @@
     <title>Reemo studio</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="jquery.pagepiling.css" />
     <link rel="stylesheet" href="index.css" />
 
 </head>
 
 <body>
 
-    <div id="myTopNav"></div>
+    <!-- <div id="myTopNav"></div>
 
     <div class="dboxAbout">
 
@@ -88,7 +90,124 @@
 
         <br>
 
+    </div> -->
+
+    <div id="pagepiling" style="margin-top: 40px;">
+
+        <!-- my data -->
+        <div class="section">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <h1 style="font-size:6vh;"><b>This is Reemo.</b></h1>
+                        <h4 style="margin-top:-8px">Full-stack developer</h4>
+                    </div>
+                    
+                    <div class="col-md-6 d-flex justify-content-center align-items-center">
+                        <div class="">
+
+                            <i class="bi bi-arrow-return-right" style="font-size: 300%;"></i>  
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- focus -->
+        <div class="section">
+
+            <div class="container d-flex justify-content-center align-items-center" style="text-align: center;">
+                <div>
+                    <h1 style="font-size:6vh;"><b>Focus</b></h1>
+                    <!-- <div style="width: 200px; height: 200px; border-radius: 50%; background-color: beige;"></div> -->
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <div>          
+                                <i class="fab fa-js-square iconSty"></i>
+                                <h5><b>javascript</b></h5>                   
+                            </div>
+        
+                            <div>          
+                                <i class="fab fa-node-js iconSty"></i>
+                                <h5><b>node.js</b></h5>                   
+                            </div> 
+
+                        </div>
+                        <div class="col-sm-6">
+
+                            <div>          
+                                <i class="fab fa-react iconSty"></i>
+                                <h5><b>react.js</b></h5>                   
+                            </div>
+        
+                            <div>          
+                                <i class="fab fa-python iconSty"></i>
+                                <h5><b>python</b></h5>                   
+                            </div>
+        
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- project / works -->
+        <div class="section">
+            <h1 style="text-align: center; font-size:5vh;"><b>Projects</b></h1>
+            <div class="container d-flex justify-content-center align-items-center">
+                
+                <div class="row">
+
+                    <div class="col-md-6 mb-3 d-flex justify-content-center">
+
+                        <div class="card" style="width: 18rem; border-radius: 30px;">
+                            <img src="./img/reaa.jpg" class="card-img-top" alt="img1" style="border-radius: 30px 30px 0px 0px;">
+                            <div class="card-body">
+                              <h5 class="card-title" style="text-align: left;"><b>React pages</b> </h5>
+                              <p class="card-text" style="text-align: left;">Small applications with react</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3 d-flex justify-content-center">
+
+                        <div class="card" style="width: 18rem; border-radius: 30px;">
+                            <img src="./img/gol.jpg" class="card-img-top" alt="img1" style="border-radius: 30px 30px 0px 0px;">
+                            <div class="card-body">
+                              <h5 class="card-title" style="text-align: left;"><b>Games</b> </h5>
+                              <p class="card-text" style="text-align: left;">Games using motion capture library</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- see more github / other website -->
+        <div class="section">
+
+            <div class="container d-flex justify-content-center align-items-center" style="text-align: center;">
+                <a href="https://github.com/r48n34" style="color: black;" target="_blank">
+                    <i class="fab fa-github iconSty"></i>
+                </a>
+            </div>
+
+
+        </div>
     </div>
+
+
 
     <footer id="page-footer" class="py-4 bg-light">
         <div class="container text-left">
@@ -100,8 +219,20 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous">
     </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js" integrity="sha512-gSf3NCgs6wWEdztl1e6vUqtRP884ONnCNzCpomdoQ0xXsk06lrxJsR7jX5yM/qAGkPGsps+4bLV5IEjhOZX+gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="navGen.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pagePiling.js/1.5.6/jquery.pagepiling.min.js" integrity="sha512-FcXc9c211aHVJEHxoj2fNFeT8+wUESf/4mUDIR7c31ccLF3Y6m+n+Wsoq4dp2sCnEEDVmjhuXX6TfYNJO6AG6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#pagepiling').pagepiling({
+                sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#000']
+            });
+        });
+    </script>
+
 
 </body>
 

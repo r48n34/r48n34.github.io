@@ -1,5 +1,3 @@
-const myTopNav = document.getElementById("myTopNav");
-
 const myNav = 
 `
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
@@ -31,13 +29,6 @@ const myNav =
                         </li>
 
                         <li class="nav-item liStuff">
-                            <a class="nav-link liStuff" href="projects.html" style="color: black;">
-                            <i class="bi bi-box"></i> Projects
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item liStuff">
                             <a class="nav-link" href="creations.html" style="color: black;">
                             <i class="bi bi-brush"></i> Creations
                             </a>
@@ -53,6 +44,16 @@ const myNav =
     </nav>
 `
 
+// <li class="nav-item liStuff">
+//     <a class="nav-link liStuff" href="projects.html" style="color: black;">
+//     <i class="bi bi-box"></i> Projects
+//     </a>
+// </li>
+
 window.onload = () =>{
-    myTopNav.innerHTML = myNav;
+
+    let elemDiv = document.createElement('div');
+    elemDiv.innerHTML = myNav
+    document.body.appendChild(elemDiv);
+   
 }
