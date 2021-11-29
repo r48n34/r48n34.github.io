@@ -50,8 +50,9 @@ const myNav =
 //     </a>
 // </li>
 
+// let elemDiv = document.createElement('div');
+// elemDiv.innerHTML = myNav
+// document.body.appendChild(elemDiv);
 
-let elemDiv = document.createElement('div');
-elemDiv.innerHTML = myNav
-document.body.appendChild(elemDiv);
+document.getElementById("navBar").innerHTML = myNav
    
