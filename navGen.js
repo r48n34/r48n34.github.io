@@ -50,10 +50,8 @@ const myNav =
 //     </a>
 // </li>
 
-window.onload = () =>{
 
-    let elemDiv = document.createElement('div');
-    elemDiv.innerHTML = myNav
-    document.body.appendChild(elemDiv);
+let elemDiv = document.createElement('div');
+elemDiv.innerHTML = myNav
+document.body.appendChild(elemDiv);
    
-}
