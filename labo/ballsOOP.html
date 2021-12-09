@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="canBox">
+
+    </div>
+
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+        const canBox = document.getElementById("canBox");
+
+        class CanvasBox{
+
+            constructor(canvadId){
+                this.canvas = document.getElementById(canvadId);
+                this.ctx = this.canvas.getContext("2d");
+
+                this.ctx.width  = 600;
+                this.ctx.height = 600;
+
+                this.keepDraw = true;
+
+                this.ballArr = [
+                    new BallClass( this.canvas.width / 2 , this.canvas.height - 30),
+                    new BallClass( this.canvas.width / 4 , this.canvas.height - 90)
+                ];
+
+            }
+
+            draw(){
+
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ballArr.forEach( v => v.move(this) );
+                          
+            }
+
+        }
+
+
+        class BallClass{
+
+            constructor(startX, startY){
+                this.ballRadius = 20;
+                this.x = startX;
+                this.y = startY;
+                this.dx = 2;
+                this.dy = -2;
+                this.ballcolor = "#0095DD";
+            }
+
+            calBallPol( canBox ){
+
+                if( this.x + this.dx > canBox.canvas.width - this.ballRadius || this.x + this.dx < this.ballRadius) {
+                    this.dx = -this.dx;
+                    this.ballcolor = "#0095DD";
+
+                }
+                if( this.y + this.dy > canBox.canvas.height - this.ballRadius || this.y + this.dy < this.ballRadius) {
+                    this.dy = -this.dy;
+                    this.ballcolor = "#5500FF";
+                }
+                
+                this.x += this.dx;
+                this.y += this.dy;
+
+            }
+
+            drawBall( canBox ){
+                canBox.ctx.beginPath();
+                canBox.ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI*2);
+                canBox.ctx.fillStyle = this.ballcolor;
+                canBox.ctx.fill();
+                canBox.ctx.closePath();
+            }
+
+            move(canBox){
+                this.drawBall(canBox);
+                this.calBallPol(canBox);
+            }
+
+        }
+
+        let b1 = new CanvasBox("myCanvas");
+
+        function drawLoop(){
+            b1.draw();
+            window.requestAnimationFrame(drawLoop);
+        }
+        window.requestAnimationFrame(drawLoop);
+
+
+
+    </script>
+
+
+    
+</body>
+</html>
