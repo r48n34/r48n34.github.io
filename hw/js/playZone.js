@@ -1,105 +1,83 @@
 const canBox = document.getElementById("canBox");
 
-        class CanvasBox{
-            constructor(canvadId){
-                this.canvas = document.getElementById(canvadId);
-                this.ctx = this.canvas.getContext("2d");
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
 
-                this.ctx.width  = 300;
-                this.ctx.height  = 300;
+ctx.canvas.width  = window.innerWidth * 0.99;
+ctx.canvas.height = window.innerHeight * 0.85;
 
-                this.keepDraw = true;
-            }
+class BallClass{
 
-            draw(ballArr){
+    constructor(startX, startY){
+        this.ballRadius = 20;
 
-                if(this.keepDraw){
-                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        //Pol
+        this.x = startX;
+        this.y = startY;
 
-                    for(let i of ballArr){
-                        i.move();
-                    }
+        //speed
+        this.dx = 3;
+        this.dy = -3;
+
+        this.ballcolor = "#0095DD";
+    }
+
+    calBallPol(){
+
+        if( this.x + this.dx > canvas.width - this.ballRadius || this.x + this.dx < this.ballRadius) {
                     
-                    window.requestAnimationFrame(draw);
-                }
+            this.dx = -this.dx;
+            this.ballcolor = "#0095DD";
+
+        }
+        if( this.y + this.dy > canvas.height - this.ballRadius || this.y + this.dy < this.ballRadius) {
+            this.dy = -this.dy;
+            this.ballcolor = "#DC143C";
+        }
                 
-            }
+        this.x += this.dx;
+        this.y += this.dy;
 
+    }
 
+    drawBall(){
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI*2);
+        ctx.fillStyle = this.ballcolor;
+        ctx.fill();
+        ctx.closePath();
+    }
 
-        }
+    move(){
+        this.drawBall();
+        this.calBallPol();
+    }
 
-        const canvas = document.getElementById("myCanvas");
-        const ctx = canvas.getContext("2d");
+}
 
-        ctx.canvas.width  = window.innerWidth * 0.99;
-        ctx.canvas.height = window.innerHeight * 0.85;
+let ballArr = [
+    new BallClass( canvas.width / 2 , canvas.height - 30),
+    new BallClass( canvas.width / 4 , canvas.height - 90),
+    new BallClass( canvas.width / 5 , canvas.height - 90),
+    new BallClass( canvas.width / 6 , canvas.height - 160),
+]
 
-        class BallClass{
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            constructor(startX, startY){
-                this.ballRadius = 20;
+    for(let i of ballArr){
+        i.move();
+    }
 
-                //Pol
-                this.x = startX;
-                this.y = startY;
+    window.requestAnimationFrame(draw);
 
-                //speed
-                this.dx = 3;
-                this.dy = -3;
+}
 
-                this.ballcolor = "#0095DD";
-            }
+window.requestAnimationFrame(draw);
 
-            calBallPol(){
-
-                if( this.x + this.dx > canvas.width - this.ballRadius || this.x + this.dx < this.ballRadius) {
-                    
-                    this.dx = -this.dx;
-                    this.ballcolor = "#0095DD";
-
-                }
-                if( this.y + this.dy > canvas.height - this.ballRadius || this.y + this.dy < this.ballRadius) {
-                    this.dy = -this.dy;
-                    this.ballcolor = "#DC143C";
-                }
-                
-                this.x += this.dx;
-                this.y += this.dy;
-
-            }
-
-            drawBall(){
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI*2);
-                ctx.fillStyle = this.ballcolor;
-                ctx.fill();
-                ctx.closePath();
-            }
-
-            move(){
-                this.drawBall();
-                this.calBallPol();
-            }
-
-        }
-
-        let ballArr = [
-            new BallClass( canvas.width / 2 , canvas.height - 30),
-            new BallClass( canvas.width / 4 , canvas.height - 90),
-            new BallClass( canvas.width / 5 , canvas.height - 90),
-            new BallClass( canvas.width / 6 , canvas.height - 160),
-        ]
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            for(let i of ballArr){
-                i.move();
-            }
-
-            window.requestAnimationFrame(draw);
-
-        }
-
-        window.requestAnimationFrame(draw);
+function resizewindows() {
+    ctx.canvas.width  = window.innerWidth * 0.99;
+    ctx.canvas.height = window.innerHeight * 0.85;
+}
+  
+window.onresize = resizewindows;
