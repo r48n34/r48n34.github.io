@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <link rel="stylesheet" href="./css/page.css">
 </head>
+
 <body>
 
     <div class="headingNav">
@@ -48,21 +49,32 @@
             
     </div>
 
-    <div class="contectSection paddClass">  
-    </div>
-    <canvas id="myCanvas"></canvas>
+    <div style="text-align: center;">
+        <h2>Type your stone</h2>
+        <input type="text" class="form-control" id="input1" style="width: 300px; height: 35px;" placeholder="stone name">
 
-   
+
+        <div style="background-color: white; color: black; padding-bottom: 25px;">
+            <h1 class="paddClass" style="padding-top: 15px; font-size: 40px;">Crystal</h1>
+    
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap;" id="boxbox">
+            </div>
+    
+        </div>
+        
+    </div>
 
     <div class="footerClass">
 
         <div class="paddClass">
-            <h4 style="color: black; margin: 0;">ITE3006: IT Essentials - Web</h4>
+            <h4 style="color: black; margin: 0;" id="bottomText">ITE3006: IT Essentials - Web</h4>
         </div>
 
     </div>
 
-    <script src="./js/playZone.js"></script>
     
+
+    
+    <script src="./js/findStone.js"></script>
 </body>
 </html>

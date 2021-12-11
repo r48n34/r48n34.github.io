@@ -16,8 +16,8 @@ class BallClass{
         this.y = startY;
 
         //speed
-        this.dx = 3;
-        this.dy = -3;
+        this.dx = Math.random() >= 0.5 ? 3 : -3;
+        this.dy = Math.random() >= 0.5 ? 3 : -3;
 
         this.ballcolor = "#0095DD";
     }
