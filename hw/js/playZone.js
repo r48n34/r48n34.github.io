@@ -3,6 +3,8 @@ const canBox = document.getElementById("canBox");
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
+const img = document.getElementById('source');
+
 ctx.canvas.width  = window.innerWidth * 0.99;
 ctx.canvas.height = window.innerHeight * 0.85;
 
@@ -64,13 +66,13 @@ let ballArr = [
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 10, 10);
 
     for(let i of ballArr){
         i.move();
     }
 
     window.requestAnimationFrame(draw);
-
 }
 
 window.requestAnimationFrame(draw);

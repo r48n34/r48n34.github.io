@@ -12,7 +12,6 @@ let data = [
   { name: "新手指南: 金草莓？", title: "係我眼中都係愛不惜手嘅寶貝✨實在冇必要因為咁而傷和氣呢～", url: "https://www.instagram.com/p/CPxtIR1jme8/", imgScr:"./image/b4.jpg"},
   { name: "金運石的五個驚人冷知識", title: "睇完哩五個冷知識有咩感覺？", url: "https://www.instagram.com/p/CSHFPpOpjT2/", imgScr:"./image/b5.jpg"},
 
-
 ];
 
 // active function when user type on the input box
@@ -50,4 +49,4 @@ function genBox(data) {
   boxbox.innerHTML = str;
 }
 
-genBox(data);
+window.onload = () => genBox(data);
