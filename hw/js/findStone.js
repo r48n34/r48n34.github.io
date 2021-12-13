@@ -16,7 +16,8 @@ let data = [
 // Step 1. Bounding DOm elements ( boxbox ) ( input1 )
 // Step 2. genBox(data) => loop data array and shows on html page
 // Step 3. input1.addEventListener active when typing on the box
-// Step 4. 
+// Step 4. fill the data that match the input words
+// Step 5. Regenerate the html elements
 
 // active function when user type on the input box
 input1.addEventListener("input", () => {
@@ -44,14 +45,13 @@ function genBox(data) {
         <div>
             <div style="width: 600px;">       
                 <div>
-                    <h2>${i.name}</h2>
-                    <p>${i.title}</p>
-                    <a href=${i.url} class="selectClass" target="_blank">
-                    <img src=${i.imgScr} alt="" width="300px" height="300px">
-                    <br/>
-                    know more
-                    </a>
-
+                  <h2>${i.name}</h2>
+                  <p>${i.title}</p>
+                  <a href=${i.url} class="selectClass" target="_blank">
+                  <img src=${i.imgScr} alt="" width="300px" height="300px">
+                  <br/>
+                  know more
+                  </a>
                 </div>
             </div>
         </div>`;
