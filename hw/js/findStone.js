@@ -11,12 +11,23 @@ let data = [
   { name: "新手指南: 閃靈鑽？", title: "草莓晶主體部份為白水晶/粉水晶，內含物如草莓籽而得名?", url: "https://www.instagram.com/p/CLEYkDgDPek/", imgScr:"./image/b3.png"},
   { name: "新手指南: 金草莓？", title: "係我眼中都係愛不惜手嘅寶貝✨實在冇必要因為咁而傷和氣呢～", url: "https://www.instagram.com/p/CPxtIR1jme8/", imgScr:"./image/b4.jpg"},
   { name: "金運石的五個驚人冷知識", title: "睇完哩五個冷知識有咩感覺？", url: "https://www.instagram.com/p/CSHFPpOpjT2/", imgScr:"./image/b5.jpg"},
-
 ];
+
+// Step 1. Bounding DOm elements ( boxbox ) ( input1 )
+// Step 2. genBox(data) => loop data array and shows on html page
+// Step 3. input1.addEventListener active when typing on the box
+// Step 4. 
 
 // active function when user type on the input box
 input1.addEventListener("input", () => {
-  input1.value.length == 0 || input1.value === undefined ? genBox(data) : genBox( getData(input1.value) );
+
+  if(input1.value.length == 0 || input1.value === undefined){ //no value on the input box
+    genBox(data)
+  }
+  else{ // have value on the input box
+    genBox( getData(input1.value) );
+  }
+
 });
 
 // data fikter for select the regarding input text
