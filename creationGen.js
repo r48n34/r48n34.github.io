@@ -9,9 +9,9 @@ let currentYearSelect = [];
 
 const allProj = [
     {year: "2018", title: "Minecraft school", des:"Secondary school build in minecraft" ,imgLink: "img/school.jpg", url: "school/newSchoool.html"},
-    {year: "2020", title: "Data calculator", des:"Dec, Bin, Hex calculator" , imgLink: "img/cal.jpg", url: "toolsbox/tools.html"},
+    {year: "2020", title: "Data calculator", des:"Dec, Bin, Hex calculator" , imgLink: "img/cal.jpg", url: "labo/toolsbox/tools.html"},
     {year: "2020", title: "Tic Tac Toe", des:"Simple AI XO game" , imgLink: "img/0xx-1.jpg", url: "labo/xo.html"},
-    {year: "2021", title: "BK exporter", des:"layout & combiner" , imgLink: "img/bkkk-1.jpg", url: "jsbk/upweb.html"},
+    {year: "2021", title: "BK exporter", des:"layout & combiner" , imgLink: "img/bkkk-1.jpg", url: "labo/jsbk/upweb.html"},
     {year: "2021", title: "React project", des:"Random react tools" , imgLink: "img/reaa.jpg", url: "https://peaceful-galileo-6fead0.netlify.app/#/"},
     {year: "2021", title: "ML algorithm PY", des:"For solving HandWriting question" , imgLink: "img/yo1.jpg", url: "https://github.com/r48n34/ML-algorithm"},
     {year: "2021", title: "Game of life (TF)", des:"Move to Play (Beta)" , imgLink: "img/gol.jpg", url: "labo/tfGame/goltf.html"},
