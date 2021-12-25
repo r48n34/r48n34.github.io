@@ -1,11 +1,10 @@
 const selectByYear = document.getElementById("selectByYear");
 const contentBox = document.getElementById("contentBox");
 
+let currentYearSelect = [];
 const data = {
     years: ["2018", "2019", "2020", "2021"]
 }
-
-let currentYearSelect = [];
 
 const allProj = [
     {year: "2018", title: "Minecraft school", des:"Secondary school build in minecraft" ,imgLink: "img/school.jpg", url: "school/newSchoool.html"},
@@ -16,7 +15,6 @@ const allProj = [
     {year: "2021", title: "ML algorithm PY", des:"For solving HandWriting question" , imgLink: "img/yo1.jpg", url: "https://github.com/r48n34/ML-algorithm"},
     {year: "2021", title: "Game of life (TF)", des:"Move to Play (Beta)" , imgLink: "img/gol.jpg", url: "labo/tfGame/goltf.html"},
     {year: "2021", title: "Monster slider (TF)", des:"Motion clicker hero demo" , imgLink: "img/mon.jpg", url: "labo/tfGame/index.html"},
-    
 ]
 // {year: "2020", title: "Counter", des:"counter practice" , imgLink: "img/tin1.jpg", url: "https://r48n34.github.io/labo/yolo.html"},
 // {year: "2020", title: "Tic Tac Toe", des:"Simple AI XO game" , imgLink: "img/0xx-1.jpg", url: "https://r48n34.github.io/labo/xo.html"},
@@ -56,7 +54,7 @@ function initAll(){
 function displayGen(arr){
     contentBox.innerHTML = "";
 
-    arr.forEach((v,i) =>{
+    arr.forEach( (v) =>{
         contentBox.innerHTML += `
         <div class="col-lg-4 col-md-6 mb-3">
 
@@ -105,5 +103,8 @@ function showHandler(){
     }
 }
 
-initAll();
-displayGen(allProj);
+window.onload = () =>{
+    initAll();
+    displayGen(allProj);
+}
+
