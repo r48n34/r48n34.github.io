@@ -301,7 +301,6 @@
         video: {
             width:  360,
             height: 270,
-            deviceId: 'b270185bf679aaa1050856c79b4285f4df54fa12560ee2a47f38651bb7f84626'
         }
     };
 
@@ -314,11 +313,11 @@
         console.log(res)
     
         try {
-        stream = await navigator.mediaDevices.getUserMedia(constraints);
-        console.log(stream)
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            console.log(stream)
 
-        window.stream = stream
-        video.srcObject = stream
+            window.stream = stream
+            video.srcObject = stream
 
         } catch(err) {
             console.log(err)
