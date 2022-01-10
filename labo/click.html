@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .test {
+            background-color: #222;
+            color: white;
+            width: 500px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .active {
+            background-color: rgb(30, 14, 179);
+            width: 900px;
+            color: rgb(221, 36, 36);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+        }
+
+        /* .test:hover {
+            background-color: rgb(228, 23, 23);
+            color: rgb(101, 78, 231);
+        } */
+
+
+    </style>
+</head>
+<body>
+
+    <h1 id="clickTest" class="test">
+        HELLOOOOOOOOOOOO
+    </h1>
+    
+
+    <script>
+
+        const clickTest = document.getElementById("clickTest")
+
+
+        clickTest.addEventListener("click" , () => {
+            clickTest.classList.toggle('active')
+        })
+
+
+    </script>
+</body>
+</html>

@@ -22,7 +22,7 @@ const allProj = [
 
 function initAll(){
 
-    data.years.forEach((v,i) =>{
+    data.years.forEach((v,i) => {
         const idTemp = "box" + i;
 
         selectByYear.innerHTML += `
@@ -32,7 +32,7 @@ function initAll(){
 
     });
 
-    data.years.forEach((v,i) =>{
+    data.years.forEach((v,i) => {
 
         document.getElementById("box" + i).addEventListener('change', e => {
 
