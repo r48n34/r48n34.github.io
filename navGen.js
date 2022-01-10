@@ -26,13 +26,7 @@ const myNav =
                             <a class="nav-link liStuff" href="aboutMe.html" style="color: black;">
                             <i class="bi bi-file-earmark-person"></i> About me
                             </a>
-                        </li>
-
-                        <li class="nav-item liStuff">
-                            <a class="nav-link" href="creations.html" style="color: black;">
-                            <i class="bi bi-brush"></i> Creations
-                            </a>
-                        </li>
+                        </li>                      
 
                     </ul>
 
@@ -49,6 +43,12 @@ const myNav =
 //     <i class="bi bi-box"></i> Projects
 //     </a>
 // </li>
+
+//<li class="nav-item liStuff">
+//    <a class="nav-link" href="creations.html" style="color: black;">
+//    <i class="bi bi-brush"></i> Creations
+//    </a>
+//</li> 
 
 // let elemDiv = document.createElement('div');
 // elemDiv.innerHTML = myNav
