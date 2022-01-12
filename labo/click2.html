@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>     
+
+    </style>
+</head>
+<body>
+
+    <div style="background-color: beige; height: 100vh;">
+    </div>
+
+    <div style="background-color: rgb(21, 91, 202); height: 250vh;" id="middlePart">
+        <h1 id="middleWords" style="color:white; left: 50%; top: 50%;  transform: translate(-50%, -50%);">Hello</h1>
+    </div>
+    
+    <div style="background-color: rgb(57, 206, 119); height: 100vh;">
+    </div>
+    
+    <div style="background-color: rgb(189, 223, 112); height: 100vh;">
+    </div>
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script>
+
+        const middleWords = document.getElementById("middleWords")
+
+        let currwinHeight = window.innerHeight
+        console.log(currwinHeight);
+
+        let lowerThres = 
+
+        document.addEventListener("scroll", () => {
+            console.log(window.scrollY);
+
+            if(window.scrollY >= currwinHeight && window.scrollY < currwinHeight * 2.5){
+                console.log("Hello");
+                middleWords.style.display = "block"
+                middleWords.style.position = "fixed"
+                middleWords.style.fontSize = `${window.scrollY/30}px`
+                
+
+                if(window.scrollY < currwinHeight * 1.3){
+                    const startPt = currwinHeight * 1.1
+                    const endPt = currwinHeight * 1.3
+
+                    const opt = (window.scrollY - startPt) / (endPt - startPt)
+
+                    middleWords.style.opacity = `${opt}`
+                }
+                //middleWords.style.top = "10"
+            }
+            else{
+                console.log("bye");
+                middleWords.style.position = "static"
+                middleWords.style.display = "none"
+            }
+
+
+            // if(window.scrollY >= currwinHeight * 3){
+            //     console.log("Hello");
+            //     middlePart.style.height = "100vh"
+            // }
+        })
+      
+
+    </script>
+</body>
+</html>
