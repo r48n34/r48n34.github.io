@@ -7,6 +7,13 @@
     <title>Document</title>
 
     <style>
+        body{
+            margin: 0;
+            padding: 0;
+
+            overflow-y: hidden;
+        }
+
         .test {
             background-color: #222;
             color: white;
@@ -22,6 +29,25 @@
 
         }
 
+        .loading{
+            background-color: black;
+            opacity: 1;
+            height: 100vh;
+            width: 100%;
+            transition: all 0.9s ease-in-out;
+
+            position:absolute;
+            top:0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading.loadingActive{
+            opacity: 0;
+        }
+
         /* .test:hover {
             background-color: rgb(228, 23, 23);
             color: rgb(101, 78, 231);
@@ -32,9 +58,50 @@
 </head>
 <body>
 
-    <h1 id="clickTest" class="test">
-        HELLOOOOOOOOOOOO
-    </h1>
+    <div class="loading" id="loadingScreen">
+        <h1 style="color: white;">loading...</h1>
+    </div>
+
+    <div style="margin: 15px">
+
+        <h1 id="clickTest" class="test">
+            HELLOOOOOOOOOOOO
+        </h1>
+    
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+        <h1>yoooooooooo</h1>
+    </div>
+
+
     
 
     <script>
@@ -45,6 +112,17 @@
         clickTest.addEventListener("click" , () => {
             clickTest.classList.toggle('active')
         })
+
+        const loadingScreen = document.getElementById("loadingScreen")
+
+        setTimeout(() => {
+            loadingScreen.classList.add("loadingActive");
+
+            document.querySelector("body").style.overflowY = "scroll";
+
+            setTimeout(() => loadingScreen.style.display = "none" ,900)
+
+        }, 2000);
 
 
     </script>
