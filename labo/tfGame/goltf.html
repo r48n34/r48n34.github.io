@@ -320,6 +320,21 @@
             video.srcObject = stream
 
         } catch(err) {
+
+            Swal.fire({
+                title: 'Error',
+                html: 'you need to open your webcam to active it',
+                timerProgressBar: true,
+                allowEscapeKey: false,
+                showCloseButton: false,
+                showCancelButton: false,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            });
+            
             console.log(err)
         }
     }
