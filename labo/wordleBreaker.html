@@ -26,6 +26,9 @@
             <button type="button" class="btn btn-dark" id="searchBtn">Search</button>
         </div>
 
+        <div id="errorMessage" style="text-align: center; margin-top: 10px;">
+        </div>
+
         <div id="wordDisplayBox" class="row mt-3">
 
         </div>
@@ -564,11 +567,23 @@
         searchBtn.addEventListener( 'click' , () => { // click to search reault
             let stringArr = ["","","","",""]
             let optionArr = ["","","","",""]
+            let missingArr = [];
 
             for(let i = 0 ; i < 5 ; i ++){
+                if(!document.getElementById(`inputBox${i}`).value){
+                    missingArr.push(i+1)
+                }
+
                 document.getElementById(`inputBox${i}`).value && ( stringArr[i] = document.getElementById(`inputBox${i}`).value.toLowerCase() )
                 document.getElementById(`inputSelect${i}`).value && ( optionArr[i] = document.getElementById(`inputSelect${i}`).value )
             }
+
+            if(missingArr.length >= 1){
+                document.getElementById("errorMessage").innerHTML = `<h3>Missing input words position ${missingArr.join(",")} .</h3>`
+                return;
+            }
+
+            document.getElementById("errorMessage").innerHTML = ``
 
             let resultArr = [...wordArr];
     
