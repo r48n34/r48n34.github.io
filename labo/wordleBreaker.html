@@ -598,6 +598,11 @@
             }
 
             wordDisplayBox.innerHTML = ``;
+
+            if(resultArr.length === 0){
+                document.getElementById("errorMessage").innerHTML = `<h3> Words not found :( </h3>`
+            }
+
             for(let i of resultArr){
 
                 if(i === stringArr.join("")){
