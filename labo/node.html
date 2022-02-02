@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <script>
+        class ListNode {
+            constructor(data, next = null) {
+                this.data = data
+                this.next = next                
+            }
+        }
+
+        const a = new ListNode(100, null)
+        const b = new ListNode(200, null)
+
+        a.next = b
+
+
+        let ptr = a;
+
+        while(ptr.next != null){
+            console.log(ptr);
+            ptr = ptr.next
+        }
+        
+        console.log(ptr); // last node
+
+
+    </script>
+    
+</body>
+</html>
