@@ -1,5 +1,3 @@
-// react code version and references by 
-
 /*
     Step to run yolov5 model on your website (no server needed)
     Thanks https://github.com/zldrobit/tfjs-yolov5-example for references
