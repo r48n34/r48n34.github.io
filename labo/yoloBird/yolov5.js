@@ -52,8 +52,6 @@ const scoreThras = 0.4 // score lower then that will not display
 
 const labels = ['bird']
 
-
-
 async function getMedia() {
     let stream = null;
 
