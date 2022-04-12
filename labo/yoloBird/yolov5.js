@@ -45,7 +45,7 @@ console.log("Height:", window.innerHeight)
 const stats = new Stats();
 
 const imgSize = 640
-const modelUrlPath = 'https://cdn.jsdelivr.net/gh/r48n34/ee4211Project-gp13/training models/small/weights/best_web_model/model.json'
+const modelUrlPath = "https://cdn.jsdelivr.net/gh/r48n34/ee4211Project-gp13/training models/small/weights/best_web_model/model.json"
 const scoreThras = 0.4 // score lower then that will not display
 
 const labels = ['bird']
