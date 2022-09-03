@@ -1,0 +1,606 @@
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+
+    <style>
+        body{
+            background-color: #171717;
+            color: #FFFFFF;
+            height: 100%;
+            overflow-y: hidden;   
+        }
+    </style>
+
+    <script is:inline src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous" ></script>
+    <script is:inline src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" ></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>
+
+    <script is:inline src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+
+    <script is:inline src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/stats-js@1.0.1/build/stats.min.js"></script>
+  </head>
+
+  <body>
+
+    <h3 class="text-center">Swing of life</h3>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-4">
+                <h4 id="xThresholdMessage">xThreshold: 40</h4>
+                <input type="range" class="form-control-range" id="rangexThreshold" min="5" max="120" value="40">
+            </div>
+
+            <div class="col-lg-4">
+                <h4 id="yThresholdMessage">yThreshold: 40</h4>
+                <input type="range" class="form-control-range" id="rangeyThreshold" min="5" max="120" value="40">
+            </div>
+            
+            <div class="col-lg-4">
+                <h4 id="overallThresholdMessage">overallThreshold: 90</h4>
+                <input type="range" class="form-control-range" id="rangeoverallThreshold" min="10" max="180" value="90">
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-2 mt-2" style="text-align: center;">
+        <button class="btn btn-light" id="reset-game">Reset Board</button>
+        <button class="btn btn-light" id="boxCount">Light Up total:</button>
+        <button class="btn btn-light" id="timerBtn">Time taken:</button>
+        <button class="btn btn-light" id="totalTimerBtn">Time collapse:</button>
+    </div>
+
+    <div class="progress">
+        <div id="progeressBar" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100">25%</div>
+    </div>
+
+    <div id="canvas"></div>
+
+    <video id="video" autoplay style="
+    -webkit-transform: scaleX(-1); transform: scaleX(-1);
+    visibility: hidden; width:auto; height:auto;">
+    </video>
+    
+    <div class="fixed-bottom">
+      <div class="d-flex justify-content-end" >
+        <canvas id="output"></canvas>
+      </div>
+    </div>
+    
+    <script is:inline>
+
+    // Unit length
+    let unitLength = 70; //board grid size
+    const boxColor = 110; //board dot color
+    const strokeColor = 255; //board grid color
+
+    let columns; // To be determined by window width
+    let rows; // To be determined by window height 
+    let currentBoard;
+    let nextBoard;
+
+    let totalBox = 0;
+    //let lightUpBox = 0;
+
+    let stageNum = 1; // stage start from 1
+    let stageBoxLengthDecrease = 10; // each stage decrease the unitLength by this num
+    let loadingNextStage = true; // is in loading state
+    const gameEndUnitLength = 10; // end the game when reach this gameEndUnitLength
+    const nextStageProgress = 0.7; // pass the stage with regarding %
+
+    let stageTimeArr = []; // store the time of each round play
+
+    //Setup function only run once in the entire program
+    function setup() {
+        const canvas = createCanvas(windowWidth, windowHeight * 0.8);
+        canvas.parent(document.querySelector('#canvas'));
+        console.log("HELLO")
+
+        // Calculate columns and rows
+        columns = floor(width / unitLength);
+        rows = floor(height / unitLength);
+
+        totalBox = columns * rows;
+
+        currentBoard = [];
+        nextBoard = [];
+        for (let i = 0; i < columns; i++) {
+            currentBoard[i] = nextBoard[i] = [];
+        }
+
+        frameRate(25); //p5.js frameRate
+        init();
+    }
+
+    function windowResized() {
+        setup();
+    }
+
+    //Initialize/reset the board state
+    function init() {
+        for (let i = 0; i < columns; i++) {
+            for (let j = 0; j < rows; j++) {
+                currentBoard[i][j] = nextBoard[i][j] = 0;
+            }
+        }
+    }
+    
+    //By default, p5.js loops through draw() continuously
+    function draw() {
+        background(255);
+        //generate();
+
+        videoLoadIn && predictModel();
+
+        let tempBoxCount = 0;
+
+        for (let i = 0; i < columns; i++) {
+            for (let j = 0; j < rows; j++) { // cb have dot ? boxColor : white;
+
+                if(currentBoard[i][j] == 1){
+                    fill(boxColor)
+                    tempBoxCount ++;
+                }
+                else{
+                    fill(255)
+                } 
+                
+                stroke(strokeColor);
+                rect(i * unitLength, j * unitLength, unitLength, unitLength);
+            }
+        }
+
+        //lightUpBox = tempBoxCount;
+
+        document.getElementById("boxCount").innerHTML = `Light Up total: ${tempBoxCount}/${totalBox}`
+
+        const stageProgressCurrent = ( tempBoxCount / (totalBox * nextStageProgress) ) * 100 ;
+        document.getElementById("progeressBar").style.width = `${stageProgressCurrent}%`;
+        document.getElementById("progeressBar").innerHTML = `${stageProgressCurrent.toFixed(1)}%`;
+
+        if(tempBoxCount / totalBox > nextStageProgress){
+            goToNextStage();
+        }
+    }
+
+    function goToNextStage(){
+
+        init();
+        stopStageTimerReset();
+
+        loadingNextStage = true;
+        const stageMsg = `Stage ${ stageNum ++ } clear!`
+
+        if(unitLength - stageBoxLengthDecrease <= gameEndUnitLength){
+
+            let htmlStr = `<h5>You clear all the stages!</h5>`;
+
+            stageTimeArr.forEach((v,i) =>{
+                htmlStr += `<h5>Stage ${i+1}: ${v} seconds</h5>`;
+            })
+
+            Swal.fire({
+                title: 'Congratulations!',
+                html: htmlStr,
+                timerProgressBar: true,
+                allowEscapeKey: false,
+                showCloseButton: false,
+                showCancelButton: false,
+                showConfirmButton: true,
+                allowOutsideClick: false,
+                confirmButtonText: 'Play again!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+
+            return;
+
+        }
+
+        Swal.fire({
+            title: stageMsg,
+            html: 'Ready for the next stage in <b></b>.',
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => { b.textContent = Swal.getTimerLeft() }, 100);
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
+            }).then((result) => {
+                unitLength -= stageBoxLengthDecrease;
+                setup();
+                satrtStageTimer();
+                loadingNextStage = false;   
+            }
+        )
+
+    }
+
+    let globalTimer = setInterval(() => { updateGlobalTimerDom() }, 1000); //totalTimerBtn
+    let globalTime = 0;
+
+    function updateGlobalTimerDom(){
+        document.getElementById("totalTimerBtn").innerHTML = `Time collapse: ${ ++ globalTime }s`;
+    }
+
+    let stageTimer;
+    let stageTime = 0;
+
+    function satrtStageTimer(){
+        stageTime = 0;
+        globalTimer = setInterval(() => { updateStageTimerDom() }, 1000);
+    }
+
+    function updateStageTimerDom(){
+        document.getElementById("timerBtn").innerHTML = `Time taken: ${++ stageTime}s`;
+    }
+
+    function stopStageTimerReset() {
+        stageTimeArr.push(stageTime);
+        clearInterval(globalTimer);
+    }
+ 
+    //When mouse is dragged, draw and record the dot
+    function mouseDragged() {
+
+        //If the mouse coordinate is outside the board
+        if (mouseX > unitLength * columns || mouseY > unitLength * rows) {
+            return;
+        }
+
+        const x = Math.floor(mouseX / unitLength);
+        const y = Math.floor(mouseY / unitLength);
+        currentBoard[x][y] = 1;
+        fill(boxColor);
+        stroke(strokeColor);
+        rect(x * unitLength, y * unitLength, unitLength, unitLength);
+    }
+
+    //p5.js stop loop draw when mouse is pressed
+    function mousePressed() {
+        noLoop();
+        mouseDragged();
+    }
+
+    //When mouse is released (p5.js loop draw)
+    function mouseReleased() {
+        loop();
+    }
+
+    document.querySelector('#reset-game').addEventListener('click', function () { 
+        init(); 
+    });
+
+    let model;
+    let videoLoadIn = false;
+
+    // webCam
+    const video = document.querySelector('video');
+
+    // webCam display
+    const canvas = document.getElementById('output');
+    const ctx = canvas.getContext('2d');
+
+    var constraints = window.constraints = {
+        audio: false,
+        video: {
+            width:  360,
+            height: 270,
+        }
+    };
+
+    getMedia(constraints);
+
+    async function getMedia(constraints) {
+        let stream = null;
+
+        let res = await navigator.mediaDevices.enumerateDevices();
+        console.log(res)
+    
+        try {
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            console.log(stream)
+
+            window.stream = stream
+            video.srcObject = stream
+
+        } catch(err) {
+
+            Swal.fire({
+                title: 'Error',
+                html: 'you need to open your webcam to active it',
+                timerProgressBar: true,
+                allowEscapeKey: false,
+                showCloseButton: false,
+                showCancelButton: false,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            });
+            
+            console.log(err)
+        }
+    }
+
+    async function loadModelTF(){
+        //SINGLEPOSE_LIGHTNING = faster , SINGLEPOSE_THUNDER = acc up
+        model = await poseDetection.createDetector(
+            poseDetection.SupportedModels.MoveNet,
+            {modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING}
+        );
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        videoLoadIn = true;
+
+        Swal.close();
+
+        Swal.fire({
+            icon: 'question',
+            title: 'How to play?',
+            text: 'Try to fill out all the color box by your arms!',
+            confirmButtonText: 'Got it!',
+            footer: '<a href="https://github.com/r48n34" target="_blank">See more</a>'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                loadingNextStage = false;
+                satrtStageTimer();
+            }
+        })
+
+        return;
+
+    }
+
+    var statsFPS = new Stats();
+    statsFPS.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild( statsFPS.dom );
+
+    function pointDIff(p1,p2){
+        return Math.sqrt( (p1[0]-p2[0])**2 + (p1[1]-p2[1])**2 )
+    }
+
+    function pointDIffOnePt(p1,p2){
+        return Math.abs(p1 - p2)
+    }
+
+    let debugInfo = [  
+        {  //left [0]
+            minX:99999,
+            maxX:0,
+            minY:99999,
+            maxY:0,
+            minOverall:99999,
+            maxOverall:0, 
+        },  
+        {  //right [1]
+            minX:99999,
+            maxX:0,
+            minY:99999,
+            maxY:0,
+            minOverall:99999,
+            maxOverall:0, 
+        },
+    ]
+
+    // xThreshold, yThreshold , overallThreshold
+    let thresholdData = [40,40,90];
+
+    const nameArr = ["xThreshold", "yThreshold", "overallThreshold"]
+  
+    nameArr.forEach( (v,i) =>{
+        document.getElementById("range" + v).addEventListener("input", (e) =>{
+            thresholdData[i] = parseInt(e.currentTarget.value);
+            document.getElementById(v + "Message").innerHTML = `${v}: ${thresholdData[i]}`;
+        });
+    });
+
+    // left[] and right[]
+    let previousPt = [[],[]];
+
+    async function predictModel(){
+
+        statsFPS.begin();
+
+        const poses = await model.estimatePoses(video);
+        ctx.drawImage(video, 0, 0, video.videoWidth , video.videoHeight);
+
+        if(poses.length >= 1){
+                 
+            for (const pt of poses) {
+                pt.keypoints != null && drawKeypoint(pt.keypoints);
+
+            }
+                            
+            function drawKeypoint(keypoint) {
+                
+                let handExist = false;
+
+                for (let pt of keypoint){
+
+                    if(pt.score > 0.2){
+           
+                        ctx.beginPath();
+
+                        if(pt.name == 'left_wrist'){
+                            ctx.fillStyle = 'blue';
+                            ctx.arc(pt.x, pt.y, 8, 0, 2 * Math.PI, false);
+                        }
+                        else if(pt.name == 'right_wrist'){
+                            ctx.fillStyle = 'red';
+                            ctx.arc(pt.x, pt.y, 8, 0, 2 * Math.PI, false);
+                        }
+                        else{
+                            ctx.fillStyle = 'white';
+                            ctx.arc(pt.x, pt.y, 2, 0, 2 * Math.PI, false);
+                        }
+                        
+                        ctx.fill();
+
+                        if(pt.name == 'left_wrist' || pt.name == 'right_wrist'){
+
+                            const rlNum = pt.name == 'left_wrist' ? 0 : 1;
+                            handExist = true
+
+                            const xPol = (pt.x / canvas.width) * window.innerWidth;
+                            const yPol = (pt.y / canvas.height) * window.innerHeight;
+
+                            if(previousPt[rlNum].length <=0){
+                                previousPt[rlNum] = [xPol,yPol];
+                                continue;
+                            }
+
+                            const diff = pointDIff(previousPt[rlNum], [xPol,yPol]);
+                            const diffX = pointDIffOnePt(previousPt[rlNum][0],xPol);
+                            const diffY = pointDIffOnePt(previousPt[rlNum][1],yPol);                    
+
+                            debugInfo[rlNum].minX = Math.min(debugInfo[rlNum].minX, diffX);
+                            debugInfo[rlNum].maxX = Math.max(debugInfo[rlNum].maxX , diffX);
+
+                            debugInfo[rlNum].minY = Math.min(debugInfo[rlNum].minY, diffY);
+                            debugInfo[rlNum].maxY = Math.max(debugInfo[rlNum].maxY , diffY);
+
+                            debugInfo[rlNum].minOverall = Math.min(debugInfo[rlNum].minOverall, diff);
+                            debugInfo[rlNum].maxOverall = Math.max(debugInfo[rlNum].maxOverall , diff);
+
+                            const mesX = diffX > thresholdData[0];
+                            const mesY = diffY > thresholdData[1];
+                            const mesOver = diff > thresholdData[2];                
+
+                            const x = Math.floor(xPol / unitLength);
+                            const y = Math.floor(yPol / unitLength);
+
+                            const colorLeft = rlNum === 0 ? 'rgb(0,0,255)' : 'rgb(255,0,0)';
+
+                            fill(colorLeft);
+                            stroke(strokeColor);
+                            rect(x * unitLength, y * unitLength, unitLength, unitLength);
+
+                            if( (mesX || mesY || mesOver) && !loadingNextStage ){
+                                //noLoop();
+
+                                // for( let k = 0; k < 2; k++){
+                                //     for( let j = 0; j < 2; j++){
+                                //         currentBoard[x+k][y+j] = 1;
+                                //     }
+                                // }
+
+                                currentBoard[x][y] = 1;
+                                currentBoard[x-1][y] = 1;
+                                currentBoard[x+1][y] = 1;
+                                currentBoard[x][y-1] = 1;
+                                currentBoard[x][y+1] = 1;
+                                    
+                            }
+                            else{
+                                //loop();
+                            }
+                            
+                            previousPt[rlNum] = [xPol,yPol];
+                            
+                        }
+
+                    }
+
+                }
+
+                // function for clear board if both hands are not exist
+                // if(!handExist){
+                //     init();
+                // }
+                
+            }
+                        
+        }
+        else{
+            console.log("nope");
+            //init();  
+        }
+
+        statsFPS.end();
+
+    }
+
+    video.addEventListener('loadeddata', async (event) => {
+        console.log('Camera loading success yeah!');
+
+        Swal.fire({
+            title: 'Model loading...',
+            html: 'Waiting for model load in, please wait.',
+            timerProgressBar: true,
+            allowEscapeKey: false,
+            showCloseButton: false,
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+
+        loadModelTF();
+        
+
+    });
+
+    //Generate next generation based on the current board
+    // function generate() {
+
+    //     //Loop over every single box on the board
+    //     for (let x = 0; x < columns; x++) {
+    //         for (let y = 0; y < rows; y++) { // Count all living members in the Moore neighborhood(8 boxes surrounding)
+                
+    //             let neighbors = 0;
+    //             for (let i of [-1, 0, 1]) {
+    //                 for (let j of [-1, 0, 1]) {
+
+    //                     if (i === 0 && j === 0) { // the cell itself is not its own neighbor        
+    //                         continue;
+    //                     }
+    //                     // The modulo operator is crucial for wrapping on the edge
+    //                     neighbors += currentBoard[(x + i + columns) % columns][(y + j + rows) % rows];
+
+    //                 }
+    //             }
+
+    //             nextBoard[x][y] = currentBoard[x][y];
+
+    //             // Rules of Life
+    //             if (currentBoard[x][y] == 1 && neighbors < 2) { // Die of Loneliness               
+    //                 nextBoard[x][y] = 0;
+    //             } else if (currentBoard[x][y] == 1 && neighbors > 3) { // Die of Overpopulation              
+    //                 nextBoard[x][y] = 0;
+    //             } else if (currentBoard[x][y] == 0 && neighbors == 3) { // New life due to Reproduction              
+    //                 nextBoard[x][y] = 1;
+    //             } else { // Stasis
+    //                 nextBoard[x][y] = currentBoard[x][y];
+    //             }
+
+    //         }
+    //     }
+
+    //     // Swap the nextBoard to be the current Board
+    //     [currentBoard, nextBoard] = [nextBoard, currentBoard];
+    // }
+
+    </script>
+  </body>
+</html>
