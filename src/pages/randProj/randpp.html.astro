@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+            crossorigin="anonymous"
+        />
+
+        <style>
+            .container.ccw {
+                max-width: 1310px;
+            }
+
+            h1 {
+                font-size: 3vh;
+                color: #ffffff;
+            }
+
+            h2 {
+                font-size: 2.3vh;
+                color: #ffffff;
+            }
+
+            a:link {
+                color: white;
+            }
+
+            a:visited {
+                color: white;
+            }
+
+            a:active {
+                color: blueviolet;
+            }
+
+            #linDetail a:link {
+                color: black;
+            }
+
+            #linDetail a:visited {
+                color: black;
+            }
+        </style>
+
+        <title>Play songs RNG</title>
+    </head>
+    <body style="background-color:#181818 ;">
+        <div class="container ccw" style="text-align: center;">
+            <br />
+            <h1 class="badge" style="font-size: 4vw; color:white;">
+                Random Songs
+            </h1>
+            <h1 id="tt"></h1>
+            <br />
+            <button
+                style="font-size: 50px;"
+                id="gogo"
+                type="button"
+                class="btn btn-light btn-lg"
+                onclick="goRandom()">GO!</button
+            >
+            <br />
+            <h1>Or click enter!</h1>
+
+            <button
+                class="btn btn-light btn-lg"
+                data-toggle="collapse"
+                data-target="#his"
+                id="hisBtn">History</button
+            >
+            <button class="btn btn-light btn-lg" id="hisClearBtn"
+                >Clear History</button
+            >
+            <div id="his" class="collapse"></div>
+
+            <br /><br />
+
+            <h1 id="pvv">Played Video:</h1>
+            <h2 id="lin"></h2>
+            <div id="linDetail" class="row"></div>
+        </div>
+
+        <div class="footer fixed-bottom">
+            <nav class="navbar navbar-expand-sm navbar-light">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a
+                            href="https://r48n34.github.io/"
+                            style="color: white;"
+                            target="_blank"
+                            style="font-size: 80%;">Reemo Studio</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <script
+            is:inline
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            is:inline
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            is:inline
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"
+        ></script>
+
+        <script is:inline>
+            // Video of the random list
+            class WebLink {
+                // class method to implementing
+
+                constructor(name, url) {
+                    this.webName = name;
+                    this.webUrl = url;
+                }
+            }
+
+            var request = new XMLHttpRequest();
+            request.open("GET", "/songWebText.txt", false); // if file is a raw txt with line
+            request.send();
+
+            let videoList = request.responseText.split("\n"); //Array list of the video list
+            let classList = [];
+
+            for (let i = 0; i < videoList.length; i += 2) {
+                classList.push(new WebLink(videoList[i], videoList[i + 1]));
+            }
+
+            videoList = new Array();
+            let playedVideo = []; //Played video list
+
+            const time = request
+                .getResponseHeader("Last-Modified")
+                .slice(4, 25); //last mod time of txt
+            const toppic = document.getElementById("pvv"); //Played video text
+            const below = document.getElementById("lin"); // Played youtube name
+            const data = document.getElementById("tt"); //last update
+
+            const his = document.getElementById("his"); //history div
+            const hisBtn = document.getElementById("hisBtn"); //history div button
+            const hisClearBtn = document.getElementById("hisClearBtn"); //history div button
+
+            const linDetail = document.getElementById("linDetail"); // div box
+
+            let historyArray = []; //local info
+            let t = JSON.parse(localStorage.getItem("record"));
+            if (t != null) {
+                historyArray = [...t];
+                genHistory();
+            }
+
+            function youTubeGetID(url) {
+                url = url.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+                return undefined !== url[2]
+                    ? url[2].split(/[^0-9a-z_\-]/i)[0]
+                    : url[0];
+            }
+
+            function goRandom() {
+                let num = Math.floor(Math.random() * classList.length);
+                let code = youTubeGetID(classList[num].webUrl);
+                validVideoId(code, classList[num]);
+            }
+
+            function validVideoId(id, li) {
+                var img = new Image();
+                img.src = "http://img.youtube.com/vi/" + id + "/mqdefault.jpg";
+                img.onload = function () {
+                    this.width === 120
+                        ? (below.innerHTML =
+                              li.webName.link(li.webUrl) +
+                              "[May invalid]" +
+                              "<br/>")
+                        : openVdo(li);
+                };
+            }
+
+            function openVdo(li) {
+                let yourImg =
+                    "https://img.youtube.com/vi/" +
+                    youTubeGetID(li.webUrl) +
+                    "/0.jpg";
+
+                window.open(li.webUrl, "_blank"); //Play video in a new windows
+                playedVideo.push(li.webUrl);
+
+                const k = `
+            <div class="col-3 mt-4">
+               <div class="card">
+                    <div class="card-body">              
+                        <h5 class="card-title">${li.webName.link(
+                            li.webUrl
+                        )}</h5>
+                        <hr>
+                        <img src="${yourImg}" width="230" height="auto">                     
+                    </div>
+               </div>
+            </div>
+     `;
+                linDetail.innerHTML += k;
+                toppic.innerHTML =
+                    "Played Video : (" + playedVideo.length + ")";
+                below.innerHTML = li.webName.link(li.webUrl);
+
+                historyArray.push(li);
+                localStorage.setItem("record", JSON.stringify(historyArray));
+
+                let temp = `<h2>Name: ${li.webName}</h2> <h2>URL: ${li.webUrl}</h2> </br>`;
+                his.innerHTML += temp;
+            }
+
+            window.onload = function total() {
+                data.innerHTML =
+                    "last update: " +
+                    time +
+                    "<br> Total Video = " +
+                    parseInt(classList.length, 10);
+            };
+
+            function genHistory() {
+                for (i of Object.keys(historyArray)) {
+                    let temp = `<h2>Name: ${historyArray[i].webName}</h2> <h2>URL: ${historyArray[i].webUrl}</h2> </br>`;
+                    his.innerHTML += temp;
+                }
+            }
+
+            hisClearBtn.onclick = function () {
+                try {
+                    localStorage.removeItem("record");
+                    alert("Clear success. F5 to refresh.");
+                } catch (e) {
+                    alert("Clear fail.");
+                }
+            };
+
+            document.addEventListener("keyup", function (event) {
+                if (event.keyCode === 13) {
+                    goRandom();
+                }
+            });
+        </script>
+    </body>
+</html>

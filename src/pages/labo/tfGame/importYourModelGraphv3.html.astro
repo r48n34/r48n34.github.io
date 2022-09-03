@@ -7,6 +7,7 @@
         <title>CNN model imports</title>
     </head>
     <body>
+
         <script is:inline src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
 
         <input
@@ -115,44 +116,6 @@
                 });
             }
 
-            /*
-  in .py
-  tfjs.converters.save_keras_model(model, "./normalNoTop3CoffeeTea")
-  // tfjs does not support the resize / rescaling!!!!
-  // Don't train your model with img_args and resize in your model
-  // Outside OK
-  (Not OK)
-  resize_and_rescale = tf.keras.Sequential([
-    layers.experimental.preprocessing.Resizing(imgSize, imgSize),
-    layers.experimental.preprocessing.Rescaling(1./imgSize)
-  ])
-  data_augmentation = keras.Sequential([
-    layers.experimental.preprocessing.RandomFlip("horizontal_and_vertical"),
-    layers.experimental.preprocessing.RandomRotation(0.1),
-    layers.experimental.preprocessing.RandomZoom(0.1),
-  ])
-  model = Sequential([
-    resize_and_rescale,
-    data_augmentation,
-    baseModel,
-    tf.keras.layers.GlobalAveragePooling2D(),
-    tf.keras.layers.Dropout(0.1),
-    tf.keras.layers.Dense(classNum, activation=tf.nn.softmax)
-  ])
-  (OK)
-  valid_ds = valid_ds.map(lambda image,label:(resize_and_rescale(image),label))
-  valid_ds = valid_ds.map(lambda image,label:(data_augmentation(image),label))
-  train_ds = train_ds.map(lambda image,label:(resize_and_rescale(image),label))
-  model = Sequential([
-    baseModel,
-    tf.keras.layers.GlobalAveragePooling2D(),
-    tf.keras.layers.Dropout(0.1),
-    tf.keras.layers.Dense(classNum, activation=tf.nn.softmax)
-  ])
-  
-  */
-
-            //tensorflowjs_converter --input_format=keras F:\fileHa2 F:\yos
         </script>
     </body>
 </html>
