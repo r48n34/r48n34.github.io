@@ -4,7 +4,7 @@ import { Text } from '@mantine/core';
 function MainComp(){
     return (
         <motion.div 
-            style={{ margin:0, lineHeight: 0.8 }}
+            style={{ margin:0, lineHeight: 0.8, cursor: "pointer" }}
             onClick={ () => {
                 !!window && window.open("https://www.r48n34.me/", '_blank')
             }}
