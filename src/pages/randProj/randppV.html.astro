@@ -44,11 +44,11 @@
         <div class="container ccw" style="text-align: center;">
             <div id="appMusic" style="padding-top: 20px;">
                 <h1 class="badge" style="font-size: 4vw; color:white;">
-                    Random Songs
+                    Random Songs Ha
                 </h1>
-                <h1 v-html="lastUpdate"></h1>
+                <h2 v-html="lastUpdate"></h2>
                 <button
-                    style="font-size: 50px;"
+                    style="font-size: 30px;"
                     type="button"
                     class="btn btn-light btn-lg"
                     v-on:click="goRandom"
@@ -169,10 +169,17 @@
                     : url[0];
             }
 
-            function goRandom() {
-                let num = Math.floor(Math.random() * classList.length);
-                let code = youTubeGetID(classList[num].webUrl);
-                appHa.validVideoId(code, classList[num]);
+            async function goRandom() {
+                while(true){
+                    let num = Math.floor(Math.random() * classList.length);
+                    let code = youTubeGetID(classList[num].webUrl);
+                    let result = await appHa.validVideoId(code, classList[num]);
+                    console.log(result)
+                    if(result){
+                        console.log("Hello")
+                        break;
+                    }
+                }
             }
 
             Vue.component("video-box", {
@@ -226,16 +233,26 @@
                     },
 
                     validVideoId: function (id, li) {
-                        var img = new Image();
-                        img.src =
-                            "http://img.youtube.com/vi/" +
-                            id +
-                            "/mqdefault.jpg";
-                        img.onload = function () {
-                            this.width === 120
-                                ? appHa.currentVdoChange(li)
-                                : appHa.openVdo(li);
-                        };
+                        return new Promise( (rec, rej) => {
+
+                            var img = new Image();
+                            img.src =
+                                "http://img.youtube.com/vi/" +
+                                id +
+                                "/mqdefault.jpg";
+
+                            img.onload = function () {
+                                if(this.width === 120){
+                                    appHa.currentVdoChange(li);
+                                    rec(false);
+                                }
+                                else{
+                                    appHa.openVdo(li);
+                                    rec(true)
+                                }
+                            };
+
+                        })
                     },
 
                     currentVdoChange: function (li) {
@@ -263,6 +280,7 @@
                             localStorage.removeItem("record");
                             this.currentVdo = "History Clear!";
                             this.historyRecord = "";
+                            location.reload();
                         } catch (e) {
                             alert("Clear fail.");
                         }
