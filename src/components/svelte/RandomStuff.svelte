@@ -121,13 +121,10 @@
 
 
 <style>
-    @import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css";
-
 	:global(body) {
 		/* this will apply to <body> */
 		background-color: #181818;
         color: #FFFFFF;
         font-family: 'Roboto', sans-serif;
 	}
-
 </style>
