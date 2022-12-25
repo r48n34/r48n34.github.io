@@ -14,7 +14,7 @@
         let localData = JSON.parse(localStorage.getItem("record"));
         if (localData !== null) {
             historyArray = [...localData];
-            genHistory();
+            // genHistory();
         }
 	});
 
