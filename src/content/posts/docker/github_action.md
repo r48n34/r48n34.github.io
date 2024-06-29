@@ -1,6 +1,6 @@
 ---
 title: "[Docker] Basic Dockerfile with Github action"
-published: 2024-04-09
+published: 2024-01-03
 description: 'Build your own nodejs application and deploy via Github action'
 tags: [Docker, Github, Github Action, Nodejs]
 category: Docker

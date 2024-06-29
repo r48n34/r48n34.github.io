@@ -1,6 +1,6 @@
 ---
 title: "[Connection] Netcat basic usage"
-published: 2024-04-12
+published: 2024-06-16
 description: 'A networking connection tools Netcat with basic usage'
 tags: [Security, Networking, Netcat]
 category: Networking

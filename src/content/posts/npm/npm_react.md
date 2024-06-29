@@ -1,7 +1,7 @@
 ---
 title: "[NPM] Publish your react component to NPM" 
 published: 2024-04-09
-description: 'Few steps for creating your own react components with rollu.js, and publish to npm'
+description: 'Few steps for creating your own react components with rollup.js, and publish to npm'
 tags: [Typescript, NPM, React]
 category: NPM
 draft: false

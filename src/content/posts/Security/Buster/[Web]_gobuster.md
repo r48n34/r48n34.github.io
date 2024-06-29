@@ -1,6 +1,6 @@
 ---
 title: "[Web] Basic Web crack tools"
-published: 2024-04-12
+published: 2023-11-23
 description: 'Crack web path orinput through brute force'
 tags: [Security, Buster, Web]
 category: Buster

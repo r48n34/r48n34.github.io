@@ -1,6 +1,6 @@
 ---
 title: "[Binary] Bindary Forensics tools"
-published: 2024-04-12
+published: 2024-06-17
 description: 'Basic binary Forensics tools'
 tags: [Security, Forensics]
 category: Forensics

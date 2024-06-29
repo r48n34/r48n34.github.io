@@ -1,6 +1,6 @@
 ---
 title: "[Hash] Basic hash crack tools"
-published: 2024-04-12
+published: 2023-06-16
 description: 'Crack hash through brute force hashed passwords'
 tags: [Security, Buster, Hash]
 category: Buster

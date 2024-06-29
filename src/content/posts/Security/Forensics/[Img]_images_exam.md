@@ -1,6 +1,6 @@
 ---
-title: "[Ima] Images Forensics tools"
-published: 2024-04-12
+title: "[Img] Images Forensics tools"
+published: 2024-06-18
 description: 'Basic images Forensics tools and technique'
 tags: [Security, Forensics]
 category: Forensics

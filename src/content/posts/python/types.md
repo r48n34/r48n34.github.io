@@ -1,6 +1,6 @@
 ---
 title: "[Python] Annotations to typescript developers"
-published: 2024-04-09
+published: 2023-12-29
 description: 'Quick guild for python annotations check list'
 tags: [Python, Typescript, Annotations]
 category: Python

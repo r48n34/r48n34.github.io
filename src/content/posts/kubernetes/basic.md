@@ -1,6 +1,6 @@
 ---
 title: "[Kubernetes] Basic kubernetes command checklist"
-published: 2024-04-09
+published: 2023-12-30
 description: 'Basic kubernetes command checklist'
 tags: [Kubernetes]
 category: Kubernetes

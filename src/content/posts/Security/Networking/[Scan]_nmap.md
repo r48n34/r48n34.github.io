@@ -1,7 +1,7 @@
 ---
 title: "[Scan] Nmap basic usage"
-published: 2024-04-12
-description: 'basic usage for security Scanner, Port Scanner, & Network Exploration'
+published: 2024-06-16
+description: 'Basic usage for security Scanner, Port Scanner, & Network Exploration'
 tags: [Security, Networking, Nmap]
 category: Networking
 draft: false

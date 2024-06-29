@@ -1,6 +1,6 @@
 ---
 title: "[Hash] Hash base Tools"
-published: 2024-04-12
+published: 2024-06-16
 description: 'Basic Hash format and tools introduction'
 tags: [Security, Forensics]
 category: Forensics

@@ -1,6 +1,6 @@
 ---
 title: "[Kubernetes] Kubernetes Ymal config setting"
-published: 2024-04-09
+published: 2023-12-30
 description: 'Basic Kubernetes Ymal config setting checklist'
 tags: [Kubernetes, Ymal]
 category: Kubernetes
