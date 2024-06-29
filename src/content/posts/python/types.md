@@ -9,7 +9,7 @@ draft: false
 
 # [Basic] Python Annotations 
 
-Quite guild to python annotations check list.
+Quick guild for trpescript developers to check python annotations syntax.
 
 ## Common types
 
@@ -28,7 +28,7 @@ is_ok: bool = False
 
 ### Special 
 ```python
-# List
+# List / Array
 num_list: list = []
 num_list_specific: list[int] = [1,2,3] ## Python 3.9
 
@@ -39,6 +39,7 @@ mytuple_specific: tuple[int, str, str] = (1, "banana", "cherry") # Python 3.9+
 mySet: set[int] = {6, 7} ## Python 3.9
 myDict: dict[str, int] = { "age" : 30 }
 
+# Any
 whatever: Any = False
 ```
 
@@ -59,7 +60,8 @@ def add(a: int, b: int) -> int:
 def addVoid(a: int, b: int) -> None:
     print( a + b )
 
-from typing import Iterator # Python < 3.10+ in case
+# Python < 3.10+ in case
+from typing import Iterator 
 
 def gen(n: int) -> Iterator[int]:
     i = 0
@@ -109,7 +111,7 @@ from typing import Union # Python < 3.10+ in case
 # Python 3.10+
 mix_list: list[str | bool] = ["omg", True, "ok"] 
 
-mix_list_union: list[Union[str | bool]] = ["gg", True, "ok"]
+mix_list_union: list[ Union[str | bool] ] = ["gg", True, "ok"]
 ```
 
 ### `Optional` types
