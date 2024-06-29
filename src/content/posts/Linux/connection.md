@@ -1,13 +1,21 @@
 ---
-title: "[Linux] Linux Uncomplicated Firewall (ufw)"
+title: "[Linux] Linux connection security"
 published: 2023-12-30
-description: 'Basic ufw setup and usage for easy firewalls'
-tags: [Linux, ufw, Security]
+description: 'Basic setup and usage for security connections'
+tags: [Linux, Security]
 category: Linux
 draft: false
 ---
 
-# [Security] ufw
+# Table of Contents
+1. [ufw](#ufw)
+2. [fail2ban](#fail2ban)
+2. [snort](#snort)
+
+
+# ufw
+
+Uncomplicated Firewall for white / black list regarding ports
 
 ## Command
 
@@ -57,3 +65,16 @@ sudo ufw deny from <IP> to any port <port-number>
 
 e.g. sudo ufw allow from 102.32.100.42 to any port 80
 ```
+
+# fail2ban
+Ban hosts that cause multiple authentication errors.
+https://github.com/fail2ban/fail2ban  
+
+```bash
+fail2ban-client -h
+```
+
+# snort
+open-source, free and lightweight network intrusion detection system (NIDS) software for Linux and Windows to detect emerging threats.
+
+https://linuxier.com/how-to-install-snort-on-ubuntu/
