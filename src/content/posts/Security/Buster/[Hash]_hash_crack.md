@@ -7,6 +7,11 @@ category: Buster
 draft: false
 ---
 
+# Table of Contents
+1. [John](#hash-john)
+2. [Hashcat](#hash-hashcat)
+
+
 # [Hash] john
 A tools for crack through brute force hashed passwords
 

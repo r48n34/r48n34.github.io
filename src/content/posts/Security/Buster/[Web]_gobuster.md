@@ -7,7 +7,15 @@ category: Buster
 draft: false
 ---
 
+# Table of Contents
+1. [Gobuster](#web-gobuster)
+2. [Wfuzz](#web-wfuzz)
+3. [Fuzz](#web-ffuf)
+
 # [Web] gobuster
+
+Directory/File, DNS and VHost busting tool written in Go.
+
 https://cybersecbits.com/gobuster-finding-web-files-and-directories  
 https://github.com/OJ/gobuster  
 
@@ -17,11 +25,11 @@ For finding:
 - Subdomains 
 
 ## Mode options
-- dir: Directory / File enumeration mode (For finding `html` / `php` / `static content` ...)
-- dns: DNS subdomain enumeration mode (For subdomain e.g. `www.example.com`, `mail.example.com`)
-- vhost: VHOST enumeration mode (For vhost e.g. `www.example.com`, `mail.example.com`)
-- fuzz: fuzzing mode for parameter (For test parameter e.g. `https://example.com?FUZZ=test`)
-- s3: fuzzing aws bucket enumeration mode (For destination)
+- `dir`: Directory / File enumeration mode (For finding `html` / `php` / `static content` ...)
+- `dns`: DNS subdomain enumeration mode (For subdomain e.g. `www.example.com`, `mail.example.com`)
+- `vhost`: VHOST enumeration mode (For vhost e.g. `www.example.com`, `mail.example.com`)
+- `fuzz`: fuzzing mode for parameter (For test parameter e.g. `https://example.com?FUZZ=test`)
+- `s3`: fuzzing aws bucket enumeration mode (For destination)
 
 ## Dir mode
 ### Basic usage
@@ -89,7 +97,9 @@ wfuzz -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -H "Host: 
 ```
 
 # [Web] ffuf 
-Better wfuzz
+
+Fast web fuzzer written in Go
+https://github.com/ffuf/ffuf  
 
 ## Basic usage
 ### Buste a file / dir
